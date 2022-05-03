@@ -1,3 +1,13 @@
+body {
+  font-size: 16px;
+}
 ol.loweralpha {
   list-style: decimal;
+}
+.table td,
+.table th {
+  border: 1px solid #ddd !important
+}
+.table {
+  width: auto !important;
 }

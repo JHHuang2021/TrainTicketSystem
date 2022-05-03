@@ -6,19 +6,57 @@
 火车票管理系统开发文档
 ======================
 
-目录
+简介
 ----
+
+本项目为 SJTU CS1951 数据结构课程大作业，实现一个类似于 12306 的火车票订票系统。
+
+后端为 C++ 实现，文件存储数据为 B+ 树
+
+
++-----------------------+------------------+
+|         成员          |       分工       |
++=======================+==================+
+| 黄健浩 `JHHuang2021`_ |  B+ 树，并发     |
++-----------------------+------------------+
+| 林田川 `1024th`_      |  后端逻辑，前端  |
++-----------------------+------------------+
+
+.. _JHHuang2021: https://github.com/JHHuang2021
+.. _1024th: https://github.com/1024th
+
+调用示意图
+^^^^^^^^^^
+
+.. image:: images/framework.svg
+
+模块划分
+--------
+
+工具类
+^^^^^^
 
 .. toctree::
     :maxdepth: 2
 
-    self
-    api/index
+    api/char
+    api/vector
+
+主体逻辑
+^^^^^^^^
+
+.. toctree::
+    :maxdepth: 2
+
+    api/b_plus_tree
+    api/command_parser
+    api/user
+    api/train
+    api/order
 
 
 索引
 ----
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
