@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, ccchhh, 1024th
+# This file is distributed under the same license as the 火车票管理系统 package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 火车票管理系统 \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-28 17:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: ../../_templates/layout.html:84
+msgid "Back to top"
+msgstr "返回顶端"
+
+#: ../../_templates/layout.html:93
+#, python-format
+msgid "&copy; <a href=\"%(path)s\">Copyright</a> %(copyright)s."
+msgstr ""
+
+#: ../../_templates/layout.html:95
+#, python-format
+msgid "&copy; Copyright %(copyright)s."
+msgstr "版权所有 &copy; %(copyright)s。"
+
+#: ../../_templates/layout.html:99
+#, python-format
+msgid "Last updated on %(last_updated)s."
+msgstr "最后更新于 %(last_updated)s。"
+
+#: ../../_templates/layout.html:102
+#, python-format
+msgid ""
+"Created using <a href=\"http://sphinx-doc.org/\">Sphinx</a> "
+"%(sphinx_version)s."
+msgstr "本页面使用 <a href=\"http://sphinx-doc.org/\">Sphinx</a> %(sphinx_version)s 构建。"
+
+#: ../../_templates/navbarsearchbox.html:4 ../../_templates/search.html:11
+#: ../../_templates/search.html:22
+msgid "Search"
+msgstr "搜索"
+
+#: ../../_templates/navbartoc.html:6
+msgid "None"
+msgstr ""
+
+#: ../../_templates/relations.html:4
+msgid "Previous Chapter: "
+msgstr "上一章："
+
+#: ../../_templates/relations.html:13
+msgid "Next Chapter: "
+msgstr "下一章："
+
+#: ../../_templates/search.html:26
+msgid ""
+"Please activate JavaScript to enable the search\n"
+"    functionality."
+msgstr "欲使用搜索功能，需启用 JavaScript。"
+
+#: ../../_templates/search.html:31
+msgid ""
+"From here you can search these documents. Enter your search\n"
+"    words into the box below and click \"search\". Note that the search\n"
+"    function will automatically search for all of the words. Pages\n"
+"    containing fewer words won't appear in the result list."
+msgstr "在下方输入关键词后点击「搜索」。注意，搜索时会匹配所有关键词。没有包含所有关键词的页面不会被列出。"
+
+#: ../../_templates/search.html:42 ../../_templates/search.html:48
+#: ../../_templates/searchresults.html:18
+msgid "search"
+msgstr "搜索"
+
+#: ../../_templates/search.html:54
+msgid "Search Results"
+msgstr "搜索结果"
+
+#: ../../_templates/search.html:56
+msgid ""
+"Your search did not match any documents. Please make sure that all words "
+"are spelled correctly and that you've selected enough categories."
+msgstr "未找到任何匹配项。请检查关键词及类别选择是否有误。"
+
+#: ../../_templates/sourcelink.html:4
+msgid "Source"
+msgstr "源码"
+
