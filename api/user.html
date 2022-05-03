@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>用户管理 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="火车管理" href="train.html" />
+    <link rel="prev" title="指令解析" href="command_parser.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">用户管理</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="command_parser.html" title="上一章：指令解析"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 指令解析</span>
+    </a>
+  </li>
+  <li>
+    <a href="train.html" title="下一章：火车管理"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">火车管理 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>用户管理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv411UserManager">
+<span id="_CPPv311UserManager"></span><span id="_CPPv211UserManager"></span><span id="UserManager"></span><span class="target" id="classUserManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserManager</span></span></span><a class="headerlink" href="#_CPPv411UserManager" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi">
+<span id="_CPPv3N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi"></span><span id="_CPPv2N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi"></span><span id="UserManager::AddUser__ssCR.ssCR.ssCR.ssCR.iC"></span><span class="target" id="classUserManager_1ae0541f5c497c45309ed8c7cee080794a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddUser</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">password</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mail_addr</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">privilege</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>创建新用户。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager5LoginERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N11UserManager5LoginERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N11UserManager5LoginERKNSt6stringERKNSt6stringE"></span><span id="UserManager::Login__ssCR.ssCR"></span><span class="target" id="classUserManager_1aec44ae86b08225277b57674c1e7a6efa"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Login</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">password</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11UserManager5LoginERKNSt6stringERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>用户登录。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager6LogoutERKNSt6stringE">
+<span id="_CPPv3N11UserManager6LogoutERKNSt6stringE"></span><span id="_CPPv2N11UserManager6LogoutERKNSt6stringE"></span><span id="UserManager::Logout__ssCR"></span><span class="target" id="classUserManager_1abce90290d7b8ba13583fe050adc2e519"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Logout</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11UserManager6LogoutERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>用户退出登录。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager12QueryProfileERKNSt6stringE">
+<span id="_CPPv3N11UserManager12QueryProfileERKNSt6stringE"></span><span id="_CPPv2N11UserManager12QueryProfileERKNSt6stringE"></span><span id="UserManager::QueryProfile__ssCR"></span><span class="target" id="classUserManager_1a4a27e7366d4778e02995d647cb443cb7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryProfile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11UserManager12QueryProfileERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>查询用户信息。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE">
+<span id="_CPPv3N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE"></span><span id="_CPPv2N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE"></span><span id="UserManager::ModifyProfile__ssCR.vector:ProfileItem:CR"></span><span class="target" id="classUserManager_1a536c6fb6e8e444bfa7570aa2c82eca6b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModifyProfile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N11UserManager11ProfileItemE" title="UserManager::ProfileItem"><span class="n"><span class="pre">ProfileItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>修改用户信息。 </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItemE">
+<span id="_CPPv3N11UserManager11ProfileItemE"></span><span id="_CPPv2N11UserManager11ProfileItemE"></span><span id="UserManager::ProfileItem"></span><span class="target" id="structUserManager_1_1ProfileItem"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ProfileItem</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItemE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;user.h&gt;</em></div>
+<p>表示用户的一项信息，枚举类型 <code class="docutils literal notranslate"><span class="pre">Type</span></code> 指示了信息类型 （密码、姓名、邮箱地址或权限），作为 <code class="docutils literal notranslate"><span class="pre">ModifyProfile</span></code> 的参数。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4TypeE">
+<span id="_CPPv3N11UserManager11ProfileItem4TypeE"></span><span id="_CPPv2N11UserManager11ProfileItem4TypeE"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a52bd3134f6b8e303e4d2651949cb88"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Type</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4TypeE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4Type8PasswordE">
+<span id="_CPPv3N11UserManager11ProfileItem4Type8PasswordE"></span><span id="_CPPv2N11UserManager11ProfileItem4Type8PasswordE"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a52bd3134f6b8e303e4d2651949cb88ab1685b6e87a25d79fc5cc3200707f16f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Password</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4Type8PasswordE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4Type4NameE">
+<span id="_CPPv3N11UserManager11ProfileItem4Type4NameE"></span><span id="_CPPv2N11UserManager11ProfileItem4Type4NameE"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a52bd3134f6b8e303e4d2651949cb88aa2e78a933bad6feda5062cbcdeb72f3c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Name</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4Type4NameE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4Type8MailAddrE">
+<span id="_CPPv3N11UserManager11ProfileItem4Type8MailAddrE"></span><span id="_CPPv2N11UserManager11ProfileItem4Type8MailAddrE"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a52bd3134f6b8e303e4d2651949cb88a1dda7628baba4fdf82ec06dc2fb1cd43"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MailAddr</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4Type8MailAddrE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4Type9PrivilegeE">
+<span id="_CPPv3N11UserManager11ProfileItem4Type9PrivilegeE"></span><span id="_CPPv2N11UserManager11ProfileItem4Type9PrivilegeE"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a52bd3134f6b8e303e4d2651949cb88ae3471921e34fe4ae468bb4cdd51f993d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Privilege</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4Type9PrivilegeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem4typeE">
+<span id="_CPPv3N11UserManager11ProfileItem4typeE"></span><span id="_CPPv2N11UserManager11ProfileItem4typeE"></span><span id="UserManager::ProfileItem::type__Type"></span><span class="target" id="structUserManager_1_1ProfileItem_1a17670c56e63cd05bcb222dd81bc18398"></span><a class="reference internal" href="#_CPPv4N11UserManager11ProfileItem4TypeE" title="UserManager::ProfileItem::Type"><span class="n"><span class="pre">Type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem4typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem7contentE">
+<span id="_CPPv3N11UserManager11ProfileItem7contentE"></span><span id="_CPPv2N11UserManager11ProfileItem7contentE"></span><span id="UserManager::ProfileItem::content__ssCR"></span><span class="target" id="structUserManager_1_1ProfileItem_1af5756021e2ffca681fd4dccd8fed5d14"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">content</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem7contentE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11UserManager11ProfileItem5valueE">
+<span id="_CPPv3N11UserManager11ProfileItem5valueE"></span><span id="_CPPv2N11UserManager11ProfileItem5valueE"></span><span id="UserManager::ProfileItem::value__i"></span><span class="target" id="structUserManager_1_1ProfileItem_1a1a2321a98f8d51150dd728f3d2548fd9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><a class="headerlink" href="#_CPPv4N11UserManager11ProfileItem5valueE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

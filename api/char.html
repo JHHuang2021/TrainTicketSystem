@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>字符串 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="动态数组" href="vector.html" />
+    <link rel="prev" title="火车票管理系统开发文档" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">字符串</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../index.html" title="上一章：火车票管理系统开发文档"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 火车票管理系统开发文档</span>
+    </a>
+  </li>
+  <li>
+    <a href="vector.html" title="下一章：动态数组"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">动态数组 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>字符串<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_KiE4Char">
+<span id="_CPPv3I_KiE4Char"></span><span id="_CPPv2I_KiE4Char"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classChar"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Char</span></span></span><a class="headerlink" href="#_CPPv4I_KiE4Char" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;char.h&gt;</em></div>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#classChar"><span class="std std-ref"><span class="pre">Char</span></span></a><span class="pre">&lt;size&gt;</span></code> 是对 <code class="docutils literal notranslate"><span class="pre">char[size</span> <span class="pre">+</span> <span class="pre">1]</span></code> 的包装， 用来存一个定长的字符串，供文件交互使用。 重载了比较运算符和流提取、流插入运算符。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Char4CharEv">
+<span id="_CPPv3N4Char4CharEv"></span><span id="_CPPv2N4Char4CharEv"></span><span id="Char::Char"></span><span class="target" id="classChar_1a781285f9158cf8fa734fdd5fc96a99f1"></span><span class="sig-name descname"><span class="n"><span class="pre">Char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Char4CharEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>构造函数，默认为空字符串。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Char4CharERKNSt6stringE">
+<span id="_CPPv3N4Char4CharERKNSt6stringE"></span><span id="_CPPv2N4Char4CharERKNSt6stringE"></span><span id="Char::Char__ssCR"></span><span class="target" id="classChar_1a2a10adde9fc4fe871a6b8bd4f1dd6d70"></span><span class="sig-name descname"><span class="n"><span class="pre">Char</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Char4CharERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>从 <code class="docutils literal notranslate"><span class="pre">std::string</span></code> 构造。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4Char4CharEPKc">
+<span id="_CPPv3N4Char4CharEPKc"></span><span id="_CPPv2N4Char4CharEPKc"></span><span id="Char::Char__cCP"></span><span class="target" id="classChar_1ad1bcb2b420f49911d55f64b246a73705"></span><span class="sig-name descname"><span class="n"><span class="pre">Char</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cstr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4Char4CharEPKc" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>从 <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code> 构造。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4CharcvNSt6stringEEv">
+<span id="_CPPv3NK4CharcvNSt6stringEEv"></span><span id="_CPPv2NK4CharcvNSt6stringEEv"></span><span id="Char::castto-ss-operatorC"></span><span class="target" id="classChar_1aa4b58540530bfdad76a1738c9e69c398"></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4CharcvNSt6stringEEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>转化为 <code class="docutils literal notranslate"><span class="pre">std::string</span></code>。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Char3strEv">
+<span id="_CPPv3NK4Char3strEv"></span><span id="_CPPv2NK4Char3strEv"></span><span id="Char::strC"></span><span class="target" id="classChar_1a08451642d7cc50978e9771d9ed6cecb2"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">str</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Char3strEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>转化为 <code class="docutils literal notranslate"><span class="pre">std::string</span></code>。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharaSERK4Char">
+<span id="_CPPv3N4CharaSERK4Char"></span><span id="_CPPv2N4CharaSERK4Char"></span><span id="Char::assign-operator__CharCR"></span><span class="target" id="classChar_1a5a165c99c6e1c00da5f31332509f4486"></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">that</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharaSERK4Char" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>赋值运算符，使用 <code class="docutils literal notranslate"><span class="pre">that</span></code> 的内容覆盖自身。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4Char5emptyEv">
+<span id="_CPPv3NK4Char5emptyEv"></span><span id="_CPPv2NK4Char5emptyEv"></span><span id="Char::emptyC"></span><span class="target" id="classChar_1a9ce693ac1bbf27f67eb9107ebc72a248"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4Char5emptyEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>返回字符串是否为空。 </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4Char7contentE">
+<span id="_CPPv3N4Char7contentE"></span><span id="_CPPv2N4Char7contentE"></span><span id="Char::content__cA"></span><span class="target" id="classChar_1a8310d6e77a6ffb767447cb64f2cdab0c"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">content</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="w"> </span><span class="o"><span class="pre">+</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N4Char7contentE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharltERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4CharltERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4CharltERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::lt-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1ab781c9123b3e43f969a5cded61a82383"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharltERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4ChareqERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4ChareqERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4ChareqERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::eq-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1a514d5b6cccaf5196676463cb160b0b38"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4ChareqERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4ChargtERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4ChargtERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4ChargtERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::gt-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1ab63dd196f77432b1c7019ec9a51ed220"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&gt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4ChargtERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharleERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4CharleERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4CharleERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::lte-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1a0a756c82e0b8e709e2d32975c3efc2d3"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharleERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4ChargeERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4ChargeERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4ChargeERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::gte-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1a73742f56d18888d903b0baf063550515"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&gt;=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4ChargeERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharneERK4CharI4sizeERK4CharI4sizeE">
+<span id="_CPPv3N4CharneERK4CharI4sizeERK4CharI4sizeE"></span><span id="_CPPv2N4CharneERK4CharI4sizeERK4CharI4sizeE"></span><span id="Char::neq-operator__Char:size:CR.Char:size:CR"></span><span class="target" id="classChar_1adb103818abe94a088cb77e32ca6a9b7e"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharneERK4CharI4sizeERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharrsERNSt7istreamER4CharI4sizeE">
+<span id="_CPPv3N4CharrsERNSt7istreamER4CharI4sizeE"></span><span id="_CPPv2N4CharrsERNSt7istreamER4CharI4sizeE"></span><span id="Char::rshift-operator__isR.Char:size:R"></span><span class="target" id="classChar_1a67712e1867743fced3d6a29ed3de8fad"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&gt;&gt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is</span></span>, <a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharrsERNSt7istreamER4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4CharlsERNSt7ostreamERK4CharI4sizeE">
+<span id="_CPPv3N4CharlsERNSt7ostreamERK4CharI4sizeE"></span><span id="_CPPv2N4CharlsERNSt7ostreamERK4CharI4sizeE"></span><span id="Char::lshift-operator__osR.Char:size:CR"></span><span class="target" id="classChar_1acfd9ccaab207ca4cacd4ea33c9f012f9"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">os</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_KiE4Char" title="Char::size"><span class="n"><span class="pre">size</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4CharlsERNSt7ostreamERK4CharI4sizeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

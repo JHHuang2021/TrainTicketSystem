@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>动态数组 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="B+ 树" href="b_plus_tree.html" />
+    <link rel="prev" title="字符串" href="char.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">动态数组</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">动态数组</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="char.html" title="上一章：字符串"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 字符串</span>
+    </a>
+  </li>
+  <li>
+    <a href="b_plus_tree.html" title="下一章：B+ 树"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">B+ 树 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>动态数组<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0E6vector">
+<span id="_CPPv3I0E6vector"></span><span id="_CPPv2I0E6vector"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classvector"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vector</span></span></span><a class="headerlink" href="#_CPPv4I0E6vector" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;vector.h&gt;</em></div>
+<p>A data container like <code class="docutils literal notranslate"><span class="pre">std::vector</span></code>. All undocumented functions act like <code class="docutils literal notranslate"><span class="pre">std::vector</span></code>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector7pointerE">
+<span id="_CPPv3N6vector7pointerE"></span><span id="_CPPv2N6vector7pointerE"></span><span class="target" id="classvector_1abccbcc775d7269dbe81c401bc927d38d"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointer</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv4N6vector7pointerE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector6vectorEv">
+<span id="_CPPv3N6vector6vectorEv"></span><span id="_CPPv2N6vector6vectorEv"></span><span id="vector::vector"></span><span class="target" id="classvector_1a00d237f22fd5eb1aa9a536993e82e54f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vector</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector6vectorEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector6vectorERK6vector">
+<span id="_CPPv3N6vector6vectorERK6vector"></span><span id="_CPPv2N6vector6vectorERK6vector"></span><span id="vector::vector__vectorCR"></span><span class="target" id="classvector_1a9b9494209da81c872941f58ae482dab6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vector</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector6vectorERK6vector" title="vector::vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector6vectorERK6vector" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vectorD0Ev">
+<span id="_CPPv3N6vectorD0Ev"></span><span id="_CPPv2N6vectorD0Ev"></span><span id="vector::~vector"></span><span class="target" id="classvector_1a7bc236f547bb5debe890fa8ebaabe965"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~vector</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vectorD0Ev" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vectoraSERK6vector">
+<span id="_CPPv3N6vectoraSERK6vector"></span><span id="_CPPv2N6vectoraSERK6vector"></span><span id="vector::assign-operator__vectorCR"></span><span class="target" id="classvector_1a32e6ef13224cb61af56c446a2570225b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vectoraSERK6vector" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector2atERK6size_t">
+<span id="_CPPv3N6vector2atERK6size_t"></span><span id="_CPPv2N6vector2atERK6size_t"></span><span id="vector::at__sCR"></span><span class="target" id="classvector_1ac761db6d31caf387bdf29247b33a96bb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">at</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector2atERK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Access specified element with bounds checking, throw <code class="docutils literal notranslate"><span class="pre">index_out_of_bound</span></code> if <code class="docutils literal notranslate"><span class="pre">pos</span></code> is not in [0, size) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector2atERK6size_t">
+<span id="_CPPv3NK6vector2atERK6size_t"></span><span id="_CPPv2NK6vector2atERK6size_t"></span><span id="vector::at__sCRC"></span><span class="target" id="classvector_1abc66343daa07fa2e7ca854eb030a72a2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">at</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector2atERK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vectorixERK6size_t">
+<span id="_CPPv3N6vectorixERK6size_t"></span><span id="_CPPv2N6vectorixERK6size_t"></span><span id="vector::subscript-operator__sCR"></span><span class="target" id="classvector_1ae50d7303506fb917e0480e906a394b0a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vectorixERK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Access specified element with bounds checking, throw <code class="docutils literal notranslate"><span class="pre">index_out_of_bound</span></code> if <code class="docutils literal notranslate"><span class="pre">pos</span></code> is not in [0, size) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vectorixERK6size_t">
+<span id="_CPPv3NK6vectorixERK6size_t"></span><span id="_CPPv2NK6vectorixERK6size_t"></span><span id="vector::subscript-operator__sCRC"></span><span class="target" id="classvector_1aa748ae6e838f0798bf6f9f777dbf91fd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vectorixERK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector5frontEv">
+<span id="_CPPv3NK6vector5frontEv"></span><span id="_CPPv2NK6vector5frontEv"></span><span id="vector::frontC"></span><span class="target" id="classvector_1af268a5ca8355a9d22206f7b0fa62fee8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">front</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector5frontEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Access the first element, if container is empty, throw <code class="docutils literal notranslate"><span class="pre">container_is_empty</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector4backEv">
+<span id="_CPPv3NK6vector4backEv"></span><span id="_CPPv2NK6vector4backEv"></span><span id="vector::backC"></span><span class="target" id="classvector_1aaf80cb0ed8ae7cb7e0c10fce3fd8e365"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">back</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector4backEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Access the last element, if container is empty, throws <code class="docutils literal notranslate"><span class="pre">container_is_empty</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector5beginEv">
+<span id="_CPPv3N6vector5beginEv"></span><span id="_CPPv2N6vector5beginEv"></span><span id="vector::begin"></span><span class="target" id="classvector_1a7aecb965ffda6737cc461c9316d878f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector5beginEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector6cbeginEv">
+<span id="_CPPv3NK6vector6cbeginEv"></span><span id="_CPPv2NK6vector6cbeginEv"></span><span id="vector::cbeginC"></span><span class="target" id="classvector_1a354eb76fa8cc57d1bb5e7a7ee8fea1b1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbegin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector6cbeginEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector3endEv">
+<span id="_CPPv3N6vector3endEv"></span><span id="_CPPv2N6vector3endEv"></span><span id="vector::end"></span><span class="target" id="classvector_1ad18d9638b1d68f0398794ba0da4504a9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector3endEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector4cendEv">
+<span id="_CPPv3NK6vector4cendEv"></span><span id="_CPPv2NK6vector4cendEv"></span><span id="vector::cendC"></span><span class="target" id="classvector_1a9d33c489572ba4731b6c7263578c6c49"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector4cendEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector5emptyEv">
+<span id="_CPPv3NK6vector5emptyEv"></span><span id="_CPPv2NK6vector5emptyEv"></span><span id="vector::emptyC"></span><span class="target" id="classvector_1a9af39ba556fbaeaa09cff474c6308076"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector5emptyEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector4sizeEv">
+<span id="_CPPv3NK6vector4sizeEv"></span><span id="_CPPv2NK6vector4sizeEv"></span><span id="vector::sizeC"></span><span class="target" id="classvector_1a476dd6c55717a45a67d3d3e124e4ca14"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector4sizeEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector5clearEv">
+<span id="_CPPv3N6vector5clearEv"></span><span id="_CPPv2N6vector5clearEv"></span><span id="vector::clear"></span><span class="target" id="classvector_1a1a91cd18e54c382af1097d630405398f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector5clearEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector6insertE8iteratorRK1T">
+<span id="_CPPv3N6vector6insertE8iteratorRK1T"></span><span id="_CPPv2N6vector6insertE8iteratorRK1T"></span><span id="vector::insert__iterator.TCR"></span><span class="target" id="classvector_1a875bdb5fec654e9d5d8ff6eeb0f2969c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">insert</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector6insertE8iteratorRK1T" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector6insertERK6size_tRK1T">
+<span id="_CPPv3N6vector6insertERK6size_tRK1T"></span><span id="_CPPv2N6vector6insertERK6size_tRK1T"></span><span id="vector::insert__sCR.TCR"></span><span class="target" id="classvector_1a42aaab8634485ad13dc8550c8e1d1f7c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">insert</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ind</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector6insertERK6size_tRK1T" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Inserts value at index <code class="docutils literal notranslate"><span class="pre">ind</span></code>, after insert, <code class="docutils literal notranslate"><span class="pre">this-&gt;at(ind)</span> <span class="pre">==</span> <span class="pre">value</span></code>. Throws <code class="docutils literal notranslate"><span class="pre">index_out_of_bound</span></code> if <code class="docutils literal notranslate"><span class="pre">ind</span> <span class="pre">&gt;</span> <span class="pre">size</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector5eraseE8iterator">
+<span id="_CPPv3N6vector5eraseE8iterator"></span><span id="_CPPv2N6vector5eraseE8iterator"></span><span id="vector::erase__iterator"></span><span class="target" id="classvector_1acec6ef0661b701d51f8b2ba6dfc3203b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">erase</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector5eraseE8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector5eraseERK6size_t">
+<span id="_CPPv3N6vector5eraseERK6size_t"></span><span id="_CPPv2N6vector5eraseERK6size_t"></span><span id="vector::erase__sCR"></span><span class="target" id="classvector_1a666a1fc11dcc5ead18f5b9fd5c1179c0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">erase</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ind</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector5eraseERK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Removes the element at index <code class="docutils literal notranslate"><span class="pre">ind</span></code>, returns an iterator pointing to the following element. Throws <code class="docutils literal notranslate"><span class="pre">index_out_of_bound</span></code> if <code class="docutils literal notranslate"><span class="pre">ind</span> <span class="pre">&gt;=</span> <span class="pre">size</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector9push_backERK1T">
+<span id="_CPPv3N6vector9push_backERK1T"></span><span id="_CPPv2N6vector9push_backERK1T"></span><span id="vector::push_back__TCR"></span><span class="target" id="classvector_1ad76deb64969b591fe8accbd2f69ea271"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">push_back</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector9push_backERK1T" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8pop_backEv">
+<span id="_CPPv3N6vector8pop_backEv"></span><span id="_CPPv2N6vector8pop_backEv"></span><span id="vector::pop_back"></span><span class="target" id="classvector_1aeec9e5d602d555d466a936310aa47866"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pop_back</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8pop_backEv" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Removes the last element, if container is empty, throws <code class="docutils literal notranslate"><span class="pre">container_is_empty</span></code>. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector16ConstructAndCopyE7pointer7pointer7pointer">
+<span id="_CPPv3N6vector16ConstructAndCopyE7pointer7pointer7pointer"></span><span id="_CPPv2N6vector16ConstructAndCopyE7pointer7pointer7pointer"></span><span id="vector::ConstructAndCopy__pointer.pointer.pointer"></span><span class="target" id="classvector_1a71028112306bd5c08e83900fd6c2001b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstructAndCopy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">src_begin</span></span>, <a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">src_finish</span></span>, <a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dst_begin</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector16ConstructAndCopyE7pointer7pointer7pointer" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector16ConstructAndMoveE7pointer7pointer7pointer">
+<span id="_CPPv3N6vector16ConstructAndMoveE7pointer7pointer7pointer"></span><span id="_CPPv2N6vector16ConstructAndMoveE7pointer7pointer7pointer"></span><span id="vector::ConstructAndMove__pointer.pointer.pointer"></span><span class="target" id="classvector_1af4e44b3a73a80c1ee5b310b46b712ae7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstructAndMove</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">src_begin</span></span>, <a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">src_finish</span></span>, <a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dst_begin</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector16ConstructAndMoveE7pointer7pointer7pointer" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector13ReallocInsertE7pointerRK1T">
+<span id="_CPPv3N6vector13ReallocInsertE7pointerRK1T"></span><span id="_CPPv2N6vector13ReallocInsertE7pointerRK1T"></span><span id="vector::ReallocInsert__pointer.TCR"></span><span class="target" id="classvector_1a3edd6a70b21a44c657d1eec3ed898f21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReallocInsert</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector13ReallocInsertE7pointerRK1T" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector5startE">
+<span id="_CPPv3N6vector5startE"></span><span id="_CPPv2N6vector5startE"></span><span id="vector::start__pointer"></span><span class="target" id="classvector_1a9caa3df5341e928c04da218f9f7a3255"></span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><a class="headerlink" href="#_CPPv4N6vector5startE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector6finishE">
+<span id="_CPPv3N6vector6finishE"></span><span id="_CPPv2N6vector6finishE"></span><span id="vector::finish__pointer"></span><span class="target" id="classvector_1ada73a36c05d4e7b5abd6fb827d39625f"></span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">finish</span></span></span><a class="headerlink" href="#_CPPv4N6vector6finishE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14end_of_storageE">
+<span id="_CPPv3N6vector14end_of_storageE"></span><span id="_CPPv2N6vector14end_of_storageE"></span><span id="vector::end_of_storage__pointer"></span><span class="target" id="classvector_1af29a6f511834b2bdf710c1219b056e5c"></span><a class="reference internal" href="#_CPPv4N6vector7pointerE" title="vector::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end_of_storage</span></span></span><a class="headerlink" href="#_CPPv4N6vector14end_of_storageE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratorE">
+<span id="_CPPv3N6vector14const_iteratorE"></span><span id="_CPPv2N6vector14const_iteratorE"></span><span id="vector::const_iterator"></span><span class="target" id="classvector_1_1const__iterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><a class="headerlink" href="#_CPPv4N6vector14const_iteratorE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator15difference_typeE">
+<span id="_CPPv3N6vector14const_iterator15difference_typeE"></span><span id="_CPPv2N6vector14const_iterator15difference_typeE"></span><span class="target" id="classvector_1_1const__iterator_1aa5e3b20ff9dfcde08b371d9dd98564f2"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">difference_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator15difference_typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator10value_typeE">
+<span id="_CPPv3N6vector14const_iterator10value_typeE"></span><span id="_CPPv2N6vector14const_iterator10value_typeE"></span><span class="target" id="classvector_1_1const__iterator_1ae82ca584770a62c45cd535e2d34e2742"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><a class="headerlink" href="#_CPPv4N6vector14const_iterator10value_typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator7pointerE">
+<span id="_CPPv3N6vector14const_iterator7pointerE"></span><span id="_CPPv2N6vector14const_iterator7pointerE"></span><span class="target" id="classvector_1_1const__iterator_1a09b94feeafef0e53db0f43742fce522c"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointer</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator7pointerE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator9referenceE">
+<span id="_CPPv3N6vector14const_iterator9referenceE"></span><span id="_CPPv2N6vector14const_iterator9referenceE"></span><span class="target" id="classvector_1_1const__iterator_1aad206afc68d1008d8be1163cea675d7b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reference</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&amp;</span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator9referenceE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator17iterator_categoryE">
+<span id="_CPPv3N6vector14const_iterator17iterator_categoryE"></span><span id="_CPPv2N6vector14const_iterator17iterator_categoryE"></span><span class="target" id="classvector_1_1const__iterator_1a4ac10b08ebbb03e6def95e4c6e288980"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator_category</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">output_iterator_tag</span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator17iterator_categoryE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratorplERKi">
+<span id="_CPPv3NK6vector14const_iteratorplERKi"></span><span id="_CPPv2NK6vector14const_iteratorplERKi"></span><span id="vector::const_iterator::add-operator__iCRC"></span><span class="target" id="classvector_1_1const__iterator_1a8c56e007125ced6a554d823404a0efef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratorplERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratormiERKi">
+<span id="_CPPv3NK6vector14const_iteratormiERKi"></span><span id="_CPPv2NK6vector14const_iteratormiERKi"></span><span id="vector::const_iterator::sub-operator__iCRC"></span><span class="target" id="classvector_1_1const__iterator_1a0f8c5dcfea5868936d41e5378dfdb67e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratormiERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratormiERK8iterator">
+<span id="_CPPv3NK6vector14const_iteratormiERK8iterator"></span><span id="_CPPv2NK6vector14const_iteratormiERK8iterator"></span><span id="vector::const_iterator::sub-operator__iteratorCRC"></span><span class="target" id="classvector_1_1const__iterator_1a9c941553b1120d51418db25b152554dc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratormiERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Returns the distance between two iterators, if these two iterators point to different vectors, throw <code class="docutils literal notranslate"><span class="pre">invaild_iterator</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratorpLERKi">
+<span id="_CPPv3N6vector14const_iteratorpLERKi"></span><span id="_CPPv2N6vector14const_iteratorpLERKi"></span><span id="vector::const_iterator::add-assign-operator__iCR"></span><span class="target" id="classvector_1_1const__iterator_1a4c456303c40253ab2da9484e61f05f85"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratorpLERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratormIERKi">
+<span id="_CPPv3N6vector14const_iteratormIERKi"></span><span id="_CPPv2N6vector14const_iteratormIERKi"></span><span id="vector::const_iterator::sub-assign-operator__iCR"></span><span class="target" id="classvector_1_1const__iterator_1a416a552ac5944d91b9ab64457cd4c67b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratormIERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratorppEi">
+<span id="_CPPv3N6vector14const_iteratorppEi"></span><span id="_CPPv2N6vector14const_iteratorppEi"></span><span id="vector::const_iterator::inc-operator__i"></span><span class="target" id="classvector_1_1const__iterator_1a413893bd3c13c1cbe2694ff861cf44aa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratorppEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratorppEv">
+<span id="_CPPv3N6vector14const_iteratorppEv"></span><span id="_CPPv2N6vector14const_iteratorppEv"></span><span id="vector::const_iterator::inc-operator"></span><span class="target" id="classvector_1_1const__iterator_1a8f3f0da8489f0bf4b9942a5384bfeeb6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratorppEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratormmEi">
+<span id="_CPPv3N6vector14const_iteratormmEi"></span><span id="_CPPv2N6vector14const_iteratormmEi"></span><span id="vector::const_iterator::dec-operator__i"></span><span class="target" id="classvector_1_1const__iterator_1ab3d34b472471a70e88254300d942609a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratormmEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iteratormmEv">
+<span id="_CPPv3N6vector14const_iteratormmEv"></span><span id="_CPPv2N6vector14const_iteratormmEv"></span><span id="vector::const_iterator::dec-operator"></span><span class="target" id="classvector_1_1const__iterator_1aa4e33099fd37e86ec76d952fc8e08da0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iteratormmEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratormlEv">
+<span id="_CPPv3NK6vector14const_iteratormlEv"></span><span id="_CPPv2NK6vector14const_iteratormlEv"></span><span id="vector::const_iterator::mul-operatorC"></span><span class="target" id="classvector_1_1const__iterator_1aa344e7ffc89b341214b770adab48e70e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratormlEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratoreqERK8iterator">
+<span id="_CPPv3NK6vector14const_iteratoreqERK8iterator"></span><span id="_CPPv2NK6vector14const_iteratoreqERK8iterator"></span><span id="vector::const_iterator::eq-operator__iteratorCRC"></span><span class="target" id="classvector_1_1const__iterator_1afe6606b2fd16812f2ea6058459cf7822"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratoreqERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratoreqERK14const_iterator">
+<span id="_CPPv3NK6vector14const_iteratoreqERK14const_iterator"></span><span id="_CPPv2NK6vector14const_iteratoreqERK14const_iterator"></span><span id="vector::const_iterator::eq-operator__const_iteratorCRC"></span><span class="target" id="classvector_1_1const__iterator_1af18a81c91efdaf4948aa024698276164"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratoreqERK14const_iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratorneERK8iterator">
+<span id="_CPPv3NK6vector14const_iteratorneERK8iterator"></span><span id="_CPPv2NK6vector14const_iteratorneERK8iterator"></span><span id="vector::const_iterator::neq-operator__iteratorCRC"></span><span class="target" id="classvector_1_1const__iterator_1ad96de68f73d56f251315c23308f69d10"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratorneERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector14const_iteratorneERK14const_iterator">
+<span id="_CPPv3NK6vector14const_iteratorneERK14const_iterator"></span><span id="_CPPv2NK6vector14const_iteratorneERK14const_iterator"></span><span id="vector::const_iterator::neq-operator__const_iteratorCRC"></span><span class="target" id="classvector_1_1const__iterator_1a855de9471802619dd51d6594665f1c4b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector14const_iteratorneERK14const_iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator14const_iteratorE7pointerPK6vector">
+<span id="_CPPv3N6vector14const_iterator14const_iteratorE7pointerPK6vector"></span><span id="_CPPv2N6vector14const_iterator14const_iteratorE7pointerPK6vector"></span><span id="vector::const_iterator::const_iterator__pointer.vectorCP"></span><span class="target" id="classvector_1_1const__iterator_1a8ed58f828d5e34e76a75b7dc905f4e64"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector14const_iterator7pointerE" title="vector::const_iterator::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">current</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">father</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector14const_iterator14const_iteratorE7pointerPK6vector" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator7currentE">
+<span id="_CPPv3N6vector14const_iterator7currentE"></span><span id="_CPPv2N6vector14const_iterator7currentE"></span><span id="vector::const_iterator::current__pointer"></span><span class="target" id="classvector_1_1const__iterator_1a44f467c2dedbc7c121878c1c30107f2b"></span><a class="reference internal" href="#_CPPv4N6vector14const_iterator7pointerE" title="vector::const_iterator::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">current</span></span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator7currentE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector14const_iterator6fatherE">
+<span id="_CPPv3N6vector14const_iterator6fatherE"></span><span id="_CPPv2N6vector14const_iterator6fatherE"></span><span id="vector::const_iterator::father__vectorCP"></span><span class="target" id="classvector_1_1const__iterator_1af6a80be06164e20afa23f34a979270e5"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">father</span></span></span><a class="headerlink" href="#_CPPv4N6vector14const_iterator6fatherE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="classvector_1_1const__iterator_1ad2283035e8e5ee2d5b49e965ca418d7a"></span><span class="sig-name descname"><span class="pre">friend</span> <span class="pre">vector</span></span></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratorE">
+<span id="_CPPv3N6vector8iteratorE"></span><span id="_CPPv2N6vector8iteratorE"></span><span id="vector::iterator"></span><span class="target" id="classvector_1_1iterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><a class="headerlink" href="#_CPPv4N6vector8iteratorE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator15difference_typeE">
+<span id="_CPPv3N6vector8iterator15difference_typeE"></span><span id="_CPPv2N6vector8iterator15difference_typeE"></span><span class="target" id="classvector_1_1iterator_1a844cfa86af42cf130570c3c1bca4031c"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">difference_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><a class="headerlink" href="#_CPPv4N6vector8iterator15difference_typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator10value_typeE">
+<span id="_CPPv3N6vector8iterator10value_typeE"></span><span id="_CPPv2N6vector8iterator10value_typeE"></span><span class="target" id="classvector_1_1iterator_1aa4aa05ab29108764384a4ab29bd030e3"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><a class="headerlink" href="#_CPPv4N6vector8iterator10value_typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator7pointerE">
+<span id="_CPPv3N6vector8iterator7pointerE"></span><span id="_CPPv2N6vector8iterator7pointerE"></span><span class="target" id="classvector_1_1iterator_1a222a417004494106e4fa63caf8325047"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointer</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv4N6vector8iterator7pointerE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator9referenceE">
+<span id="_CPPv3N6vector8iterator9referenceE"></span><span id="_CPPv2N6vector8iterator9referenceE"></span><span class="target" id="classvector_1_1iterator_1a67f5d3850badc966cc198b8c9d9f6f17"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reference</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&amp;</span></span><a class="headerlink" href="#_CPPv4N6vector8iterator9referenceE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator17iterator_categoryE">
+<span id="_CPPv3N6vector8iterator17iterator_categoryE"></span><span id="_CPPv2N6vector8iterator17iterator_categoryE"></span><span class="target" id="classvector_1_1iterator_1aba7b0d2d6440e7937b0966d61c6ceabb"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator_category</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">output_iterator_tag</span></span><a class="headerlink" href="#_CPPv4N6vector8iterator17iterator_categoryE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratorplERKi">
+<span id="_CPPv3NK6vector8iteratorplERKi"></span><span id="_CPPv2NK6vector8iteratorplERKi"></span><span id="vector::iterator::add-operator__iCRC"></span><span class="target" id="classvector_1_1iterator_1a193a0c7c853e6dcd9c4088524a047f7b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratorplERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratormiERKi">
+<span id="_CPPv3NK6vector8iteratormiERKi"></span><span id="_CPPv2NK6vector8iteratormiERKi"></span><span id="vector::iterator::sub-operator__iCRC"></span><span class="target" id="classvector_1_1iterator_1aa29604a465b35c358a35d401bec06051"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratormiERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratormiERK8iterator">
+<span id="_CPPv3NK6vector8iteratormiERK8iterator"></span><span id="_CPPv2NK6vector8iteratormiERK8iterator"></span><span id="vector::iterator::sub-operator__iteratorCRC"></span><span class="target" id="classvector_1_1iterator_1a4991bcfcdf71f62f13291eacca13bff3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratormiERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Returns the distance between two iterators, if these two iterators point to different vectors, throw <code class="docutils literal notranslate"><span class="pre">invaild_iterator</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratorpLERKi">
+<span id="_CPPv3N6vector8iteratorpLERKi"></span><span id="_CPPv2N6vector8iteratorpLERKi"></span><span id="vector::iterator::add-assign-operator__iCR"></span><span class="target" id="classvector_1_1iterator_1a3ce024176bd598d90b04cc3e9ccff84d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratorpLERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratormIERKi">
+<span id="_CPPv3N6vector8iteratormIERKi"></span><span id="_CPPv2N6vector8iteratormIERKi"></span><span id="vector::iterator::sub-assign-operator__iCR"></span><span class="target" id="classvector_1_1iterator_1ae78d0b7ada69bb157aac37cde7c5bdaa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratormIERKi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratorppEi">
+<span id="_CPPv3N6vector8iteratorppEi"></span><span id="_CPPv2N6vector8iteratorppEi"></span><span id="vector::iterator::inc-operator__i"></span><span class="target" id="classvector_1_1iterator_1a3e8d6a8a7db9eac534edbb9e73a01537"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratorppEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratorppEv">
+<span id="_CPPv3N6vector8iteratorppEv"></span><span id="_CPPv2N6vector8iteratorppEv"></span><span id="vector::iterator::inc-operator"></span><span class="target" id="classvector_1_1iterator_1a226d92feff183c116f66da00c3aa6031"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratorppEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratormmEi">
+<span id="_CPPv3N6vector8iteratormmEi"></span><span id="_CPPv2N6vector8iteratormmEi"></span><span id="vector::iterator::dec-operator__i"></span><span class="target" id="classvector_1_1iterator_1aaff5d0858554d6155ece04bbefccc03a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratormmEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iteratormmEv">
+<span id="_CPPv3N6vector8iteratormmEv"></span><span id="_CPPv2N6vector8iteratormmEv"></span><span id="vector::iterator::dec-operator"></span><span class="target" id="classvector_1_1iterator_1ad4bc2696437a710ae7022d3660417fb0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iteratormmEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratormlEv">
+<span id="_CPPv3NK6vector8iteratormlEv"></span><span id="_CPPv2NK6vector8iteratormlEv"></span><span id="vector::iterator::mul-operatorC"></span><span class="target" id="classvector_1_1iterator_1a82203d01ae8bbab949adef70d44dac6a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratormlEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratoreqERK8iterator">
+<span id="_CPPv3NK6vector8iteratoreqERK8iterator"></span><span id="_CPPv2NK6vector8iteratoreqERK8iterator"></span><span id="vector::iterator::eq-operator__iteratorCRC"></span><span class="target" id="classvector_1_1iterator_1ac37d03e9c47554079148b0b485515222"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratoreqERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratoreqERK14const_iterator">
+<span id="_CPPv3NK6vector8iteratoreqERK14const_iterator"></span><span id="_CPPv2NK6vector8iteratoreqERK14const_iterator"></span><span id="vector::iterator::eq-operator__const_iteratorCRC"></span><span class="target" id="classvector_1_1iterator_1a1b463c917eb6e55d7e89e22574d0459f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratoreqERK14const_iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratorneERK8iterator">
+<span id="_CPPv3NK6vector8iteratorneERK8iterator"></span><span id="_CPPv2NK6vector8iteratorneERK8iterator"></span><span id="vector::iterator::neq-operator__iteratorCRC"></span><span class="target" id="classvector_1_1iterator_1ab77d65483137153f77f9ac6e0b9cccb5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector8iteratorE" title="vector::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratorneERK8iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6vector8iteratorneERK14const_iterator">
+<span id="_CPPv3NK6vector8iteratorneERK14const_iterator"></span><span id="_CPPv2NK6vector8iteratorneERK14const_iterator"></span><span id="vector::iterator::neq-operator__const_iteratorCRC"></span><span class="target" id="classvector_1_1iterator_1aa9b0e145371d466c6531002fc1c01a73"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6vector14const_iteratorE" title="vector::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6vector8iteratorneERK14const_iterator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator8iteratorE7pointerP6vector">
+<span id="_CPPv3N6vector8iterator8iteratorE7pointerP6vector"></span><span id="_CPPv2N6vector8iterator8iteratorE7pointerP6vector"></span><span id="vector::iterator::iterator__pointer.vectorP"></span><span class="target" id="classvector_1_1iterator_1a933458243770f064740e4833ab10739d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6vector8iterator7pointerE" title="vector::iterator::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">current</span></span>, <a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">father</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6vector8iterator8iteratorE7pointerP6vector" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator7currentE">
+<span id="_CPPv3N6vector8iterator7currentE"></span><span id="_CPPv2N6vector8iterator7currentE"></span><span id="vector::iterator::current__pointer"></span><span class="target" id="classvector_1_1iterator_1a9596eb4b61722717648868b6f665ec74"></span><a class="reference internal" href="#_CPPv4N6vector8iterator7pointerE" title="vector::iterator::pointer"><span class="n"><span class="pre">pointer</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">current</span></span></span><a class="headerlink" href="#_CPPv4N6vector8iterator7currentE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6vector8iterator6fatherE">
+<span id="_CPPv3N6vector8iterator6fatherE"></span><span id="_CPPv2N6vector8iterator6fatherE"></span><span id="vector::iterator::father__vectorP"></span><span class="target" id="classvector_1_1iterator_1a1735eadce861f1bcd6b65abb6c915a0d"></span><a class="reference internal" href="#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">father</span></span></span><a class="headerlink" href="#_CPPv4N6vector8iterator6fatherE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="classvector_1_1iterator_1a67a914ccc4bac89c1d4760027800968c"></span><span class="sig-name descname"><span class="pre">friend</span> <span class="pre">vector</span></span></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

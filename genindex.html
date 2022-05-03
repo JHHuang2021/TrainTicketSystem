@@ -7,6 +7,7 @@
     <title>索引 &#8212; 火车票管理系统  文档</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -52,12 +53,15 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">火车票管理系统开发文档</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">模块</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/b_plus_tree.html">B+ 树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/vector.html">动态数组</a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/train.html">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/order.html">订单管理</a></li>
 </ul>
 </ul>
 </li>
@@ -106,26 +110,51 @@
 <h1 id="index">索引</h1>
 
 <div class="genindex-jumpbox">
- <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
+ <a href="#C"><strong>C</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  
 </div>
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/b_plus_tree.html#c.BPLUSTREE_TYPE">BPLUSTREE_TYPE (C macro)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/command_parser.html#_CPPv413CommandParser">CommandParser (C++ class)</a>
+      <li><a href="api/char.html#_CPPv4I_KiE4Char">Char (C++ class)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4Char4CharEPKc">Char::Char (C++ function)</a>, <a href="api/char.html#_CPPv4N4Char4CharERKNSt6stringE">[1]</a>, <a href="api/char.html#_CPPv4N4Char4CharEv">[2]</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4Char7contentE">Char::content (C++ member)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4NK4Char5emptyEv">Char::empty (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4NK4CharcvNSt6stringEEv">Char::operator std::string (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4CharneERK4CharI4sizeERK4CharI4sizeE">Char::operator!= (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4CharltERK4CharI4sizeERK4CharI4sizeE">Char::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4CharlsERNSt7ostreamERK4CharI4sizeE">Char::operator&lt;&lt; (C++ function)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/char.html#_CPPv4N4CharleERK4CharI4sizeERK4CharI4sizeE">Char::operator&lt;= (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4CharaSERK4Char">Char::operator= (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4ChareqERK4CharI4sizeERK4CharI4sizeE">Char::operator== (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4ChargtERK4CharI4sizeERK4CharI4sizeE">Char::operator&gt; (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4ChargeERK4CharI4sizeERK4CharI4sizeE">Char::operator&gt;= (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4N4CharrsERNSt7istreamER4CharI4sizeE">Char::operator&gt;&gt; (C++ function)</a>
+</li>
+      <li><a href="api/char.html#_CPPv4NK4Char3strEv">Char::str (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv413CommandParser">CommandParser (C++ class)</a>
+</li>
       <li><a href="api/command_parser.html#_CPPv4N13CommandParser3RunEv">CommandParser::Run (C++ function)</a>
 </li>
   </ul></td>
@@ -134,29 +163,229 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/b_plus_tree.html#_CPPv45huang">huang (C++ type)</a>
-</li>
       <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTreeE">huang::BPlusTree (C++ class)</a>
 </li>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree5BeginERK7KeyType">huang::BPlusTree::Begin (C++ function)</a>, <a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree5BeginEv">[1]</a>
-</li>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree9BPlusTreeENSt6stringEP17BufferPoolManagerRK13KeyComparatorii">huang::BPlusTree::BPlusTree (C++ function)</a>
-</li>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree3EndEv">huang::BPlusTree::End (C++ function)</a>
+      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE">huang::BPlusTree::GetValue (C++ function)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE">huang::BPlusTree::GetValue (C++ function)</a>
-</li>
       <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree6InsertERK7KeyTypeRK9ValueType">huang::BPlusTree::Insert (C++ function)</a>
-</li>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree12InternalPageE">huang::BPlusTree::InternalPage (C++ type)</a>
 </li>
       <li><a href="api/b_plus_tree.html#_CPPv4NK5huang9BPlusTree7IsEmptyEv">huang::BPlusTree::IsEmpty (C++ function)</a>
 </li>
-      <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree8LeafPageE">huang::BPlusTree::LeafPage (C++ type)</a>
-</li>
       <li><a href="api/b_plus_tree.html#_CPPv4N5huang9BPlusTree6RemoveERK7KeyType">huang::BPlusTree::Remove (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/order.html#_CPPv412OrderManager">OrderManager (C++ class)</a>
+</li>
+      <li><a href="api/order.html#_CPPv4N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb">OrderManager::BuyTicket (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/order.html#_CPPv4N12OrderManager10QueryOrderEKNSt6stringE">OrderManager::QueryOrder (C++ function)</a>
+</li>
+      <li><a href="api/order.html#_CPPv4N12OrderManager12RefundTicketERKNSt6stringEKi">OrderManager::RefundTicket (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/train.html#_CPPv412TrainManager">TrainManager (C++ class)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc">TrainManager::AddTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">TrainManager::QueryTicket (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType">TrainManager::QueryTrain (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/train.html#_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">TrainManager::QueryTransfer (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE">TrainManager::ReleaseTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrderE">TrainManager::SortOrder (C++ enum)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrder4COSTE">TrainManager::SortOrder::COST (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrder4TIMEE">TrainManager::SortOrder::TIME (C++ enumerator)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/user.html#_CPPv411UserManager">UserManager (C++ class)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi">UserManager::AddUser (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager5LoginERKNSt6stringERKNSt6stringE">UserManager::Login (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager6LogoutERKNSt6stringE">UserManager::Logout (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE">UserManager::ModifyProfile (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItemE">UserManager::ProfileItem (C++ struct)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem7contentE">UserManager::ProfileItem::content (C++ member)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4TypeE">UserManager::ProfileItem::Type (C++ enum)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4typeE">UserManager::ProfileItem::type (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type8MailAddrE">UserManager::ProfileItem::Type::MailAddr (C++ enumerator)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type4NameE">UserManager::ProfileItem::Type::Name (C++ enumerator)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type8PasswordE">UserManager::ProfileItem::Type::Password (C++ enumerator)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type9PrivilegeE">UserManager::ProfileItem::Type::Privilege (C++ enumerator)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem5valueE">UserManager::ProfileItem::value (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N11UserManager12QueryProfileERKNSt6stringE">UserManager::QueryProfile (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/vector.html#_CPPv4I0E6vector">vector (C++ class)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector2atERK6size_t">vector::at (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector2atERK6size_t">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector4backEv">vector::back (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector5beginEv">vector::begin (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector6cbeginEv">vector::cbegin (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector4cendEv">vector::cend (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector5clearEv">vector::clear (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iteratorE">vector::const_iterator (C++ class)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator14const_iteratorE7pointerPK6vector">vector::const_iterator::const_iterator (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator7currentE">vector::const_iterator::current (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator15difference_typeE">vector::const_iterator::difference_type (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator6fatherE">vector::const_iterator::father (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator17iterator_categoryE">vector::const_iterator::iterator_category (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector14const_iteratorneERK14const_iterator">vector::const_iterator::operator!= (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector14const_iteratorneERK8iterator">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector14const_iteratormlEv">vector::const_iterator::operator* (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector14const_iteratorplERKi">vector::const_iterator::operator+ (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iteratorppEi">vector::const_iterator::operator++ (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector14const_iteratorppEv">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iteratorpLERKi">vector::const_iterator::operator+= (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector14const_iteratormiERK8iterator">vector::const_iterator::operator- (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector14const_iteratormiERKi">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iteratormmEi">vector::const_iterator::operator-- (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector14const_iteratormmEv">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iteratormIERKi">vector::const_iterator::operator-= (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector14const_iteratoreqERK14const_iterator">vector::const_iterator::operator== (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector14const_iteratoreqERK8iterator">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator7pointerE">vector::const_iterator::pointer (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator9referenceE">vector::const_iterator::reference (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14const_iterator10value_typeE">vector::const_iterator::value_type (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector16ConstructAndCopyE7pointer7pointer7pointer">vector::ConstructAndCopy (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector16ConstructAndMoveE7pointer7pointer7pointer">vector::ConstructAndMove (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector5emptyEv">vector::empty (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector3endEv">vector::end (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector14end_of_storageE">vector::end_of_storage (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector5eraseE8iterator">vector::erase (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector5eraseERK6size_t">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/vector.html#_CPPv4N6vector6finishE">vector::finish (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector5frontEv">vector::front (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector6insertE8iteratorRK1T">vector::insert (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector6insertERK6size_tRK1T">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iteratorE">vector::iterator (C++ class)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator7currentE">vector::iterator::current (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator15difference_typeE">vector::iterator::difference_type (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator6fatherE">vector::iterator::father (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator8iteratorE7pointerP6vector">vector::iterator::iterator (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator17iterator_categoryE">vector::iterator::iterator_category (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector8iteratorneERK14const_iterator">vector::iterator::operator!= (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector8iteratorneERK8iterator">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector8iteratormlEv">vector::iterator::operator* (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector8iteratorplERKi">vector::iterator::operator+ (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iteratorppEi">vector::iterator::operator++ (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector8iteratorppEv">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iteratorpLERKi">vector::iterator::operator+= (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector8iteratormiERK8iterator">vector::iterator::operator- (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector8iteratormiERKi">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iteratormmEi">vector::iterator::operator-- (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector8iteratormmEv">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iteratormIERKi">vector::iterator::operator-= (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector8iteratoreqERK14const_iterator">vector::iterator::operator== (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vector8iteratoreqERK8iterator">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator7pointerE">vector::iterator::pointer (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator9referenceE">vector::iterator::reference (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8iterator10value_typeE">vector::iterator::value_type (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vectoraSERK6vector">vector::operator= (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vectorixERK6size_t">vector::operator[] (C++ function)</a>, <a href="api/vector.html#_CPPv4NK6vectorixERK6size_t">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector7pointerE">vector::pointer (C++ type)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector8pop_backEv">vector::pop_back (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector9push_backERK1T">vector::push_back (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector13ReallocInsertE7pointerRK1T">vector::ReallocInsert (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4NK6vector4sizeEv">vector::size (C++ function)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector5startE">vector::start (C++ member)</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vector6vectorERK6vector">vector::vector (C++ function)</a>, <a href="api/vector.html#_CPPv4N6vector6vectorEv">[1]</a>
+</li>
+      <li><a href="api/vector.html#_CPPv4N6vectorD0Ev">vector::~vector (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>

@@ -1,5 +1,6 @@
 B+ 树
 ========
 
-.. doxygenfile:: b_plus_tree.h
+.. doxygenclass:: huang::BPlusTree
    :project: 火车票管理系统
+   :members:

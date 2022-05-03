@@ -8,6 +8,7 @@
     <title>B+ 树 &#8212; 火车票管理系统  文档</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -16,7 +17,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="指令解析" href="command_parser.html" />
-    <link rel="prev" title="模块" href="index.html" />
+    <link rel="prev" title="动态数组" href="vector.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,13 +55,16 @@
      href="../index.html">主页 <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">火车票管理系统开发文档</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">模块</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">B+ 树</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
 </ul>
-</li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
 </ul>
 </ul>
 </li>
@@ -84,7 +88,7 @@
               
                 
   <li>
-    <a href="index.html" title="上一章：模块"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 模块</span>
+    <a href="vector.html" title="上一章：动态数组"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 动态数组</span>
     </a>
   </li>
   <li>
@@ -118,87 +122,45 @@
       
   <section id="b">
 <h1>B+ 树<a class="headerlink" href="#b" title="永久链接至标题">¶</a></h1>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
-<dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.BPLUSTREE_TYPE">
-<span class="target" id="b__plus__tree_8h_1aeb119166d4afe672803cf281133ddb69"></span><span class="sig-name descname"><span class="n"><span class="pre">BPLUSTREE_TYPE</span></span></span><a class="headerlink" href="#c.BPLUSTREE_TYPE" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv45huang">
-<span id="_CPPv35huang"></span><span id="_CPPv25huang"></span><span id="huang"></span><span class="target" id="namespacehuang"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">huang</span></span></span><a class="headerlink" href="#_CPPv45huang" title="永久链接至目标">¶</a><br /></dt>
-<dd><dl class="cpp class">
+<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTreeE">
-<span id="_CPPv3N5huang9BPlusTreeE"></span><span id="_CPPv2N5huang9BPlusTreeE"></span><span id="huang::BPlusTree"></span><span class="target" id="classhuang_1_1BPlusTree"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BPlusTree</span></span></span><a class="headerlink" href="#_CPPv4N5huang9BPlusTreeE" title="永久链接至目标">¶</a><br /></dt>
-<dd><div class="docutils container">
-<em>#include &lt;b_plus_tree.h&gt;</em></div>
-<p>Main class providing the API for the Interactive B+ Tree.</p>
-<p><p>Implementation of simple b+ tree data structure where internal pages direct the search and leaf pages contain actual data.</p>
-<p>(1) We only support unique key</p>
-<p>(2) support insert &amp; remove</p>
-<p>(3) The structure should shrink and grow dynamically</p>
-
- (4) Implement index iterator for range scan </p>
+<span id="_CPPv3N5huang9BPlusTreeE"></span><span id="_CPPv2N5huang9BPlusTreeE"></span><span id="huang::BPlusTree"></span><span class="target" id="classhuang_1_1BPlusTree"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">BPlusTree</span></span></span><a class="headerlink" href="#_CPPv4N5huang9BPlusTreeE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Main class providing the API for the Interactive B+ Tree.</p>
+<p>Implementation of simple B+ tree data structure where internal pages direct the search and leaf pages contain actual data.</p>
+<p><ol class="loweralpha simple">
+<li><p>We only support unique key</p></li>
+<li><p>Support insert &amp; remove</p></li>
+<li><p>The structure should shrink and grow dynamically</p></li>
+<li><p>Implement index iterator for range scan </p></li>
+</ol>
+</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree9BPlusTreeENSt6stringEP17BufferPoolManagerRK13KeyComparatorii">
-<span id="_CPPv3N5huang9BPlusTree9BPlusTreeENSt6stringEP17BufferPoolManagerRK13KeyComparatorii"></span><span id="_CPPv2N5huang9BPlusTree9BPlusTreeENSt6stringEP17BufferPoolManagerRK13KeyComparatorii"></span><span id="huang::BPlusTree::BPlusTree__ss.BufferPoolManagerP.KeyComparatorCR.i.i"></span><span class="target" id="classhuang_1_1BPlusTree_1abd4160377c8ee92c4f6cb3a577e8bda1"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BPlusTree</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">BufferPoolManager</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer_pool_manager</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">KeyComparator</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comparator</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">leaf_max_size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">LEAF_PAGE_SIZE</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">internal_max_size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">INTERNAL_PAGE_SIZE</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree9BPlusTreeENSt6stringEP17BufferPoolManagerRK13KeyComparatorii" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK5huang9BPlusTree7IsEmptyEv">
 <span id="_CPPv3NK5huang9BPlusTree7IsEmptyEv"></span><span id="_CPPv2NK5huang9BPlusTree7IsEmptyEv"></span><span id="huang::BPlusTree::IsEmptyC"></span><span class="target" id="classhuang_1_1BPlusTree_1af720bb3d99e9952523d4256a0e1b9858"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEmpty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK5huang9BPlusTree7IsEmptyEv" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Returns true if this B+ tree has no keys and values. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree6InsertERK7KeyTypeRK9ValueType">
 <span id="_CPPv3N5huang9BPlusTree6InsertERK7KeyTypeRK9ValueType"></span><span id="_CPPv2N5huang9BPlusTree6InsertERK7KeyTypeRK9ValueType"></span><span id="huang::BPlusTree::Insert__KeyTypeCR.ValueTypeCR"></span><span class="target" id="classhuang_1_1BPlusTree_1a80b0b84e0ae776ba810bba9352021e79"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Insert</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">KeyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ValueType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree6InsertERK7KeyTypeRK9ValueType" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Inserts a key-value pair into this B+ tree. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree6RemoveERK7KeyType">
 <span id="_CPPv3N5huang9BPlusTree6RemoveERK7KeyType"></span><span id="_CPPv2N5huang9BPlusTree6RemoveERK7KeyType"></span><span id="huang::BPlusTree::Remove__KeyTypeCR"></span><span class="target" id="classhuang_1_1BPlusTree_1a6ab4999f8aad8cac1d243b2549b5a0be"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Remove</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">KeyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree6RemoveERK7KeyType" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Removes a key and its value from this B+ tree. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE">
 <span id="_CPPv3N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE"></span><span id="_CPPv2N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE"></span><span id="huang::BPlusTree::GetValue__KeyTypeCR.std::vector:ValueType:P"></span><span class="target" id="classhuang_1_1BPlusTree_1a98a41e1c60ce0ab70b26d7557adf9af0"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">KeyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ValueType</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">result</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree8GetValueERK7KeyTypePNSt6vectorI9ValueTypeEE" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree5BeginEv">
-<span id="_CPPv3N5huang9BPlusTree5BeginEv"></span><span id="_CPPv2N5huang9BPlusTree5BeginEv"></span><span id="huang::BPlusTree::Begin"></span><span class="target" id="classhuang_1_1BPlusTree_1ac0235a57b7cf4d8ed5cadcaa2b835a8e"></span><span class="n"><span class="pre">INDEXITERATOR_TYPE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Begin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree5BeginEv" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree5BeginERK7KeyType">
-<span id="_CPPv3N5huang9BPlusTree5BeginERK7KeyType"></span><span id="_CPPv2N5huang9BPlusTree5BeginERK7KeyType"></span><span id="huang::BPlusTree::Begin__KeyTypeCR"></span><span class="target" id="classhuang_1_1BPlusTree_1ac7b0420fd2027cc81a04ef6b60bd6d4b"></span><span class="n"><span class="pre">INDEXITERATOR_TYPE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Begin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">KeyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree5BeginERK7KeyType" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree3EndEv">
-<span id="_CPPv3N5huang9BPlusTree3EndEv"></span><span id="_CPPv2N5huang9BPlusTree3EndEv"></span><span id="huang::BPlusTree::End"></span><span class="target" id="classhuang_1_1BPlusTree_1afc38f2e8dbb0fc71bb279b434777020b"></span><span class="n"><span class="pre">INDEXITERATOR_TYPE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">End</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree3EndEv" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-types">Private Types</p>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree12InternalPageE">
-<span id="_CPPv3N5huang9BPlusTree12InternalPageE"></span><span id="_CPPv2N5huang9BPlusTree12InternalPageE"></span><span class="target" id="classhuang_1_1BPlusTree_1a77ada3e6d46138bf60565c3c89c0c6eb"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InternalPage</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">BPlusTreeInternalPage</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">KeyType</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">page_id_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">KeyComparator</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree12InternalPageE" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N5huang9BPlusTree8LeafPageE">
-<span id="_CPPv3N5huang9BPlusTree8LeafPageE"></span><span id="_CPPv2N5huang9BPlusTree8LeafPageE"></span><span class="target" id="classhuang_1_1BPlusTree_1a01b1249e2af65095ead4e9ac070e03f1"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LeafPage</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">BPlusTreeLeafPage</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">KeyType</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ValueType</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">KeyComparator</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N5huang9BPlusTree8LeafPageE" title="永久链接至目标">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
+<dd><p>Returns the value associated with a given key. </p>
 </dd></dl>
 
+</div>
 </dd></dl>
 
 </section>

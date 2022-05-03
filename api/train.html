@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>火车管理 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="订单管理" href="order.html" />
+    <link rel="prev" title="用户管理" href="user.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">火车管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">火车管理</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="user.html" title="上一章：用户管理"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 用户管理</span>
+    </a>
+  </li>
+  <li>
+    <a href="order.html" title="下一章：订单管理"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">订单管理 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>火车管理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv412TrainManager">
+<span id="_CPPv312TrainManager"></span><span id="_CPPv212TrainManager"></span><span id="TrainManager"></span><span class="target" id="classTrainManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainManager</span></span></span><a class="headerlink" href="#_CPPv412TrainManager" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrderE">
+<span id="_CPPv3N12TrainManager9SortOrderE"></span><span id="_CPPv2N12TrainManager9SortOrderE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6f"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SortOrder</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrderE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>排序依据 </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrder4TIMEE">
+<span id="_CPPv3N12TrainManager9SortOrder4TIMEE"></span><span id="_CPPv2N12TrainManager9SortOrder4TIMEE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6fa80e5531aff7b636c1235c347e2fb48ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TIME</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrder4COSTE">
+<span id="_CPPv3N12TrainManager9SortOrder4COSTE"></span><span id="_CPPv2N12TrainManager9SortOrder4COSTE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6fa4f181e35a115feb07aad4475c5ec1be4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COST</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrder4COSTE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc">
+<span id="_CPPv3N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc"></span><span id="_CPPv2N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc"></span><span id="TrainManager::AddTrain__ssCR.iC.iC.vector:ss:.vector:i:.ssCR.vector:ss:.vector:ss:.vector:ss:.cC"></span><span class="target" id="classTrainManager_1abee9c594b408070cfac21809a730c477"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddTrain</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train_id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">station_num</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">total_seat_num</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stations</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">price</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_time</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">travel_times</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stopover_times</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sale_date</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>添加一辆火车。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE">
+<span id="_CPPv3N12TrainManager12ReleaseTrainERKNSt6stringE"></span><span id="_CPPv2N12TrainManager12ReleaseTrainERKNSt6stringE"></span><span id="TrainManager::ReleaseTrain__ssCR"></span><span class="target" id="classTrainManager_1a87457a85186860178b4f3271e8bb4f23"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReleaseTrain</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>发布火车。发布前的车次，不可发售车票；发布后的车次不可被删除，可发售车票。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType">
+<span id="_CPPv3N12TrainManager10QueryTrainE11TrainIDType8TimeType"></span><span id="_CPPv2N12TrainManager10QueryTrainE11TrainIDType8TimeType"></span><span id="TrainManager::QueryTrain__TrainIDType.TimeType"></span><span class="target" id="classTrainManager_1ad963df0476f94f15d9b6cfd8542a4668"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTrain</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TrainIDType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span>, <span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_date</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>询问符合条件的火车。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">
+<span id="_CPPv3N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="_CPPv2N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="TrainManager::QueryTicket__TimeType.ssR.ssR.SortOrder"></span><span class="target" id="classTrainManager_1ae484eedf9cb6cd10e2f1e5bfde1e5673"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTicket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">terminal_station</span></span>, <a class="reference internal" href="#_CPPv4N12TrainManager9SortOrderE" title="TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>查询指定日期时从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发，并到达 <code class="docutils literal notranslate"><span class="pre">terminal_station</span></code> 的车票。 </p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">
+<span id="_CPPv3N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="_CPPv2N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="TrainManager::QueryTransfer__TimeType.ssR.ssR.SortOrder"></span><span class="target" id="classTrainManager_1aea7ff611b170686559197612ee9179df"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTransfer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">terminal_station</span></span>, <a class="reference internal" href="#_CPPv4N12TrainManager9SortOrderE" title="TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>在恰好换乘一次（换乘同一辆车不算恰好换乘一次）的情况下查询符合条件的车次。 仅输出最优解。如果出现多个最优解（排序关键字最小)，则选择在第一辆列车上花费的时间更少的方案。 </p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
+</div>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

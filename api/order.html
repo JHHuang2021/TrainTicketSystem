@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>订单管理 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="prev" title="火车管理" href="train.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">订单管理</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="train.html" title="上一章：火车管理"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 火车管理</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>订单管理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv412OrderManager">
+<span id="_CPPv312OrderManager"></span><span id="_CPPv212OrderManager"></span><span id="OrderManager"></span><span class="target" id="classOrderManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OrderManager</span></span></span><a class="headerlink" href="#_CPPv412OrderManager" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12OrderManager10QueryOrderEKNSt6stringE">
+<span id="_CPPv3N12OrderManager10QueryOrderEKNSt6stringE"></span><span id="_CPPv2N12OrderManager10QueryOrderEKNSt6stringE"></span><span id="OrderManager::QueryOrder__ssC"></span><span class="target" id="classOrderManager_1aceefc9b488db7858cd7f5b709fff345e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryOrder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">username</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12OrderManager10QueryOrderEKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>查询用户 <code class="docutils literal notranslate"><span class="pre">username</span></code> 的所有订单信息，按照交易时间顺序从新到旧排序。 （候补订单即使补票成功，交易时间也以下单时刻为准。） </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb">
+<span id="_CPPv3N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb"></span><span id="_CPPv2N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb"></span><span id="OrderManager::BuyTicket__ssCR.ssCR.TimeType.iC.ssCR.ssCR.bC"></span><span class="target" id="classOrderManager_1a9b0aad399282eace88e876ee49ad05b1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BuyTicket</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train_id</span></span>, <span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">number</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_station</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">terminal_station</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pending</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>买票。 </p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>pending</strong> – 为真时表示在余票不足的情况下愿意接受候补购票，当有余票时立即视为此用户购买了车票。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12OrderManager12RefundTicketERKNSt6stringEKi">
+<span id="_CPPv3N12OrderManager12RefundTicketERKNSt6stringEKi"></span><span id="_CPPv2N12OrderManager12RefundTicketERKNSt6stringEKi"></span><span id="OrderManager::RefundTicket__ssCR.iC"></span><span class="target" id="classOrderManager_1a37f8ab750bb16c6b36b09ba6533d1990"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RefundTicket</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">number</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12OrderManager12RefundTicketERKNSt6stringEKi" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>用户 <code class="docutils literal notranslate"><span class="pre">username</span></code> 退订从新到旧（即 query_order 的返回顺序）第 <code class="docutils literal notranslate"><span class="pre">number</span></code> 个（1-base）订单。 </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
