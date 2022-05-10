@@ -1,13 +1,12 @@
 #pragma once
 
 #include <list>
-#include <mutex>  // NOLINT
-#include <unordered_map>
+// #include <mutex>  // NOLINT
 
 #include "config.h"
 #include "disk_manager.h"
 #include "linked_hashmap.hpp"
-#include "lru_replacer.h"
+#include "lru_replacer.hpp"
 #include "page.h"
 
 namespace huang {
@@ -17,7 +16,8 @@ namespace huang {
  */
 class BufferPoolManager {
    public:
-    BufferPoolManager();
+    BufferPoolManager(size_t pool_size, DiskManager *disk_manager,
+                      Replacer<Page *> *replacer);
     /**
      * Destroys an existing BufferPoolManager.
      */
@@ -25,14 +25,12 @@ class BufferPoolManager {
 
     /** @return size of the buffer pool */
     size_t GetPoolSize();
-
-   private:
     /**
      * Fetch the requested page from the buffer pool.
      * @param page_id id of page to be fetched
      * @return the requested page
      */
-    Page *FetchPgImp(page_id_t page_id);
+    Page *FetchPage(page_id_t page_id);
 
     /**
      * Unpin the target page from the buffer pool.
@@ -42,7 +40,7 @@ class BufferPoolManager {
      * @return false if the page pin count is <= 0 before this call, true
      * otherwise
      */
-    bool UnpinPgImp(page_id_t page_id, bool is_dirty);
+    bool UnpinPage(page_id_t page_id, bool is_dirty);
 
     /**
      * Flushes the target page to disk.
@@ -50,7 +48,7 @@ class BufferPoolManager {
      * @return false if the page could not be found in the page table, true
      * otherwise
      */
-    bool FlushPgImp(page_id_t page_id);
+    bool FlushPage(page_id_t page_id);
 
     /**
      * Creates a new page in the buffer pool.
@@ -58,7 +56,7 @@ class BufferPoolManager {
      * @return nullptr if no new pages could be created, otherwise pointer to
      * new page
      */
-    Page *NewPgImp(page_id_t *page_id);
+    Page *NewPage(page_id_t *page_id);
 
     /**
      * Deletes a page from the buffer pool.
@@ -66,20 +64,20 @@ class BufferPoolManager {
      * @return false if the page exists but could not be deleted, true if the
      * page didn't exist or deletion succeeded
      */
-    bool DeletePgImp(page_id_t page_id);
+    bool DeletePage(page_id_t page_id);
 
     /**
      * Flushes all the pages in the buffer pool to disk.
      */
-    void FlushAllPgsImp();
+    void FlushAllPage();
 
    private:
     size_t pool_size_;  // number of pages in buffer pool
     Page *pages_;       // array of pages
     DiskManager *disk_manager_;
-    linked_hashmap<page_id_t, Page *> *page_table_;  // to keep track of pages
-    Replacer<Page *> *replacer_;    // to find an unpinned page for replacement
-    std::list<Page *> *free_list_;  // to find a free page for replacement
+    linked_hashmap<page_id_t, Page *> page_table_;  // to keep track of pages
+    std::list<Page *> free_;                        // to be modified
+    Replacer<Page *> *replacer_;  // to find an unpinned page for replacement
     // std::mutex latch_;              // to protect shared data structure
 
     Page *findUnusedPage();

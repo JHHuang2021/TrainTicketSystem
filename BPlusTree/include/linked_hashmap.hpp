@@ -31,6 +31,7 @@ class linked_hashmap {
 
    private:
     int cur_mod = 0;
+    //to be modified for a more suitable number
     const int MOD[6] = {61, 911, 6907, 51787, 163729, 999983};
     const double half_factor = 0.3;
     const double double_factor = 1.3;

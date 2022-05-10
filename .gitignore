@@ -1,0 +1,8 @@
+cmake_install.cmake
+CMakeCache.txt
+code
+CMakeFiles
+Makefile
+test_disk_manager
+test.in
+test.out

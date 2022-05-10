@@ -14,6 +14,7 @@ namespace huang {
  * count, dirty flag, page id, etc.
  */
 class Page {
+    friend class BufferPoolManager;
     // There is book-keeping information inside the page that should only be
     // relevant to the buffer pool manager.
 
@@ -25,25 +26,21 @@ class Page {
     ~Page(){};
 
     /** @return the actual data contained within this page */
-    inline char *GetData() { return data_; }
+    char *GetData() { return data_; }
 
     /** @return the page id of this page */
-    inline page_id_t GetPageId() { return page_id_; }
+    page_id_t &GetPageId() { return page_id_; }
 
     /** @return the pin count of this page */
-    inline int GetPinCount() { return pin_count_; }
+    int GetPinCount() { return pin_count_; }
 
     /** @return true if the page in memory has been modified from the page on
      * disk, false otherwise */
-    inline bool IsDirty() { return is_dirty_; }
-
-   protected:
-    static constexpr size_t SIZE_PAGE_HEADER = 8;
-    static constexpr size_t OFFSET_PAGE_START = 0;
+    bool IsDirty() { return is_dirty_; }
 
    private:
     /** Zeroes out the data that is held within the page. */
-    inline void ResetMemory() { memset(data_, OFFSET_PAGE_START, PAGE_SIZE); }
+    inline void ResetMemory() { memset(data_, 0, PAGE_SIZE); }
 
     /** The actual data that is stored within a page. */
     char data_[PAGE_SIZE]{};

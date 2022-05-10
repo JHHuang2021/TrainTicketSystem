@@ -1,0 +1,138 @@
+
+#pragma once
+
+#include <iostream>
+
+#include "buffer_pool_manager.h"
+
+namespace huang {
+
+#define INDEX_TEMPLATE_ARGUMENTS template <typename KeyType, typename ValueType>
+
+class HeaderPage {
+   private:
+    page_id_t root;
+
+   public:
+    void ModifyRoot(const page_id_t &root_id) { root = root_id; };
+
+    page_id_t GetRootId() { return root; };
+};
+
+// define page type enum
+enum IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
+
+#define B_PLUS_TREE_SIZE 10
+#define B_PLUS_TREE_MAX_SIZE 9
+#define B_PLUS_TREE_MIN_SIZE 4
+
+class BPlusTreePage {
+   public:
+    BPlusTreePage();
+    bool IsLeafPage() const { return page_type_ == LEAF_PAGE; };
+    bool IsRootPage() const { return page_type_ == INTERNAL_PAGE; };
+    virtual void Split(BPlusTreePage *new_page){};
+    virtual void Merge(BPlusTreePage *rhs_page){};
+    virtual void MoveRhsFirst(BPlusTreePage *parent_page,
+                              BPlusTreePage *rhs_page,
+                              int neighbor_node_index){};
+    virtual void MoveLhsLast(BPlusTreePage *parent_page,
+                             BPlusTreePage *rhs_page,
+                             int neighbor_node_index){};
+
+    IndexPageType page_type_ = INVALID_INDEX_PAGE;
+    int size_;
+    page_id_t parent_page_id_ = -1;
+    page_id_t page_id_ = -1;
+    page_id_t nxt = -1, lst = -1;
+};
+
+template <class KeyType>
+class BPlusTreeInternalPage : public BPlusTreePage {
+   public:
+    std::pair<KeyType, page_id_t> data_[B_PLUS_TREE_SIZE];
+    void Split(BPlusTreePage *new_page) {
+        BPlusTreeInternalPage *int_new_page = new_page;
+        new_page->page_type_ = this->page_type_;
+        new_page->parent_page_id_ = this->parent_page_id_;
+        new_page->size_ = this->size_ / 2;
+        this->size_ -= new_page->size_;
+
+        this->nxt = new_page->page_id_;
+        new_page->lst = this->page_id_;
+
+        for (int i = this->size_ + 1; i <= this->size_ + new_page->size_; i++)
+            int_new_page->data_[i - this->size_ - 1] = this->data_[i];
+    };
+    void Merge(BPlusTreePage *rhs_page) {
+        BPlusTreeInternalPage *internal_page = rhs_page;
+        for (int i = size_; i < size_ + rhs_page->size_; i++)
+            data_[i] = internal_page->data_[i - size_];
+
+        this->nxt = rhs_page->nxt;
+    };
+    void MoveRhsFirst(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
+                      int neighbor_node_index) {
+        BPlusTreeInternalPage *p = parent_page, *r = rhs_page;
+        this->data_[this->size_++] = r->data_[0];
+        p->data_[neighbor_node_index - 1].first = r->data_[1].first;
+        for (int i = 1; i < r->size_; i++) r->data_[i - 1] = r->data_[i];
+        r->size_--;
+    };
+    void MoveLhsLast(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
+                     int neighbor_node_index) {
+        BPlusTreeInternalPage *p = parent_page, *r = rhs_page;
+        for (int i = 0; i < r->size_; i++) r->data_[i + 1] = r->data_[i];
+        r->size_++;
+        r->data_[0] = this->data_[this->size_ - 1];
+        p->data_[neighbor_node_index - 1].first =
+            this->data_[--this->size_].first;
+    };
+};
+
+template <class KeyType, class ValueType>
+class BPlusTreeLeafPage : public BPlusTreePage {
+   public:
+    std::pair<KeyType, ValueType> data_[B_PLUS_TREE_SIZE];
+    void Split(BPlusTreePage *new_page) {
+        BPlusTreeLeafPage *int_new_page = new_page;
+        new_page->page_type_ = this->page_type_;
+        new_page->parent_page_id_ = this->parent_page_id_;
+        new_page->size_ = this->size_ / 2;
+        this->size_ -= new_page->size_;
+
+        this->nxt = new_page->page_id_;
+        new_page->lst = this->page_id_;
+
+        for (int i = this->size_ + 1; i <= this->size_ + new_page->size_; i++)
+            int_new_page->data_[i - this->size_ - 1] = this->data_[i];
+    };
+    void Merge(BPlusTreePage *rhs_page) {
+        BPlusTreeLeafPage *internal_page = rhs_page;
+        for (int i = size_; i < size_ + rhs_page->size_; i++)
+            data_[i] = internal_page->data_[i - size_];
+
+        this->nxt = rhs_page->nxt;
+    };
+    void MoveRhsFirst(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
+                      int neighbor_node_index) {
+        BPlusTreeInternalPage<KeyType> *p = parent_page;
+        BPlusTreeLeafPage *r = rhs_page;
+        this->data_[this->size_++] = r->data_[0];
+        p->data_[neighbor_node_index - 1].first = r->data_[1].first;
+        for (int i = 1; i < r->size_; i++) r->data_[i - 1] = r->data_[i];
+        r->size_--;
+    };
+    void MoveLhsLast(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
+                     int neighbor_node_index) {
+        BPlusTreeInternalPage<KeyType> *p = parent_page;
+        BPlusTreeLeafPage *r = rhs_page;
+        for (int i = 0; i < r->size_; i++) r->data_[i + 1] = r->data_[i];
+        r->size_++;
+        r->data_[0] = this->data_[this->size_ - 1];
+        p->data_[neighbor_node_index - 1].first =
+            this->data_[--this->size_].first;
+    };
+};
+
+}  // namespace huang

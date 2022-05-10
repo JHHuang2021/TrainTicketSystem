@@ -9,8 +9,7 @@ DiskManager::DiskManager(const std::string &db_file) {
     if (!db_io_.is_open()) {
         db_io_.clear();
         // create a new file
-        db_io_.open(db_file,
-                    std::ios::binary | std::ios::trunc | std::ios::out);
+        db_io_.open(db_file, std::ios::out);
         db_io_.close();
         // reopen with original mode
         db_io_.open(db_file, std::ios::binary | std::ios::in | std::ios::out);
