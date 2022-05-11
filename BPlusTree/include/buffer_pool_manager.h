@@ -75,11 +75,12 @@ class BufferPoolManager {
     size_t pool_size_;  // number of pages in buffer pool
     Page *pages_;       // array of pages
     DiskManager *disk_manager_;
-    linked_hashmap<page_id_t, Page *> page_table_;  // to keep track of pages
-    std::list<Page *> free_;                        // to be modified
+    linked_hashmap<page_id_t, Page *> page_map_;
+    linked_hashmap<Page *,page_id_t> page_id_map_;
+    std::list<Page *> free_;      // to be modified
     Replacer<Page *> *replacer_;  // to find an unpinned page for replacement
     // std::mutex latch_;              // to protect shared data structure
 
-    Page *findUnusedPage();
+    Page *FindUnusedPage(const page_id_t &page_id);
 };
 }  // namespace huang

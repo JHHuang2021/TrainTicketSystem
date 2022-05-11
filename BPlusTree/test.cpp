@@ -27,6 +27,6 @@ int main() {
                 std::cout << "null" << std::endl;
         }
     }
-    bpt.Debug();
+    // bpt.Debug();
     return 0;
 }

@@ -16,7 +16,10 @@ class Replacer {
     Replacer(){};
     ~Replacer(){};
     void Insert(const T &value) {
-        holder.erase(holder.find(value));
+        try {
+            holder.erase(holder.find(value));
+        } catch (...) {
+        }
         holder[value] = 1;
         return;
     }
@@ -26,7 +29,7 @@ class Replacer {
         holder.erase(holder.begin());
         return true;
     };
-    bool Erase(const T &value) { holder.erase(holder.find(value)); }
+    void Erase(const T &value) { holder.erase(holder.find(value)); }
     size_t Size() { return holder.size(); }
 
    private:

@@ -28,9 +28,6 @@ class Page {
     /** @return the actual data contained within this page */
     char *GetData() { return data_; }
 
-    /** @return the page id of this page */
-    page_id_t &GetPageId() { return page_id_; }
-
     /** @return the pin count of this page */
     int GetPinCount() { return pin_count_; }
 
@@ -38,15 +35,19 @@ class Page {
      * disk, false otherwise */
     bool IsDirty() { return is_dirty_; }
 
+    void Clear() {
+        ResetMemory();
+        pin_count_=0;
+        is_dirty_=true;
+    }
+
    private:
     /** Zeroes out the data that is held within the page. */
     inline void ResetMemory() { memset(data_, 0, PAGE_SIZE); }
 
     /** The actual data that is stored within a page. */
     char data_[PAGE_SIZE]{};
-    /** The ID of this page. */
-    page_id_t page_id_ = INVALID_PAGE_ID;
-    /** The pin count of this page. */
+
     int pin_count_ = 0;
     /** True if the page is dirty, i.e. it is different from its corresponding
      * page on disk. */

@@ -52,6 +52,8 @@ class BPlusTree {
             reinterpret_cast<BPlusInternalPage *>(b_plus_tree_page);
         BPlusLeafPage *b_plus_leaf_page = nullptr;
 
+        auto de = b_plus_int_page->data_;
+
         while (!b_plus_tree_page->IsLeafPage()) {
             int i;
             for (i = 0; i < b_plus_tree_page->size_; i++)
@@ -62,7 +64,8 @@ class BPlusTree {
                             ->GetData());
                     break;
                 }
-            if (i == b_plus_tree_page->size_) {
+            if (i == b_plus_tree_page->size_ &&
+                !b_plus_tree_page->IsLeafPage()) {
                 b_plus_tree_page = reinterpret_cast<BPlusTreePage *>(
                     buffer_pool_manager_
                         ->FetchPage(b_plus_int_page->data_[i].second)
@@ -74,6 +77,8 @@ class BPlusTree {
 
         int i;
         b_plus_leaf_page = reinterpret_cast<BPlusLeafPage *>(b_plus_tree_page);
+        de = b_plus_leaf_page->data_;
+
         for (i = 0; i < b_plus_leaf_page->size_; i++)
             if (key == b_plus_leaf_page->data_[i].first) break;
         if (i == b_plus_leaf_page->size_) return false;
@@ -119,7 +124,8 @@ class BPlusTree {
                         reinterpret_cast<BPlusInternalPage *>(b_plus_tree_page);
                     break;
                 }
-            if (i == b_plus_tree_page->size_) {
+            if (i == b_plus_tree_page->size_ &&
+                !b_plus_tree_page->IsLeafPage()) {
                 b_plus_tree_page = reinterpret_cast<BPlusTreePage *>(
                     buffer_pool_manager_
                         ->FetchPage(b_plus_int_page->data_[i].second)
@@ -204,7 +210,8 @@ class BPlusTree {
                         reinterpret_cast<BPlusInternalPage *>(b_plus_tree_page);
                     break;
                 }
-            if (i == b_plus_tree_page->size_) {
+            if (i == b_plus_tree_page->size_ &&
+                !b_plus_tree_page->IsLeafPage()) {
                 b_plus_tree_page = reinterpret_cast<BPlusTreePage *>(
                     buffer_pool_manager_
                         ->FetchPage(b_plus_int_page->data_[i].second)
@@ -268,6 +275,15 @@ class BPlusTree {
         new_page->page_type_ = node->page_type_;
         new_page->page_id_ = new_page_id;
 
+        if (node->nxt != -1) {
+            BPlusTreePage *nxt_page = reinterpret_cast<BPlusTreePage *>(
+                buffer_pool_manager_->FetchPage(node->nxt)->GetData());
+            nxt_page->lst = new_page_id;
+        }
+        new_page->nxt = node->nxt;
+        node->nxt = new_page_id;
+        new_page->lst = node->page_id_;
+
         if (node->IsLeafPage()) {
             BPlusLeafPage *tmp_page = reinterpret_cast<BPlusLeafPage *>(node);
             tmp_page->PageSplit(new_page);
@@ -312,25 +328,25 @@ class BPlusTree {
         return new_page;
     };
 
-    void CoalesceOrRedistribute(BPlusTreePage *node) {
+    void CoalesceOrRedistribute(BPlusTreePage *&node) {
         BPlusInternalPage *parent_page = reinterpret_cast<BPlusInternalPage *>(
             buffer_pool_manager_->FetchPage(node->parent_page_id_)->GetData());
         // always insure that node < sibling_page
-        int index;
         BPlusTreePage *sibling_page = nullptr;
-        if (node->nxt != INVALID_INDEX_PAGE) {
-            index = node->nxt;
+        if (node->nxt != -1)
             sibling_page = reinterpret_cast<BPlusTreePage *>(
-                buffer_pool_manager_->FetchPage(index)->GetData());
-        } else {
-            index = node->page_id_;
+                buffer_pool_manager_->FetchPage(node->nxt)->GetData());
+        else {
             sibling_page = node;
             node = reinterpret_cast<BPlusTreePage *>(
                 buffer_pool_manager_->FetchPage(node->lst)->GetData());
         }
-        BPlusTreePage debug_sibling_page = *sibling_page, debug_node = *node,
-                      debug_parent = *parent_page;
-        if (sibling_page->size_ + parent_page->size_ > B_PLUS_TREE_MAX_SIZE)
+        int index;
+        for (index = 0; index < parent_page->size_; index++)
+            if (parent_page->data_[index].second == sibling_page->page_id_)
+                break;
+
+        if (sibling_page->size_ + node->size_ > B_PLUS_TREE_MAX_SIZE)
             Redistribute(sibling_page, node, parent_page, index);
         else
             Coalesce(sibling_page, node, parent_page, index);
@@ -338,18 +354,64 @@ class BPlusTree {
 
     void Coalesce(BPlusTreePage *neighbor_node, BPlusTreePage *node,
                   BPlusInternalPage *parent, int neighbor_node_index) {
-        node->Merge(neighbor_node);
-        for (int i = neighbor_node_index + 1; i < parent->size_; i++)
-            parent->data_[i - 1] = parent->data_[i];
+        if (neighbor_node->nxt != -1) {
+            BPlusTreePage *nxt_page = reinterpret_cast<BPlusTreePage *>(
+                buffer_pool_manager_->FetchPage(neighbor_node->nxt)->GetData());
+            nxt_page->lst = node->page_id_;
+        }
+        node->nxt = neighbor_node->nxt;
+        
+        if (node->IsLeafPage()) {
+            BPlusLeafPage *leaf_page = reinterpret_cast<BPlusLeafPage *>(node);
+            leaf_page->Merge(neighbor_node);
+        } else {
+            BPlusInternalPage *int_page =
+                reinterpret_cast<BPlusInternalPage *>(node);
+            int_page->Merge(neighbor_node);
+        }
+        for (int i = neighbor_node_index; i <= parent->size_; i++)
+            parent->data_[i] = parent->data_[i + 1];
+        KeyType *new_key = nullptr;
+        BPlusTreePage *tmp_page = reinterpret_cast<BPlusTreePage *>(
+            buffer_pool_manager_
+                ->FetchPage(parent->data_[neighbor_node_index].second)
+                ->GetData());
+        if (tmp_page->IsLeafPage()) {
+            BPlusLeafPage *leaf_page =
+                reinterpret_cast<BPlusLeafPage *>(tmp_page);
+            new_key = &leaf_page->data_[0].first;
+        } else {
+            BPlusInternalPage *int_page =
+                reinterpret_cast<BPlusInternalPage *>(tmp_page);
+            new_key = &int_page->data_[0].first;
+        }
+        parent->data_[neighbor_node_index - 1].first = *new_key;
+
         parent->size_--;
     };
 
     void Redistribute(BPlusTreePage *neighbor_node, BPlusTreePage *node,
                       BPlusInternalPage *parent, int neighbor_node_index) {
         if (node->size_ < B_PLUS_TREE_MAX_SIZE)
-            node->MoveRhsFirst(parent, neighbor_node, neighbor_node_index);
-        else
-            node->MoveLhsLast(parent, neighbor_node, neighbor_node_index);
+            if (node->IsLeafPage()) {
+                BPlusLeafPage *leaf_page =
+                    reinterpret_cast<BPlusLeafPage *>(node);
+                leaf_page->MoveRhsFirst(parent, neighbor_node,
+                                        neighbor_node_index);
+            } else {
+                BPlusInternalPage *int_page =
+                    reinterpret_cast<BPlusInternalPage *>(node);
+                int_page->MoveRhsFirst(parent, neighbor_node,
+                                       neighbor_node_index);
+            }
+        else if (node->IsLeafPage()) {
+            BPlusLeafPage *leaf_page = reinterpret_cast<BPlusLeafPage *>(node);
+            leaf_page->MoveLhsLast(parent, neighbor_node, neighbor_node_index);
+        } else {
+            BPlusInternalPage *int_page =
+                reinterpret_cast<BPlusInternalPage *>(node);
+            int_page->MoveLhsLast(parent, neighbor_node, neighbor_node_index);
+        }
     };
 
     // member variable
