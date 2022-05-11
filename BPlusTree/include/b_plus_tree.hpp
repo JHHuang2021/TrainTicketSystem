@@ -27,7 +27,17 @@ class BPlusTree {
 
    public:
     explicit BPlusTree(std::string name, BufferPoolManager *buffer_pool_manager)
-        : index_name_(name), buffer_pool_manager_(buffer_pool_manager){};
+        : index_name_(name), buffer_pool_manager_(buffer_pool_manager) {
+        HeaderPage *header_page = reinterpret_cast<HeaderPage *>(
+            buffer_pool_manager_->FetchPage(0)->GetData());
+        size_ = header_page->size;
+    };
+
+    ~BPlusTree() {
+        HeaderPage *header_page = reinterpret_cast<HeaderPage *>(
+            buffer_pool_manager_->FetchPage(0)->GetData());
+        header_page->size = size_;
+    }
 
     // Returns true if this B+ tree has no keys and values.
     bool IsEmpty() const { return !size_; };
@@ -360,7 +370,7 @@ class BPlusTree {
             nxt_page->lst = node->page_id_;
         }
         node->nxt = neighbor_node->nxt;
-        
+
         if (node->IsLeafPage()) {
             BPlusLeafPage *leaf_page = reinterpret_cast<BPlusLeafPage *>(node);
             leaf_page->Merge(neighbor_node);

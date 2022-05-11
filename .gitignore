@@ -9,3 +9,11 @@ test.out
 .vscode
 gen.py
 test.py
+std
+std.cpp
+test3.in
+test2.in
+test1.in
+test0.in
+stdin.in
+std.out

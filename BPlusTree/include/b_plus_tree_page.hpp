@@ -10,10 +10,11 @@ namespace huang {
 #define INDEX_TEMPLATE_ARGUMENTS template <typename KeyType, typename ValueType>
 
 class HeaderPage {
-   private:
-    page_id_t root;
 
    public:
+    page_id_t root;
+    int size;
+
     void ModifyRoot(const page_id_t &root_id) { root = root_id; };
 
     page_id_t GetRootId() { return root; };
