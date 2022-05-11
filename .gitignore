@@ -6,3 +6,6 @@ Makefile
 test_disk_manager
 test.in
 test.out
+.vscode
+gen.py
+test.py

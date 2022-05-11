@@ -22,26 +22,36 @@ class HeaderPage {
 // define page type enum
 enum IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
 
-#define B_PLUS_TREE_SIZE 10
+#define B_PLUS_TREE_SIZE 11
 #define B_PLUS_TREE_MAX_SIZE 9
 #define B_PLUS_TREE_MIN_SIZE 4
 
 class BPlusTreePage {
    public:
-    BPlusTreePage();
+    BPlusTreePage() {
+        page_type_ = INVALID_INDEX_PAGE;
+        is_root = false;
+        parent_page_id_ = -1;
+        page_id_ = -1;
+        nxt = -1, lst = -1;
+    };
     bool IsLeafPage() const { return page_type_ == LEAF_PAGE; };
-    bool IsRootPage() const { return page_type_ == INTERNAL_PAGE; };
-    virtual void Split(BPlusTreePage *new_page){};
-    virtual void Merge(BPlusTreePage *rhs_page){};
+    bool IsRootPage() const { return is_root; };
+    void PageSplit(BPlusTreePage *new_page) { return; };
+    virtual void Merge(BPlusTreePage *rhs_page) { return; };
     virtual void MoveRhsFirst(BPlusTreePage *parent_page,
                               BPlusTreePage *rhs_page,
-                              int neighbor_node_index){};
+                              int neighbor_node_index) {
+        return;
+    };
     virtual void MoveLhsLast(BPlusTreePage *parent_page,
-                             BPlusTreePage *rhs_page,
-                             int neighbor_node_index){};
+                             BPlusTreePage *rhs_page, int neighbor_node_index) {
+        return;
+    };
 
     IndexPageType page_type_ = INVALID_INDEX_PAGE;
     int size_;
+    bool is_root = false;
     page_id_t parent_page_id_ = -1;
     page_id_t page_id_ = -1;
     page_id_t nxt = -1, lst = -1;
@@ -51,8 +61,10 @@ template <class KeyType>
 class BPlusTreeInternalPage : public BPlusTreePage {
    public:
     std::pair<KeyType, page_id_t> data_[B_PLUS_TREE_SIZE];
-    void Split(BPlusTreePage *new_page) {
-        BPlusTreeInternalPage *int_new_page = new_page;
+
+    void PageSplit(BPlusTreePage *new_page) {
+        BPlusTreeInternalPage *int_new_page =
+            reinterpret_cast<BPlusTreeInternalPage *>(new_page);
         new_page->page_type_ = this->page_type_;
         new_page->parent_page_id_ = this->parent_page_id_;
         new_page->size_ = this->size_ / 2;
@@ -61,10 +73,10 @@ class BPlusTreeInternalPage : public BPlusTreePage {
         this->nxt = new_page->page_id_;
         new_page->lst = this->page_id_;
 
-        for (int i = this->size_ + 1; i <= this->size_ + new_page->size_; i++)
+        for (int i = this->size_; i < this->size_ + new_page->size_; i++)
             int_new_page->data_[i - this->size_ - 1] = this->data_[i];
     };
-    void Merge(BPlusTreePage *rhs_page) {
+    void Merge(BPlusTreePage *rhs_page) override {
         BPlusTreeInternalPage *internal_page = rhs_page;
         for (int i = size_; i < size_ + rhs_page->size_; i++)
             data_[i] = internal_page->data_[i - size_];
@@ -72,7 +84,7 @@ class BPlusTreeInternalPage : public BPlusTreePage {
         this->nxt = rhs_page->nxt;
     };
     void MoveRhsFirst(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
-                      int neighbor_node_index) {
+                      int neighbor_node_index) override {
         BPlusTreeInternalPage *p = parent_page, *r = rhs_page;
         this->data_[this->size_++] = r->data_[0];
         p->data_[neighbor_node_index - 1].first = r->data_[1].first;
@@ -80,7 +92,7 @@ class BPlusTreeInternalPage : public BPlusTreePage {
         r->size_--;
     };
     void MoveLhsLast(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
-                     int neighbor_node_index) {
+                     int neighbor_node_index) override {
         BPlusTreeInternalPage *p = parent_page, *r = rhs_page;
         for (int i = 0; i < r->size_; i++) r->data_[i + 1] = r->data_[i];
         r->size_++;
@@ -94,8 +106,10 @@ template <class KeyType, class ValueType>
 class BPlusTreeLeafPage : public BPlusTreePage {
    public:
     std::pair<KeyType, ValueType> data_[B_PLUS_TREE_SIZE];
-    void Split(BPlusTreePage *new_page) {
-        BPlusTreeLeafPage *int_new_page = new_page;
+
+    void PageSplit(BPlusTreePage *new_page) {
+        BPlusTreeLeafPage *int_new_page =
+            reinterpret_cast<BPlusTreeLeafPage *>(new_page);
         new_page->page_type_ = this->page_type_;
         new_page->parent_page_id_ = this->parent_page_id_;
         new_page->size_ = this->size_ / 2;
@@ -103,11 +117,12 @@ class BPlusTreeLeafPage : public BPlusTreePage {
 
         this->nxt = new_page->page_id_;
         new_page->lst = this->page_id_;
+        new_page->nxt=-1;
 
-        for (int i = this->size_ + 1; i <= this->size_ + new_page->size_; i++)
-            int_new_page->data_[i - this->size_ - 1] = this->data_[i];
+        for (int i = this->size_; i < this->size_ + new_page->size_; i++)
+            int_new_page->data_[i - this->size_] = this->data_[i];
     };
-    void Merge(BPlusTreePage *rhs_page) {
+    void Merge(BPlusTreePage *rhs_page) override {
         BPlusTreeLeafPage *internal_page = rhs_page;
         for (int i = size_; i < size_ + rhs_page->size_; i++)
             data_[i] = internal_page->data_[i - size_];
@@ -115,7 +130,7 @@ class BPlusTreeLeafPage : public BPlusTreePage {
         this->nxt = rhs_page->nxt;
     };
     void MoveRhsFirst(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
-                      int neighbor_node_index) {
+                      int neighbor_node_index) override {
         BPlusTreeInternalPage<KeyType> *p = parent_page;
         BPlusTreeLeafPage *r = rhs_page;
         this->data_[this->size_++] = r->data_[0];
@@ -124,7 +139,7 @@ class BPlusTreeLeafPage : public BPlusTreePage {
         r->size_--;
     };
     void MoveLhsLast(BPlusTreePage *parent_page, BPlusTreePage *rhs_page,
-                     int neighbor_node_index) {
+                     int neighbor_node_index) override {
         BPlusTreeInternalPage<KeyType> *p = parent_page;
         BPlusTreeLeafPage *r = rhs_page;
         for (int i = 0; i < r->size_; i++) r->data_[i + 1] = r->data_[i];
