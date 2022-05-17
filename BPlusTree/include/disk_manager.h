@@ -47,8 +47,10 @@ class DiskManager {
     // stream to write db file
     std::fstream db_io_;
     std::string file_name_;
+
+   public:
     page_id_t next_page_id_;
-    //atomic
+    // atomic
 };
 
 }  // namespace huang

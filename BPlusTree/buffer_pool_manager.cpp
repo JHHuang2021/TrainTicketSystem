@@ -62,6 +62,7 @@ Page *BufferPoolManager::FindUnusedPage(const page_id_t &page_id) {
     } else {
         if (!replacer_->Victim(page)) return nullptr;
         page_id_t old_page_id = page_id_map_[page];
+        page_map_[old_page_id] = page;
         FlushPage(old_page_id);
         page_map_.erase(page_map_.find(old_page_id));
         page_id_map_.erase(page_id_map_.find(page));

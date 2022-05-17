@@ -2,13 +2,16 @@
 huang::DiskManager dm("test_disk_manager");
 huang::Replacer<huang::Page*> rep;
 huang::BufferPoolManager bpm(512, &dm, &rep);
-huang::BPlusTree<int, int> bpt("string", &bpm);
+huang::BPlusTree<int, int> bpt(&bpm);
 int main() {
-    // freopen("test1.in", "r", stdin);
+    freopen("test0.in", "r", stdin);
     freopen("test.out", "w", stdout);
     int n;
     std::cin >> n;
     for (int i = 1; i <= n; i++) {
+        // std::cout << "Case :" << i << std::endl;
+        // bpt.Debug();
+        // std::cout << std::endl;
         std::string op;
         int key, value;
         std::cin >> op;

@@ -1,11 +1,11 @@
 #pragma once
 
 #include <list>
+#include <unordered_map>
 // #include <mutex>  // NOLINT
 
 #include "config.h"
 #include "disk_manager.h"
-#include "linked_hashmap.hpp"
 #include "lru_replacer.hpp"
 #include "page.h"
 
@@ -70,13 +70,14 @@ class BufferPoolManager {
      * Flushes all the pages in the buffer pool to disk.
      */
     void FlushAllPage();
+    
+    DiskManager *disk_manager_;
 
    private:
     size_t pool_size_;  // number of pages in buffer pool
     Page *pages_;       // array of pages
-    DiskManager *disk_manager_;
     linked_hashmap<page_id_t, Page *> page_map_;
-    linked_hashmap<Page *,page_id_t> page_id_map_;
+    linked_hashmap<Page *, page_id_t> page_id_map_;
     std::list<Page *> free_;      // to be modified
     Replacer<Page *> *replacer_;  // to find an unpinned page for replacement
     // std::mutex latch_;              // to protect shared data structure
