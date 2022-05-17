@@ -223,58 +223,105 @@ class BPlusTree {
         if (page->is_root_) return;
 
         FixPage(page);
+        UpdateRoot(page);
+        // page = reinterpret_cast<BPlusLeafPage *>(
+        //     buffer_pool_manager_->FetchPage(page->page_id_));
 
         while (!page->is_root_) {
             page = reinterpret_cast<BPlusInternalPage *>(
                 buffer_pool_manager_->FetchPage(page->parent_page_id_)
                     ->GetData());
             FixPage(page);
+            UpdateRoot(page);
         }
     }
 
     template <class N>
-    void FixPage(BPlusTreePage<KeyType, N> *page) {
+    void FixPage(BPlusTreePage<KeyType, N> *&page) {
         if (page->size_ >= B_PLUS_TREE_MIN_SIZE) return;
-        GetSiblingAns<N> silbling = FetchSibling(page);
-        if (silbling.page == nullptr) return;
-        if (silbling.ifavail) {
-            if (silbling.pos == LEFT) {
-                for (int i = page->size_ - 1; i >= 0; i--)
-                    page->data_[i + 1] = page->data_[i];
-                page->data_[0] = silbling.page->data_[silbling.page->size_ - 1];
-                page->size_++;
-                silbling.page->size_--;
-                BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
-                    buffer_pool_manager_->FetchPage(page->parent_page_id_)
-                        ->GetData());
-                int i;
-                for (i = 0; i <= p->size_; i++)
-                    if (p->data_[i].second == silbling.page->page_id_) break;
-                p->data_[i].first = page->data_[0].first;
+        GetSiblingAns<N> sibling = FetchSibling(page);
+        if (sibling.page == nullptr) return;
+        if (sibling.ifavail) {
+            if (sibling.pos == LEFT) {
+                if (page->IsLeafPage()) {
+                    for (int i = page->size_ - 1; i >= 0; i--)
+                        page->data_[i + 1] = page->data_[i];
+                    page->data_[0] =
+                        sibling.page->data_[sibling.page->size_ - 1];
+                    page->size_++;
+                    sibling.page->size_--;
+                    BPlusInternalPage *p =
+                        reinterpret_cast<BPlusInternalPage *>(
+                            buffer_pool_manager_
+                                ->FetchPage(page->parent_page_id_)
+                                ->GetData());
+                    int i;
+                    for (i = 0; i <= p->size_; i++)
+                        if (p->data_[i].second == sibling.page->page_id_) break;
+                    p->data_[i].first = page->data_[0].first;
+                } else {
+                    for (int i = page->size_; i >= 0; i--)
+                        page->data_[i + 1] = page->data_[i];
+                    page->data_[0] = sibling.page->data_[sibling.page->size_];
+                    page->size_++;
+                    sibling.page->size_--;
+                    BPlusInternalPage *p =
+                        reinterpret_cast<BPlusInternalPage *>(
+                            buffer_pool_manager_
+                                ->FetchPage(page->parent_page_id_)
+                                ->GetData());
+                    int i;
+                    for (i = 0; i <= p->size_; i++)
+                        if (p->data_[i].second == sibling.page->page_id_) break;
+                    page->data_[0].first = p->data_[i].first;
+                    p->data_[i].first =
+                        sibling.page->data_[sibling.page->size_].first;
+                }
             } else {
-                page->data_[page->size_] = silbling.page->data_[0];
-                for (int i = 1; i < silbling.page->size_; i++)
-                    silbling.page->data_[i - 1] = silbling.page->data_[i];
-                page->size_++;
-                silbling.page->size_--;
-                BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
-                    buffer_pool_manager_->FetchPage(page->parent_page_id_)
-                        ->GetData());
-                int i;
-                for (i = 0; i <= p->size_; i++)
-                    if (p->data_[i].second == silbling.page->page_id_) break;
-                p->data_[i - 1].first = silbling.page->data_[0].first;
+                if (page->IsLeafPage()) {
+                    page->data_[page->size_] = sibling.page->data_[0];
+                    for (int i = 1; i < sibling.page->size_; i++)
+                        sibling.page->data_[i - 1] = sibling.page->data_[i];
+                    page->size_++;
+                    sibling.page->size_--;
+                    BPlusInternalPage *p =
+                        reinterpret_cast<BPlusInternalPage *>(
+                            buffer_pool_manager_
+                                ->FetchPage(page->parent_page_id_)
+                                ->GetData());
+                    int i;
+                    for (i = 0; i <= p->size_; i++)
+                        if (p->data_[i].second == sibling.page->page_id_) break;
+                    p->data_[i - 1].first = sibling.page->data_[0].first;
+                } else {
+                    BPlusInternalPage *p =
+                        reinterpret_cast<BPlusInternalPage *>(
+                            buffer_pool_manager_
+                                ->FetchPage(page->parent_page_id_)
+                                ->GetData());
+                    int i;
+                    for (i = 0; i <= p->size_; i++)
+                        if (p->data_[i].second == page->page_id_) break;
+                    page->data_[page->size_].first = p->data_[i].first;
+                    page->data_[++page->size_] = sibling.page->data_[0];
+                    p->data_[i].first = sibling.page->data_[0].first;
+
+                    for (int i = 1; i <= sibling.page->size_; i++)
+                        sibling.page->data_[i - 1] = sibling.page->data_[i];
+                    sibling.page->size_--;
+                    // p->data_[i - 1].first = sibling.page->data_[0].first;
+                }
             }
         } else {
-            if (silbling.pos == LEFT) {
-                auto tmp = silbling.page;
-                silbling.page = page;
+            if (sibling.pos == LEFT) {
+                auto tmp = sibling.page;
+                sibling.page = page;
                 page = tmp;
             }
             if (page->IsLeafPage()) {
-                for (int i = 0; i < silbling.page->size_; i++)
-                    page->data_[i + page->size_] = silbling.page->data_[i];
-                page->size_ += silbling.page->size_;
+                for (int i = 0; i < sibling.page->size_; i++)
+                    page->data_[i + page->size_] = sibling.page->data_[i];
+                page->size_ += sibling.page->size_;
                 BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
                     buffer_pool_manager_->FetchPage(page->parent_page_id_)
                         ->GetData());
@@ -285,6 +332,7 @@ class BPlusTree {
                 for (int j = i + 1; j <= p->size_; j++)
                     p->data_[j - 1] = p->data_[j];
                 p->size_--;
+
             } else {
                 BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
                     buffer_pool_manager_->FetchPage(page->parent_page_id_)
@@ -294,13 +342,14 @@ class BPlusTree {
                     if (p->data_[i].second == page->page_id_) break;
                 page->data_[page->size_++].first = p->data_[i].first;
 
-                for (int j = i + 1; j < p->size_; j++)
+                for (int j = i; j < p->size_; j++)
                     p->data_[j] = p->data_[j + 1];
+                p->data_[i].second = page->page_id_;
                 p->size_--;
 
-                for (int i = 0; i <= silbling.page->size_; i++)
-                    page->data_[i + page->size_] = silbling.page->data_[i];
-                page->size_ += silbling.page->size_;
+                for (int i = 0; i <= sibling.page->size_; i++)
+                    page->data_[i + page->size_] = sibling.page->data_[i];
+                page->size_ += sibling.page->size_;
 
                 if (p->size_ == 0 && p->is_root_) {
                     p->is_root_ = false;
@@ -411,7 +460,11 @@ class BPlusTree {
             BPlusInternalPage *pg = reinterpret_cast<BPlusInternalPage *>(
                 buffer_pool_manager_->FetchPage(page->data_[i].second)
                     ->GetData());
-            pg->parent_page_id_ = page->page_id_;
+            if (pg->IsLeafPage()) {
+                BPlusLeafPage *i = reinterpret_cast<BPlusLeafPage *>(pg);
+                i->parent_page_id_ = page->page_id_;
+            } else
+                pg->parent_page_id_ = page->page_id_;
         }
     }
     void UpdateRootId(page_id_t root_id) {
