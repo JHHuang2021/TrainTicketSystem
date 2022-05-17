@@ -131,7 +131,24 @@ class BPlusTree {
 
     // return the value between two keys
     void GetValue(const KeyType &first_key, const KeyType &last_key,
-                  std::vector<ValueType> *result){};
+                  std::vector<ValueType> *result) {
+        BPlusLeafPage *st = FindPos(first_key), *ed = FindPos(last_key),
+                      *nxt = st;
+        for (int ind = st->page_id_; ind != ed->page_id_;) {
+            int i;
+            for (i = 0; i < nxt->size_; i++)
+                if (first_key <= nxt->data_[i]) break;
+            for (int j = i; j < nxt->size_; j++) result->insert(nxt->data_[j]);
+            *nxt = reinterpret_cast<BPlusLeafPage *>(
+                buffer_pool_manager_->FetchPage(nxt->nxt)->GetData());
+            ind = nxt->page_id_;
+        }
+        int i;
+        for (i = 0; i < nxt->size_; i++)
+            if (first_key <= nxt->data_[i]) break;
+        for (int j = i; j < nxt->size_ && nxt->data_[j] <= last_key; j++)
+            result->insert(nxt->data_[j]);
+    };
 
    private:
     HeaderPage *FetchHead() {
