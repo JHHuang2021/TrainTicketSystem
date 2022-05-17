@@ -223,7 +223,6 @@ class BPlusTree {
         if (page->is_root_) return;
 
         FixPage(page);
-        UpdateRoot(page);
         // page = reinterpret_cast<BPlusLeafPage *>(
         //     buffer_pool_manager_->FetchPage(page->page_id_));
 
@@ -232,7 +231,7 @@ class BPlusTree {
                 buffer_pool_manager_->FetchPage(page->parent_page_id_)
                     ->GetData());
             FixPage(page);
-            UpdateRoot(page);
+            // UpdateRoot(page);
         }
     }
 
@@ -360,6 +359,7 @@ class BPlusTree {
                 }
             }
         }
+        UpdateRoot(page);
     }
 
     void StartNewTree(const KeyType &key, const ValueType &value) {
@@ -456,6 +456,7 @@ class BPlusTree {
     }
 
     void UpdateRoot(BPlusInternalPage *page) {
+        if (page->IsLeafPage()) return;
         for (int i = 0; i <= page->size_; i++) {
             BPlusInternalPage *pg = reinterpret_cast<BPlusInternalPage *>(
                 buffer_pool_manager_->FetchPage(page->data_[i].second)
