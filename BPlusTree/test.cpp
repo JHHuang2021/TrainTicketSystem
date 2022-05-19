@@ -8,7 +8,7 @@ struct node {
         this->value = value;
     }
     bool operator==(const node& rhs) const {
-        if (strcmp(key, rhs.key) != 0)
+        if (strcmp(key, rhs.key) != 0 || value != rhs.value)
             return false;
         else
             return true;
