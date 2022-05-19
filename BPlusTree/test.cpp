@@ -33,8 +33,8 @@ huang::Replacer<huang::Page*> rep;
 huang::BufferPoolManager bpm(512, &dm, &rep);
 huang::BPlusTree<node, int> bpt(&bpm);
 int main() {
-    freopen("test0.in", "r", stdin);
-    freopen("test.out", "w", stdout);
+    // freopen("test0.in", "r", stdin);
+    // freopen("test.out", "w", stdout);
     int n;
     char ch[64];
     std::cin >> n;
