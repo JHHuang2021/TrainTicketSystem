@@ -19,9 +19,9 @@ class HeaderPage {
 // define page type enum
 enum IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
 
-#define B_PLUS_TREE_SIZE 30
-#define B_PLUS_TREE_MAX_SIZE 25
-#define B_PLUS_TREE_MIN_SIZE 10
+#define B_PLUS_TREE_SIZE 500
+#define B_PLUS_TREE_MAX_SIZE 450
+#define B_PLUS_TREE_MIN_SIZE 200
 template <class KeyType, class ValueType>
 class BPlusTreePage {
    public:
