@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "buffer_pool_manager.h"
+#include "config.h"
 
 namespace huang {
 
@@ -19,10 +20,10 @@ class HeaderPage {
 // define page type enum
 enum IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
 
-#define B_PLUS_TREE_SIZE 500
+#define B_PLUS_TREE_LEAF_SIZE PAGE_SIZE
 #define B_PLUS_TREE_MAX_SIZE 450
 #define B_PLUS_TREE_MIN_SIZE 200
-template <class KeyType, class ValueType>
+template <class KeyType, class ValueType, int Size = 500>
 class BPlusTreePage {
    public:
     BPlusTreePage() {
@@ -49,7 +50,13 @@ class BPlusTreePage {
         data_[i] = {key, value};
         size_++;
     }
-    std::pair<KeyType, ValueType> data_[B_PLUS_TREE_SIZE];
+    static const int size =
+        (PAGE_SIZE - sizeof(IndexPageType) - sizeof(size_t) - sizeof(bool) -
+         3 * sizeof(page_id_t)) /
+        sizeof(std::pair<KeyType, ValueType>);
+    static const int max_size = size - 1;
+    static const int min_size = size / 2;
+    std::pair<KeyType, ValueType> data_[size];
 
     IndexPageType page_type_ = INVALID_INDEX_PAGE;
     size_t size_;

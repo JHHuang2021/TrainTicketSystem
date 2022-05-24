@@ -191,14 +191,14 @@ class BPlusTree {
                 buffer_pool_manager_->FetchPage(p->data_[i - 1].second)
                     ->GetData());
             ret = {sibling, true, LEFT};
-            if (sibling->size_ >= B_PLUS_TREE_MIN_SIZE + 1) return ret;
+            if (sibling->size_ >= sibling->min_size + 1) return ret;
         }
         if (i < p->size_) {
             sibling = reinterpret_cast<BPlusTreePage<KeyType, N> *>(
                 buffer_pool_manager_->FetchPage(p->data_[i + 1].second)
                     ->GetData());
             ret = {sibling, true, RIGHT};
-            if (sibling->size_ >= B_PLUS_TREE_MIN_SIZE + 1) return ret;
+            if (sibling->size_ >= sibling->min_size + 1) return ret;
         }
         ret.ifavail = false;
         return ret;
@@ -254,7 +254,7 @@ class BPlusTree {
 
     template <class N>
     void FixPage(BPlusTreePage<KeyType, N> *&page) {
-        if (page->size_ >= B_PLUS_TREE_MIN_SIZE) return;
+        if (page->size_ >= page->min_size) return;
         GetSiblingAns<N> sibling = FetchSibling(page);
         if (sibling.page == nullptr) return;
         if (sibling.ifavail) {
@@ -396,7 +396,7 @@ class BPlusTree {
     void InsertIntoLeaf(const KeyType &key, const ValueType &value) {
         BPlusLeafPage *insert_leaf = FindPos(key);
         insert_leaf->Insert(key, value);
-        if (insert_leaf->size_ > B_PLUS_TREE_MAX_SIZE) Split(insert_leaf);
+        if (insert_leaf->size_ > insert_leaf->max_size) Split(insert_leaf);
     }
 
     void InsertIntoInt(const page_id_t &parent_page_id, const KeyType &key,
@@ -416,7 +416,7 @@ class BPlusTree {
 
     template <class N>
     void Split(BPlusTreePage<KeyType, N> *page) {
-        if (page->size_ <= B_PLUS_TREE_MAX_SIZE) return;
+        if (page->size_ <= page->max_size) return;
         page_id_t new_page_id;
         BPlusTreePage<KeyType, N> *new_page =
             reinterpret_cast<BPlusTreePage<KeyType, N> *>(
