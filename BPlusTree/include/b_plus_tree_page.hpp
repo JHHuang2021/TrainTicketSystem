@@ -49,15 +49,15 @@ class BPlusTreePage {
     }
     static const int size =
         (PAGE_SIZE - sizeof(IndexPageType) - sizeof(size_t) - sizeof(bool) -
-         3 * sizeof(page_id_t)) /
+         6 * sizeof(page_id_t)) /
             sizeof(std::pair<KeyType, ValueType>) -
         1;
     static const int max_size = size - 1;
-    static const int min_size = size / 2;
+    static const int min_size = size / 2 - 1;
     std::pair<KeyType, ValueType> data_[size];
 
     IndexPageType page_type_ = INVALID_INDEX_PAGE;
-    size_t size_;
+    size_t size_ = 0;
     bool is_root_ = false;
     page_id_t parent_page_id_ = -1;
     page_id_t page_id_ = -1;
