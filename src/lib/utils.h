@@ -6,6 +6,30 @@
 namespace lin {
 
 /**
+ * @brief Sort the elements of a sequence using a predicate for comparison.
+ * @param first An iterator.
+ * @param last Another iterator.
+ * @param cmp A comparison functor.
+ * @return Nothing.
+ * Sorts the elements in the range @p [first, last) in ascending order,
+ * such that @p cmp(*(i+1),*i) is false for every iterator @e i in the range @p [first,last-1).
+ * The relative ordering of equivalent elements is not preserved.
+ */
+template<class Iter, class Compare = std::less<typename Iter::value_type>>
+void Sort(Iter first, Iter last, Compare cmp) {
+  auto i = first, j = last - 1;
+  if (i >= j) return;
+  auto key = *(i + rand() % (j - i + 1));
+  while (i <= j) {
+    while (i <= j && cmp(key, *j)) j--;
+    while (i <= j && cmp(*i, key)) i++;
+    if (i <= j) std::swap(*(i++), *(j--));
+  }
+  Sort(first, j + 1, cmp);
+  Sort(i, last, cmp);
+}
+
+/**
  * 使用 operator+ 合并多个字符串时，可能引起内存的反复移动。
  * 一种解决方法是，合并前先在 string 里预留空间（reserve），
  * 之后把每个字符串都附加到 string 之后（operator+=）。
