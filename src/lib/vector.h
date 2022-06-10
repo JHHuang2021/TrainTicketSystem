@@ -65,6 +65,7 @@ class vector {
       return *this;
     }
     T &operator*() const { return *ptr_; }
+    T *operator->() const { return ptr_; }
     bool operator==(const iterator &rhs) const { return ptr_ == rhs.ptr_; }
     bool operator==(const const_iterator &rhs) const { return ptr_ == rhs.ptr_; }
 
@@ -124,6 +125,7 @@ class vector {
       return *this;
     }
     const T &operator*() const { return *ptr_; }
+    const T *operator->() const { return ptr_; }
     bool operator==(const iterator &rhs) const { return ptr_ == rhs.ptr_; }
     bool operator==(const const_iterator &rhs) const { return ptr_ == rhs.ptr_; }
     bool operator!=(const iterator &rhs) const { return !operator==(rhs); }
@@ -325,4 +327,4 @@ class vector {
     finish_->~T();
   }
 };
-}
+}  // namespace lin
