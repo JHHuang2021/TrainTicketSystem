@@ -12,6 +12,7 @@ class DateTime;
 class Duration {
  private:
   friend Time;
+  friend Date;
   friend DateTime;
   int minutes_;
 
@@ -22,7 +23,22 @@ class Duration {
   friend auto operator<=>(const Duration &, const Duration &) = default;
 };
 /**
+ * @brief 表示日期之间相差了几天。
+ */
+class DateDelta {
+ private:
+  friend Time;
+  friend Date;
+  friend DateTime;
+  int minutes_;
+
+ public:
+  explicit DateDelta(int minutes) : minutes_(minutes) {}
+  friend auto operator<=>(const DateDelta &, const DateDelta &) = default;
+};
+/**
  * @brief 表示一天中的时间（几时几分）。
+ * 注意，为了实现方便，Time 表示的时间可能超过一天。
  */
 class Time {
  private:
@@ -32,7 +48,7 @@ class Time {
 
  public:
   Time() : minutes_(0) {}
-  explicit Time(int minutes) : minutes_(minutes) {}
+  constexpr explicit Time(int minutes) : minutes_(minutes) {}
   /**
    * @brief 从格式为「hh:mm」的字符串解析时间。
    */
@@ -45,7 +61,11 @@ class Time {
   Time operator+(Duration o) const;
   Time &operator+=(Duration o);
   Duration operator-(const Time &o) const;
+  std::pair<DateDelta, Time> GetDayTime() const;
+  friend auto operator<=>(const Time &, const Time &) = default;
 };
+constexpr const Time kOneDay(24 * 60);
+
 /**
  * @brief 表示一个日期（几月几日）。
  */
@@ -56,6 +76,7 @@ class Date {
 
  public:
   Date() : minutes_(0) {}
+  explicit Date(int minutes) : minutes_(minutes) {}
   /**
    * @brief 从格式为「MM-dd」的字符串解析日期。
    */
@@ -67,6 +88,8 @@ class Date {
   std::string ToString() const;
   DateTime operator+(Time o) const;
   DateTime &operator+=(Time o);
+  Date operator-(DateDelta o) const;
+  DateTime operator-(Duration o) const;
   friend auto operator<=>(const Date &, const Date &) = default;
 };
 /**
@@ -91,6 +114,7 @@ class DateTime {
    */
   std::string ToString() const;
   DateTime operator+(Duration o) const;
+  DateTime operator+(Time o) const;
   DateTime &operator+=(Duration o);
   Duration operator-(const DateTime &o) const;
   bool operator<(const DateTime &o) const;

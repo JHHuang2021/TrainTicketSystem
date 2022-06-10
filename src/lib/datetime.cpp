@@ -41,6 +41,11 @@ Time &Time::operator+=(Duration o) {
 }
 Duration Time::operator-(const Time &o) const { return Duration(minutes_ - o.minutes_); }
 
+std::pair<DateDelta, Time> Time::GetDayTime() const {
+  DateDelta days(minutes_ / kOneDay.minutes_ * kOneDay.minutes_);
+  return std::make_pair(days, Time(minutes_ - days.minutes_));
+}
+
 Date::Date(std::string_view str) {
   // str:  MM-dd
   // pos:  01234
@@ -71,7 +76,8 @@ std::string Date::ToString() const {
   return buf;
 }
 DateTime Date::operator+(Time o) const { return DateTime(minutes_ + o.minutes_); }
-
+Date Date::operator-(DateDelta o) const { return Date(minutes_ - o.minutes_); }
+DateTime Date::operator-(Duration o) const { return DateTime(minutes_ - o.minutes_); }
 
 DateTime::DateTime(std::string_view str) {
   // str:  MM-dd hh:mm
@@ -120,6 +126,7 @@ std::string DateTime::ToString() const {
 }
 
 DateTime DateTime::operator+(Duration o) const { return DateTime(minutes_ + o.minutes_); }
+DateTime DateTime::operator+(Time o) const { return DateTime(minutes_ + o.minutes_); }
 DateTime &DateTime::operator+=(Duration o) {
   this->minutes_ += o.minutes_;
   return *this;
