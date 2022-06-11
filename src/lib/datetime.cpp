@@ -12,6 +12,9 @@ inline void SetNumber(char *s, int num) {
 inline int GetNumber(const char *s) { return (s[0] - '0') * 10 + s[1] - '0'; }
 }  // namespace
 
+bool operator==(const Duration &a, const Duration &b) { return a.minutes_ == b.minutes_; }
+bool operator<(const Duration &a, const Duration &b) { return a.minutes_ < b.minutes_; }
+
 Time::Time(std::string_view str) {
   // str:  hh:mm
   // pos:  01234
@@ -40,6 +43,8 @@ Time &Time::operator+=(Duration o) {
   return *this;
 }
 Duration Time::operator-(const Time &o) const { return Duration(minutes_ - o.minutes_); }
+
+DateDelta Time::GetDays() const { return DateDelta(minutes_ / kOneDay.minutes_ * kOneDay.minutes_); }
 
 std::pair<DateDelta, Time> Time::GetDayTime() const {
   DateDelta days(minutes_ / kOneDay.minutes_ * kOneDay.minutes_);
@@ -76,6 +81,10 @@ std::string Date::ToString() const {
   return buf;
 }
 DateTime Date::operator+(Time o) const { return DateTime(minutes_ + o.minutes_); }
+Date &Date::operator+=(DateDelta o) {
+  minutes_ += o.minutes_;
+  return *this;
+}
 Date Date::operator-(DateDelta o) const { return Date(minutes_ - o.minutes_); }
 DateTime Date::operator-(Duration o) const { return DateTime(minutes_ - o.minutes_); }
 
@@ -88,6 +97,12 @@ DateTime::DateTime(std::string_view str) {
   int min = GetNumber(str.data() + 9);
   minutes_ = ((kSumDays[month - 1] + day) * 24 + hour) * 60 + min;
 }
+
+Date DateTime::GetDate() const { return Date(minutes_ / kOneDay.minutes_ * kOneDay.minutes_); }
+
+Time DateTime::GetTime() const { return Time(minutes_ % kOneDay.minutes_); }
+
+std::pair<Date, Time> DateTime::GetDateAndTime() const { return std::make_pair(GetDate(), GetTime()); }
 
 std::pair<int, int> DateTime::GetMonthDay() const {
   int days = minutes_ / (60 * 24);
