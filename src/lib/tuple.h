@@ -101,6 +101,7 @@ constexpr bool __tuple_cmp(const T& t, const U& u, sizes<_Idx0, _Idxs...>) {
 
 template <typename... T>
 struct Tuple : TupleImpl<range<sizeof...(T)>, T...> {
+  Tuple() = default;
   Tuple(T... vals) : TupleImpl<range<sizeof...(T)>, T...>(vals...) {}
   static constexpr std::size_t size() { return sizeof...(T); }
 
