@@ -68,9 +68,16 @@ class vector {
     T *operator->() const { return ptr_; }
     bool operator==(const iterator &rhs) const { return ptr_ == rhs.ptr_; }
     bool operator==(const const_iterator &rhs) const { return ptr_ == rhs.ptr_; }
-
     bool operator!=(const iterator &rhs) const { return !operator==(rhs); }
     bool operator!=(const const_iterator &rhs) const { return !operator==(rhs); }
+    bool operator<(const iterator &rhs) const { return ptr_ < rhs.ptr_; }
+    bool operator<(const const_iterator &rhs) const { return ptr_ < rhs.ptr_; }
+    bool operator<=(const iterator &rhs) const { return ptr_ <= rhs.ptr_; }
+    bool operator<=(const const_iterator &rhs) const { return ptr_ <= rhs.ptr_; }
+    bool operator>(const iterator &rhs) const { return ptr_ > rhs.ptr_; }
+    bool operator>(const const_iterator &rhs) const { return ptr_ > rhs.ptr_; }
+    bool operator>=(const iterator &rhs) const { return ptr_ >= rhs.ptr_; }
+    bool operator>=(const const_iterator &rhs) const { return ptr_ >= rhs.ptr_; }
   };
 
   class const_iterator {
@@ -130,6 +137,14 @@ class vector {
     bool operator==(const const_iterator &rhs) const { return ptr_ == rhs.ptr_; }
     bool operator!=(const iterator &rhs) const { return !operator==(rhs); }
     bool operator!=(const const_iterator &rhs) const { return !operator==(rhs); }
+    bool operator<(const iterator &rhs) const { return ptr_ < rhs.ptr_; }
+    bool operator<(const const_iterator &rhs) const { return ptr_ < rhs.ptr_; }
+    bool operator<=(const iterator &rhs) const { return ptr_ <= rhs.ptr_; }
+    bool operator<=(const const_iterator &rhs) const { return ptr_ <= rhs.ptr_; }
+    bool operator>(const iterator &rhs) const { return ptr_ > rhs.ptr_; }
+    bool operator>(const const_iterator &rhs) const { return ptr_ > rhs.ptr_; }
+    bool operator>=(const iterator &rhs) const { return ptr_ >= rhs.ptr_; }
+    bool operator>=(const const_iterator &rhs) const { return ptr_ >= rhs.ptr_; }
   };
 
  public:
