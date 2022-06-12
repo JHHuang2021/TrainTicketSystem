@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>  // for std::string
+
 #include "lib/vector.h"
 
 namespace lin {
@@ -11,7 +13,8 @@ class OrderManager;
  */
 class CommandParser {
  public:
-  CommandParser(UserManager *user_manager) : user_manager_(user_manager){};
+  CommandParser(UserManager *user_manager, TrainManager *train_manager, OrderManager *order_manager)
+      : user_manager_(user_manager), train_manager_(train_manager), order_manager_(order_manager){};
   /**
    * @brief 循环读入指令并解析，直到遇到 exit。
    */
@@ -35,6 +38,9 @@ class CommandParser {
    */
   template <typename T = char *>
   static void Split(char *s, T result[], const char sep = ' ');
+  /**
+   * @brief Gets a positive number from a C-style string WITHOUT checking the character is a digit.
+   */
   static int ParseNumber(const char *s);
   std::string ParseAddUser();
   std::string ParseLogin();

@@ -5,6 +5,7 @@
 
 #include "lib/datetime.h"
 #include "lib/vector.h"
+#include "order.h"
 #include "train.h"
 #include "user.h"
 
@@ -54,7 +55,7 @@ void CommandParser::Run() {
   std::cin.tie(NULL);
   char input[kInputBufferSize];
   while (std::cin.getline(input, kInputBufferSize)) {
-    int timestamp = 0;
+    timestamp = 0;
     char *c = input + 1;
     while ('0' <= *c && *c <= '9') timestamp = timestamp * 10 + *(c++) - '0';
     ++c;
@@ -392,11 +393,75 @@ std::string CommandParser::ParseQueryTransfer() {
   return train_manager_->QueryTransfer(date, start_station, terminal_station, sort_order);
 }
 
-std::string CommandParser::ParseBuyTicket() { ; }
+std::string CommandParser::ParseBuyTicket() {
+  std::string_view username, train_id, from_station, to_station;
+  Date date;
+  int num;
+  bool pending = false;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'u':
+        username = argv[i + 1];
+        break;
+      case 'i':
+        train_id = argv[i + 1];
+        break;
+      case 'd':
+        date = Date(argv[i + 1]);
+        break;
+      case 'f':
+        from_station = argv[i + 1];
+        break;
+      case 't':
+        to_station = argv[i + 1];
+        break;
+      case 'n':
+        num = ParseNumber(argv[i + 1]);
+        break;
+      case 'p':
+        pending = strcmp(argv[i + 1], "true") == 0;
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return order_manager_->BuyTicket(timestamp, username, train_id, date, num, from_station, to_station, pending);
+}
 
-std::string CommandParser::ParseQueryOrder() { ; }
+std::string CommandParser::ParseQueryOrder() {
+  std::string_view username;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'u':
+        username = argv[i + 1];
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return order_manager_->QueryOrder(username);
+}
 
-std::string CommandParser::ParseRefundTicket() { ; }
+std::string CommandParser::ParseRefundTicket() {
+  std::string_view username;
+  int num = 1;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'u':
+        username = argv[i + 1];
+        break;
+      case 'n':
+        num = ParseNumber(argv[i + 1]);
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return order_manager_->RefundTicket(username, num);
+}
 
 std::string CommandParser::ParseRollback() { ; }
 
