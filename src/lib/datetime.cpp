@@ -14,6 +14,7 @@ inline int GetNumber(const char *s) { return (s[0] - '0') * 10 + s[1] - '0'; }
 
 bool operator==(const Duration &a, const Duration &b) { return a.minutes_ == b.minutes_; }
 bool operator<(const Duration &a, const Duration &b) { return a.minutes_ < b.minutes_; }
+Duration operator+(const Duration &a, const Duration &b) { return Duration(a.minutes_ + b.minutes_); }
 
 Time::Time(std::string_view str) {
   // str:  hh:mm
@@ -50,6 +51,7 @@ std::pair<DateDelta, Time> Time::GetDayTime() const {
   DateDelta days(minutes_ / kOneDay.minutes_ * kOneDay.minutes_);
   return std::make_pair(days, Time(minutes_ - days.minutes_));
 }
+bool operator<(const Time &a, const Time &b) { return a.minutes_ < b.minutes_; }
 
 Date::Date(std::string_view str) {
   // str:  MM-dd
@@ -87,6 +89,7 @@ Date &Date::operator+=(DateDelta o) {
 }
 Date Date::operator-(DateDelta o) const { return Date(minutes_ - o.minutes_); }
 DateTime Date::operator-(Duration o) const { return DateTime(minutes_ - o.minutes_); }
+bool operator<(const Date &a, const Date &b) { return a.minutes_ < b.minutes_; }
 
 DateTime::DateTime(std::string_view str) {
   // str:  MM-dd hh:mm
@@ -148,11 +151,11 @@ DateTime &DateTime::operator+=(Duration o) {
 }
 Duration DateTime::operator-(const DateTime &o) const { return Duration(minutes_ - o.minutes_); }
 
-bool DateTime::operator<(const DateTime &o) const { return minutes_ < o.minutes_; }
-bool DateTime::operator<=(const DateTime &o) const { return minutes_ <= o.minutes_; }
-bool DateTime::operator>(const DateTime &o) const { return minutes_ > o.minutes_; }
-bool DateTime::operator>=(const DateTime &o) const { return minutes_ >= o.minutes_; }
-bool DateTime::operator==(const DateTime &o) const { return minutes_ == o.minutes_; }
+bool operator<(const DateTime &a, const DateTime &b) { return a.minutes_ < b.minutes_; }
+bool operator<=(const DateTime &a, const DateTime &b) { return a.minutes_ <= b.minutes_; }
+bool operator>(const DateTime &a, const DateTime &b) { return a.minutes_ > b.minutes_; }
+bool operator>=(const DateTime &a, const DateTime &b) { return a.minutes_ >= b.minutes_; }
+bool operator==(const DateTime &a, const DateTime &b) { return a.minutes_ == b.minutes_; }
 
 int Duration::minutes() const { return minutes_; }
 

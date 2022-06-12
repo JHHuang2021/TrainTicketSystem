@@ -21,8 +21,9 @@ class Duration {
   explicit Duration(int minutes) : minutes_(minutes) {}
   int minutes() const;
   // friend auto operator<=>(const Duration &, const Duration &) = default;
-  friend bool operator==(const Duration &a, const Duration &b);
-  friend bool operator<(const Duration &a, const Duration &b);
+  friend bool operator==(const Duration &, const Duration &);
+  friend bool operator<(const Duration &, const Duration &);
+  friend Duration operator+(const Duration &, const Duration &);
 };
 /**
  * @brief 表示日期之间相差了几天。
@@ -67,7 +68,8 @@ class Time {
   Duration operator-(const Time &o) const;
   DateDelta GetDays() const;
   std::pair<DateDelta, Time> GetDayTime() const;
-  friend auto operator<=>(const Time &, const Time &) = default;
+  // friend auto operator<=>(const Time &, const Time &) = default;
+  friend bool operator<(const Time &, const Time &);
 };
 
 /**
@@ -95,7 +97,8 @@ class Date {
   Date &operator+=(DateDelta o);
   Date operator-(DateDelta o) const;
   DateTime operator-(Duration o) const;
-  friend auto operator<=>(const Date &, const Date &) = default;
+  // friend auto operator<=>(const Date &, const Date &) = default;
+  friend bool operator<(const Date &, const Date &);
 };
 /**
  * @brief 简陋的时间类型，精确到分钟，只能正确处理 2021 年 6 月至 8 月内的时间。
@@ -125,10 +128,10 @@ class DateTime {
   DateTime operator+(Time o) const;
   DateTime &operator+=(Duration o);
   Duration operator-(const DateTime &o) const;
-  bool operator<(const DateTime &o) const;
-  bool operator<=(const DateTime &o) const;
-  bool operator>(const DateTime &o) const;
-  bool operator>=(const DateTime &o) const;
-  bool operator==(const DateTime &o) const;
+  friend bool operator<(const DateTime &, const DateTime &);
+  friend bool operator<=(const DateTime &, const DateTime &);
+  friend bool operator>(const DateTime &, const DateTime &);
+  friend bool operator>=(const DateTime &, const DateTime &);
+  friend bool operator==(const DateTime &, const DateTime &o);
 };
 }  // namespace lin
