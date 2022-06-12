@@ -3,19 +3,19 @@
 #include <cstring>
 #include <iostream>
 
+#include "lib/datetime.h"
 #include "lib/vector.h"
+#include "train.h"
 #include "user.h"
 
 namespace lin {
-/**
- * @brief Splits a C-style string by blank character.
- * Note that the original string WILL BE MODIFIED.
- */
-vector<std::string_view> CommandParser::Split(char *s) {
-  vector<std::string_view> res;
+
+template <typename T>
+vector<T> CommandParser::Split(char *s, const char sep) {
+  vector<T> res;
   char *start = s;
   for (char *c = s; *c; ++c) {
-    if (isblank(*c)) {
+    if (*c == sep) {
       *c = '\0';
       if (c != start && *start) res.push_back(start);
       start = c + 1;
@@ -24,9 +24,22 @@ vector<std::string_view> CommandParser::Split(char *s) {
   if (*start) res.push_back(start);
   return res;
 }
-int CommandParser::ParseNumber(std::string_view s) {
+template <typename T>
+void CommandParser::Split(char *s, T result[], const char sep) {
+  char *start = s;
+  int cnt = 0;
+  for (char *c = s; *c; ++c) {
+    if (*c == sep) {
+      *c = '\0';
+      if (c != start && *start) result[cnt++] = T(start);
+      start = c + 1;
+    }
+  }
+  if (*start) result[cnt++] = T(start);
+}
+int CommandParser::ParseNumber(const char *s) {
   int res = 0;
-  for (const char *c = s.data(); *c; ++c) {
+  for (const char *c = s; *c; ++c) {
     res = res * 10 + *c - '0';
   }
   return res;
@@ -118,6 +131,7 @@ std::string CommandParser::ParseAddUser() {
         privilege = ParseNumber(argv[i + 1]);
         break;
       default:
+        throw UnknownParameter();
         break;
     }
   }
@@ -134,6 +148,7 @@ std::string CommandParser::ParseLogin() {
         password = argv[i + 1];
         break;
       default:
+        throw UnknownParameter();
         break;
     }
   }
@@ -147,6 +162,7 @@ std::string CommandParser::ParseLogout() {
         username = argv[i + 1];
         break;
       default:
+        throw UnknownParameter();
         break;
     }
   }
@@ -163,6 +179,7 @@ std::string CommandParser::ParseQueryProfile() {
         username = argv[i + 1];
         break;
       default:
+        throw UnknownParameter();
         break;
     }
   }
@@ -193,23 +210,187 @@ std::string CommandParser::ParseModifyProfile() {
         privilege = ParseNumber(argv[i + 1]);
         break;
       default:
+        throw UnknownParameter();
         break;
     }
   }
   return user_manager_->ModifyProfile(cur_username, username, password, name, email, privilege);
 }
 
-std::string CommandParser::ParseAddTrain() { ; }
+std::string CommandParser::ParseAddTrain() {
+  // 添加<trainID>为-i，<stationNum>为-n，<seatNum>为-m，
+  // <stations>为-s，<prices>为-p，<startTime>为-x，<travelTimes>为-t，<stopoverTimes>为-o，<saleDate>为-d，<type>为-y的车次。
+  // 由于-s、-p、-t、-o和-d由多个值组成，输入时两个值之间以|隔开（仍是一个不含空格的字符串）。
+  Train train;
+  // std::string_view train_id;
+  // char type;
+  // int station_num, seat_num;
+  // vector<std::string_view> stations;
+  // int prices[100] = {};
+  vector<char *> travel_times_string, stop_times_string;
+  // Time arrival_times[100], departure_times[100];
+  // Date start_sale, end_sale;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'i':
+        train.id = std::string_view(argv[i + 1]);
+        break;
+      case 'y':
+        train.type = argv[i + 1][0];
+        break;
+      case 'n':
+        train.station_num = ParseNumber(argv[i + 1]);
+        break;
+      case 'm':
+        train.seat_num = ParseNumber(argv[i + 1]);
+        break;
+      case 's':
+        Split<Train::StationName>(argv[i + 1], train.stations, '|');
+        break;
+      case 'p': {
+        auto prices_string = Split(argv[i + 1], '|');
+        for (int j = 0; j < prices_string.size(); ++j) {
+          train.sum_prices[j + 1] = train.sum_prices[j] + ParseNumber(prices_string[j]);
+        }
+        break;
+      }
+      case 'x':
+        train.departure_times[0] = Time(argv[i + 1]);
+        break;
+      case 'd': {
+        auto dates = Split(argv[i + 1], '|');
+        train.start_sale = Date(dates[0]);
+        train.end_sale = Date(dates[1]);
+        break;
+      }
+      case 't':
+        travel_times_string = Split(argv[i + 1], '|');
+        break;
+      case 'o':
+        stop_times_string = Split(argv[i + 1], '|');
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  for (int j = 0; j < train.station_num - 1; ++j) {
+    train.arrival_times[j + 1] = train.departure_times[j] + Duration(ParseNumber(travel_times_string[j]));
+    if (j + 1 < train.station_num - 1) {
+      train.departure_times[j + 1] = train.arrival_times[j + 1] + Duration(ParseNumber(stop_times_string[j]));
+    }
+  }
+  return train_manager_->AddTrain(train);
+}
 
-std::string CommandParser::ParseDeleteTrain() { ; }
+std::string CommandParser::ParseDeleteTrain() {
+  std::string_view train_id;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'i':
+        train_id = argv[i + 1];
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return train_manager_->DeleteTrain(train_id);
+}
 
-std::string CommandParser::ParseReleaseTrain() { ; }
+std::string CommandParser::ParseReleaseTrain() {
+  std::string_view train_id;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'i':
+        train_id = argv[i + 1];
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return train_manager_->ReleaseTrain(train_id);
+}
 
-std::string CommandParser::ParseQueryTrain() { ; }
+std::string CommandParser::ParseQueryTrain() {
+  std::string_view train_id;
+  Date date;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'i':
+        train_id = argv[i + 1];
+        break;
+      case 'd':
+        date = Date(argv[i + 1]);
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return train_manager_->QueryTrain(train_id, date);
+}
 
-std::string CommandParser::ParseQueryTicket() { ; }
+std::string CommandParser::ParseQueryTicket() {
+  std::string_view start_station, terminal_station;
+  Date date;
+  TrainManager::SortOrder sort_order = TrainManager::SortOrder::TIME;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'd':
+        date = Date(argv[i + 1]);
+        break;
+      case 's':
+        start_station = argv[i + 1];
+        break;
+      case 't':
+        terminal_station = argv[i + 1];
+        break;
+      case 'p':
+        if (strcmp(argv[i + 1], "time") == 0) {
+          sort_order = TrainManager::SortOrder::TIME;
+        } else {
+          sort_order = TrainManager::SortOrder::COST;
+        }
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return train_manager_->QueryTicket(date, start_station, terminal_station, sort_order);
+}
 
-std::string CommandParser::ParseQueryTransfer() { ; }
+std::string CommandParser::ParseQueryTransfer() {
+  std::string_view start_station, terminal_station;
+  Date date;
+  TrainManager::SortOrder sort_order = TrainManager::SortOrder::TIME;
+  for (int i = 1; i < argv.size(); i += 2) {
+    switch (argv[i][1]) {
+      case 'd':
+        date = Date(argv[i + 1]);
+        break;
+      case 's':
+        start_station = argv[i + 1];
+        break;
+      case 't':
+        terminal_station = argv[i + 1];
+        break;
+      case 'p':
+        if (strcmp(argv[i + 1], "time") == 0) {
+          sort_order = TrainManager::SortOrder::TIME;
+        } else {
+          sort_order = TrainManager::SortOrder::COST;
+        }
+        break;
+      default:
+        throw UnknownParameter();
+        break;
+    }
+  }
+  return train_manager_->QueryTransfer(date, start_station, terminal_station, sort_order);
+}
 
 std::string CommandParser::ParseBuyTicket() { ; }
 

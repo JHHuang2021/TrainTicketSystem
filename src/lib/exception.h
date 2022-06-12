@@ -23,4 +23,9 @@ class IndexOutOfBound : public Exception {
  public:
   IndexOutOfBound() : Exception("index out of bound") {}
 };
+
+class UnknownParameter : public Exception {
+ public:
+  UnknownParameter() : Exception("Unknown Parameter") {}
+};
 }  // namespace lin

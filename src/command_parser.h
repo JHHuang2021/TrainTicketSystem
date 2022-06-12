@@ -11,7 +11,7 @@ class OrderManager;
  */
 class CommandParser {
  public:
-  CommandParser(UserManager *user_manager): user_manager_(user_manager) {};
+  CommandParser(UserManager *user_manager) : user_manager_(user_manager){};
   /**
    * @brief 循环读入指令并解析，直到遇到 exit。
    */
@@ -22,9 +22,20 @@ class CommandParser {
   TrainManager *train_manager_;
   OrderManager *order_manager_;
   int timestamp;
-  vector<std::string_view> argv;
-  static vector<std::string_view> Split(char *s);
-  static int ParseNumber(std::string_view s);
+  vector<char *> argv;
+  /**
+   * @brief Splits a C-style string by blank character.
+   * Note that the original string WILL BE MODIFIED.
+   */
+  template <typename T = char *>
+  static vector<T> Split(char *s, const char sep = ' ');
+  /**
+   * @brief Splits a C-style string by blank character, stores the result in the given array.
+   * Note that the original string WILL BE MODIFIED.
+   */
+  template <typename T = char *>
+  static void Split(char *s, T result[], const char sep = ' ');
+  static int ParseNumber(const char *s);
   std::string ParseAddUser();
   std::string ParseLogin();
   std::string ParseLogout();
