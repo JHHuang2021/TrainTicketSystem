@@ -18,7 +18,7 @@ namespace lin {
 template<class Iter, class Compare = std::less<typename Iter::value_type>>
 void Sort(Iter first, Iter last, Compare cmp) {
   auto i = first, j = last - 1;
-  if (i >= j) return;
+  if (j <= i) return;
   auto key = *(i + rand() % (j - i + 1));
   while (i <= j) {
     while (i <= j && cmp(key, *j)) j--;
