@@ -104,12 +104,12 @@ struct Tuple : TupleImpl<range<sizeof...(T)>, T...> {
   Tuple() = default;
   Tuple(T... vals) : TupleImpl<range<sizeof...(T)>, T...>(vals...) {}
   static constexpr std::size_t size() { return sizeof...(T); }
-
-  template <typename... Tps, typename... Ups>
-  friend constexpr auto operator<(const Tuple<Tps...>& t, const Tuple<Ups...>& u) {
-    return __tuple_cmp(t, u, range<sizeof...(Tps)>());
-  }
 };
+
+template <typename... Tps, typename... Ups>
+constexpr auto operator<(const Tuple<Tps...>& t, const Tuple<Ups...>& u) {
+  return __tuple_cmp(t, u, range<sizeof...(Tps)>());
+}
 
 template <typename... _Elements>
 constexpr Tuple<_Elements&...> tie(_Elements&... __args) noexcept {
