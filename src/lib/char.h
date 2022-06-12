@@ -32,12 +32,14 @@ class Char {
   /**
    * @brief 转化为 `std::string`。
    */
-  operator std::string() const { return str(); }
+  explicit operator std::string() const { return str(); }
   /**
    * @brief 转化为 `std::string`。
    */
   std::string str() const { return std::string(content_); }
   char *c_str() { return content_; }
+  const char *c_str() const { return content_; }
+  size_t length() const { return strlen(content_); }
   char &operator[](int index) { return content_[index]; }
   char operator[](int index) const { return content_[index]; }
   /**
