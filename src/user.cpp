@@ -45,11 +45,11 @@ std::string UserManager::PrintUser(const User &user) {
   // 返回用户信息字符串，依次列出被查询用户的 username，name，mailAddr 和 privilege，用一个空格隔开。
   std::string res;
   res.reserve(75);  // username<20> + name<20> + email<30> + privilege<2> + ' '<1>*3
-  res += user.username;
+  res += user.username.c_str();
   res.push_back(' ');
-  res += user.name;
+  res += user.name.c_str();
   res.push_back(' ');
-  res += user.email;
+  res += user.email.c_str();
   res.push_back(' ');
   res += std::to_string(user.privilege);
   return res;
