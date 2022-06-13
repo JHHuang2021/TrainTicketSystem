@@ -418,7 +418,7 @@ std::string CommandParser::ParseBuyTicket() {
       case 'n':
         num = ParseNumber(argv[i + 1]);
         break;
-      case 'p':
+      case 'q':
         pending = strcmp(argv[i + 1], "true") == 0;
         break;
       default:
