@@ -93,8 +93,8 @@ constexpr bool __tuple_cmp(const T& t, const U& u, sizes<>) {
 
 template <typename T, typename U, size_t _Idx0, size_t... _Idxs>
 constexpr bool __tuple_cmp(const T& t, const U& u, sizes<_Idx0, _Idxs...>) {
-  auto c = t.template get<_Idx0>() < u.template get<_Idx0>();
-  if (c != 0) return c;
+  if (t.template get<_Idx0>() < u.template get<_Idx0>()) return true;
+  if (u.template get<_Idx0>() < t.template get<_Idx0>()) return false;
   return __tuple_cmp(t, u, sizes<_Idxs...>());
 }
 }  // namespace
