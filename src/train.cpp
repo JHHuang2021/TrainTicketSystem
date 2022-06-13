@@ -203,12 +203,14 @@ std::string TrainManager::QueryTransfer(
   if (start_trains.empty() || end_trains.empty()) return "0";
 
   TransferTicket ans, cur;
+  ans.duration = Duration(INT_MAX);
+  ans.cost = INT_MAX;
   bool is_better = false;
 
   for (auto i : start_trains) {
     Date i_start_date = date - i.departure_time.GetDays();
     if (i_start_date < i.start_sale || i.end_sale < i_start_date) continue;
-    Train i_train = trains_.find(i.train_id_hash)->second, j_train;
+    Train i_train = trains_.find(i.train_id_hash)->second;
     std::unordered_map<StationHash, int> station_rank;
     for (int k = i.rank + 1; k < i_train.station_num; ++k) station_rank[StationHasher(i_train.stations[k])] = k;
     for (auto j : end_trains) {
@@ -227,8 +229,10 @@ std::string TrainManager::QueryTransfer(
         if (j_dep_time < i_arr_time) j_start_date += kOneDay;
         j_start_date = std::max(j_start_date, j_train.start_sale);  // 发车日期不能早于开始售票的日期
 
-        DateTime j_dep_datetime(j_start_date, j_dep_time);
+        DateTime j_dep_datetime = j_start_date + j_train.departure_times[k];
+        cur.ticket1.train_id = i.train_id;
         cur.ticket1.cost = i_train.sum_prices[iter->second] - i.sum_price;
+        cur.ticket2.train_id = j.train_id;
         cur.ticket2.cost = j.sum_price - j_train.sum_prices[k];
         cur.cost = cur.ticket1.cost + cur.ticket2.cost;
         cur.duration = (i_train.arrival_times[iter->second] - i_train.departure_times[i.rank]) +
@@ -251,7 +255,7 @@ std::string TrainManager::QueryTransfer(
           ans.ticket2.start_time = j_dep_datetime;
           ans.ticket2.end_time = j_start_date + j.arrival_time;
           auto j_seats = GetSeats(j.train_id_hash, j_start_date, j.seat_num, j.station_num);
-          ans.ticket2.seat = j_seats.RangeMin(i.rank, iter->second);
+          ans.ticket2.seat = j_seats.RangeMin(k, j.rank);
         }
       }
     }
