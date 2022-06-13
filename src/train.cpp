@@ -60,6 +60,7 @@ std::string Order::ToString() const {
       break;
     case REFUNDED:
       ret = "[refunded]";
+      break;
     default:
       throw Exception();
       break;
