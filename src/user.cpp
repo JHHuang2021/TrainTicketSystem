@@ -88,4 +88,10 @@ std::string UserManager::ModifyProfile(std::string_view cur_username, std::strin
   return PrintUser(user);
 }
 
+bool UserManager::IsLoggedIn(std::string_view username) {
+  auto it_cur = loggedin_user_.find(hasher(username));
+  if (it_cur == loggedin_user_.end()) return 0;
+  else return 1;
+}
+
 }  // namespace lin

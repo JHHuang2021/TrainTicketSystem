@@ -65,6 +65,8 @@ class UserManager {
    */
   std::string ModifyProfile(std::string_view cur_username, std::string_view username, OptionalArg password,
                             OptionalArg name, OptionalArg email, OptionalInt privilege);
+  
+  bool IsLoggedIn(std::string_view username);
 
  private:
   std::hash<std::string_view> hasher;

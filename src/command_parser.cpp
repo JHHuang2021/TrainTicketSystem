@@ -426,7 +426,8 @@ std::string CommandParser::ParseBuyTicket() {
         break;
     }
   }
-  return order_manager_->BuyTicket(timestamp, username, train_id, date, num, from_station, to_station, pending);
+  if (!user_manager_->IsLoggedIn(username)) return "-1";
+  return train_manager_->BuyTicket(timestamp, username, train_id, date, num, from_station, to_station, pending);
 }
 
 std::string CommandParser::ParseQueryOrder() {
@@ -441,7 +442,8 @@ std::string CommandParser::ParseQueryOrder() {
         break;
     }
   }
-  return order_manager_->QueryOrder(username);
+  if (!user_manager_->IsLoggedIn(username)) return "-1";
+  return train_manager_->QueryOrder(username);
 }
 
 std::string CommandParser::ParseRefundTicket() {
@@ -460,7 +462,8 @@ std::string CommandParser::ParseRefundTicket() {
         break;
     }
   }
-  return order_manager_->RefundTicket(username, num);
+  if (!user_manager_->IsLoggedIn(username)) return "-1";
+  return train_manager_->RefundTicket(username, num);
 }
 
 std::string CommandParser::ParseRollback() { ; }

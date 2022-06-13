@@ -7,14 +7,13 @@
 namespace lin {
 class UserManager;
 class TrainManager;
-class OrderManager;
 /**
  * @brief 解析输入指令，并调用相应的函数。
  */
 class CommandParser {
  public:
-  CommandParser(UserManager *user_manager, TrainManager *train_manager, OrderManager *order_manager)
-      : user_manager_(user_manager), train_manager_(train_manager), order_manager_(order_manager){};
+  CommandParser(UserManager *user_manager, TrainManager *train_manager)
+      : user_manager_(user_manager), train_manager_(train_manager) {}
   /**
    * @brief 循环读入指令并解析，直到遇到 exit。
    */
@@ -23,7 +22,6 @@ class CommandParser {
  private:
   UserManager *user_manager_;
   TrainManager *train_manager_;
-  OrderManager *order_manager_;
   int timestamp;
   vector<char *> argv;
   /**
