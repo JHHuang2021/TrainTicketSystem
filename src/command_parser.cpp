@@ -91,10 +91,12 @@ void CommandParser::Run() {
       } else if (command == "add_train") {
         res = ParseAddTrain();
       }
-    } else if (command == "delete_train") {
+    } else if (command == "delete_train") {  // Normal
       res = ParseDeleteTrain();
-    } else if (command == "release_train") {
+    } else if (command == "release_train") {  // Normal
       res = ParseReleaseTrain();
+    } else if (command == "refund_ticket") {  // Normal
+      res = ParseRefundTicket();
     } else if (command == "rollback") {  // Rare
       res = ParseRollback();
     } else if (command == "clean") {
