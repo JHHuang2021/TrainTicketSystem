@@ -48,7 +48,9 @@ struct StationTrain {
         rank(rank_),
         train_id(train.id),
         start_sale(train.start_sale),
-        end_sale(train.end_sale) {}
+        end_sale(train.end_sale),
+        seat_num(train.seat_num),
+        station_num(train.station_num) {}
 };
 
 struct TrainSeats {
