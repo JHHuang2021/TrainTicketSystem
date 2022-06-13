@@ -41,12 +41,12 @@ bool CompareCost(const Ticket &a, const Ticket &b) {
 
 TransferTicket::TransferTicket() : duration(INT_MAX), cost(INT_MAX) {}
 bool CompareTime(const TransferTicket &a, const TransferTicket &b) {
-  return tie(a.duration, a.cost, a.ticket1.train_id, a.ticket2.train_id) <
-         tie(b.duration, b.cost, b.ticket1.train_id, b.ticket2.train_id);
+  return Tuple(a.duration, a.cost, a.ticket1.train_id, a.ticket2.train_id) <
+         Tuple(b.duration, b.cost, b.ticket1.train_id, b.ticket2.train_id);
 }
 bool CompareCost(const TransferTicket &a, const TransferTicket &b) {
-  return tie(a.cost, a.duration, a.ticket1.train_id, a.ticket2.train_id) <
-         tie(b.cost, b.duration, b.ticket1.train_id, b.ticket2.train_id);
+  return Tuple(a.cost, a.duration, a.ticket1.train_id, a.ticket2.train_id) <
+         Tuple(b.cost, b.duration, b.ticket1.train_id, b.ticket2.train_id);
 }
 
 std::string Order::ToString() const {
