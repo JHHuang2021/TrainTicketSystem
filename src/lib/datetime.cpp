@@ -16,6 +16,8 @@ bool operator==(const Duration &a, const Duration &b) { return a.minutes_ == b.m
 bool operator<(const Duration &a, const Duration &b) { return a.minutes_ < b.minutes_; }
 Duration operator+(const Duration &a, const Duration &b) { return Duration(a.minutes_ + b.minutes_); }
 
+int Time::minutes() const { return minutes_; }
+
 Time::Time(std::string_view str) {
   // str:  hh:mm
   // pos:  01234
@@ -158,5 +160,7 @@ bool operator>=(const DateTime &a, const DateTime &b) { return a.minutes_ >= b.m
 bool operator==(const DateTime &a, const DateTime &b) { return a.minutes_ == b.minutes_; }
 
 int Duration::minutes() const { return minutes_; }
+
+int DateDelta::minutes() const { return minutes_; }
 
 }  // namespace lin

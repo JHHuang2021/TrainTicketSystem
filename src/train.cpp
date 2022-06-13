@@ -173,11 +173,10 @@ std::string TrainManager::QueryTicket(
     if (j == end_trains.end()) break;
     if (i->train_id != j->train_id) continue;
     if (i->rank >= j->rank) continue;  // 列车运行方向不符
-    auto [days, time] = i->departure_time.GetDayTime();
-    Date departure_date = date - days;
-    if (departure_date < i->start_sale || i->end_sale < departure_date) continue;  // 超出售票日期
-    auto seats = GetSeats(i->train_id_hash, date, i->seat_num, i->station_num);
-    result.push_back({i->train_id, departure_date + i->departure_time, departure_date + j->arrival_time,
+    Date start_date = date - i->departure_time.GetDays();
+    if (start_date < i->start_sale || i->end_sale < start_date) continue;  // 超出售票日期
+    auto seats = GetSeats(i->train_id_hash, start_date, i->seat_num, i->station_num);
+    result.push_back({i->train_id, start_date + i->departure_time, start_date + j->arrival_time,
         j->arrival_time - i->departure_time, j->sum_price - i->sum_price, seats.RangeMin(i->rank, j->rank)});
   }
   if (result.empty()) return "0";

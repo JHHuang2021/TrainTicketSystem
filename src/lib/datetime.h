@@ -37,6 +37,7 @@ class DateDelta {
 
  public:
   constexpr explicit DateDelta(int minutes) : minutes_(minutes) {}
+  int minutes() const;
   // friend auto operator<=>(const DateDelta &, const DateDelta &) = default;
 };
 constexpr const DateDelta kOneDay(24 * 60);
@@ -54,6 +55,7 @@ class Time {
  public:
   Time() : minutes_(0) {}
   constexpr explicit Time(int minutes) : minutes_(minutes) {}
+  int minutes() const;
   /**
    * @brief 从格式为「hh:mm」的字符串解析时间。
    */
