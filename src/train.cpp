@@ -282,7 +282,7 @@ std::string TrainManager::BuyTicket(int timestamp, std::string_view username, st
   if (it == station_trains_.end()) return "-1";
   StationTrain to_st_train = it->second;
   if (from_st_train.rank >= to_st_train.rank) return "-1";
-  TrainSeats seats = GetSeats(train_id_hash, date, from_st_train.seat_num, from_st_train.station_num);
+  TrainSeats seats = GetSeats(train_id_hash, start_date, from_st_train.seat_num, from_st_train.station_num);
   int avail_seats = seats.RangeMin(from_st_train.rank, to_st_train.rank);
   if (avail_seats < number && !pending) return "-1";
   /*
