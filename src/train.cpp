@@ -19,7 +19,9 @@ constexpr const auto kHashMax = SIZE_MAX;
 }  // namespace
 
 TrainSeats::TrainSeats() { throw Exception("Default Constructor of TrainSeats should not be used"); }
-TrainSeats::TrainSeats(int initial_seat_num, int station_num) { std::fill(seat_num, seat_num + station_num, initial_seat_num); }
+TrainSeats::TrainSeats(int initial_seat_num, int station_num) {
+  std::fill(seat_num, seat_num + station_num, initial_seat_num);
+}
 
 int TrainSeats::RangeMin(int l, int r) {
   int res = INT_MAX;
@@ -41,12 +43,38 @@ bool CompareCost(const Ticket &a, const Ticket &b) {
 
 TransferTicket::TransferTicket() : duration(INT_MAX), cost(INT_MAX) {}
 bool CompareTime(const TransferTicket &a, const TransferTicket &b) {
-  return Tuple(a.duration, a.cost, a.ticket1.train_id, a.ticket2.train_id) <
-         Tuple(b.duration, b.cost, b.ticket1.train_id, b.ticket2.train_id);
+  if (a.duration == b.duration) {
+    if (a.cost == b.cost) {
+      if (a.ticket1.train_id == b.ticket2.train_id) {
+        return a.ticket2.train_id < b.ticket2.train_id;
+      } else {
+        return a.ticket1.train_id < b.ticket1.train_id;
+      }
+    } else {
+      return a.cost < b.cost;
+    }
+  } else {
+    return a.duration < b.duration;
+  }
+  // return Tuple(a.duration, a.cost, a.ticket1.train_id, a.ticket2.train_id) <
+  //        Tuple(b.duration, b.cost, b.ticket1.train_id, b.ticket2.train_id);
 }
 bool CompareCost(const TransferTicket &a, const TransferTicket &b) {
-  return Tuple(a.cost, a.duration, a.ticket1.train_id, a.ticket2.train_id) <
-         Tuple(b.cost, b.duration, b.ticket1.train_id, b.ticket2.train_id);
+  if (a.cost == b.cost) {
+    if (a.duration == b.duration) {
+      if (a.ticket1.train_id == b.ticket2.train_id) {
+        return a.ticket2.train_id < b.ticket2.train_id;
+      } else {
+        return a.ticket1.train_id < b.ticket1.train_id;
+      }
+    } else {
+      return a.duration < b.duration;
+    }
+  } else {
+    return a.cost < b.cost;
+  }
+  // return Tuple(a.cost, a.duration, a.ticket1.train_id, a.ticket2.train_id) <
+  //        Tuple(b.cost, b.duration, b.ticket1.train_id, b.ticket2.train_id);
 }
 
 std::string Order::ToString() const {
@@ -155,8 +183,10 @@ TrainSeats TrainManager::GetSeats(TrainIdHash train_id_hash, Date date, int init
 void TrainManager::UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeats &seats) {
   auto key = std::make_pair(train_id_hash, date);
   auto it = train_seats_.find(key);
-  if (it == train_seats_.end()) train_seats_.emplace(key, seats);  // TODO: optimize
-  else it->second = seats;  // TODO: 将修改写回文件。
+  if (it == train_seats_.end())
+    train_seats_.emplace(key, seats);  // TODO: optimize
+  else
+    it->second = seats;  // TODO: 将修改写回文件。
 }
 
 std::string TrainManager::QueryTicket(
@@ -205,7 +235,7 @@ std::string TrainManager::QueryTransfer(
   TransferTicket ans, cur;
   ans.duration = Duration(INT_MAX);
   ans.cost = INT_MAX;
-  bool is_better = false;
+  bool found = false;
 
   for (auto i : start_trains) {
     Date i_start_date = date - i.departure_time.GetDays();
@@ -238,11 +268,8 @@ std::string TrainManager::QueryTransfer(
         cur.duration = (i_train.arrival_times[iter->second] - i_train.departure_times[i.rank]) +
                        (j_train.arrival_times[j.rank] - j_train.departure_times[k]) + (j_dep_datetime - i_arr_datetime);
 
-        if (sort_order == SortOrder::TIME) {
-          is_better = CompareTime(cur, ans);
-        } else {
-          is_better = CompareCost(cur, ans);
-        }
+        bool is_better = sort_order == SortOrder::TIME ? CompareTime(cur, ans) : CompareCost(cur, ans);
+        found = true;
 
         if (is_better) {
           ans = cur;  // TODO: optimize
@@ -260,7 +287,7 @@ std::string TrainManager::QueryTransfer(
       }
     }
   }
-  if (!is_better) return "0";
+  if (!found) return "0";
   std::string ret;
   append(ret, ans.ticket1.train_id.c_str(), ' ', from_station, ' ', ans.ticket1.start_time.ToString(), " -> ",
       ans.transfer_station, ' ' + ans.ticket1.end_time.ToString(), ' ', std::to_string(ans.ticket1.cost), ' ',
