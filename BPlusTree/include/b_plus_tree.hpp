@@ -137,17 +137,17 @@ class BPlusTree {
         for (int ind = st->page_id_; ind != ed->page_id_;) {
             int i;
             for (i = 0; i < nxt->size_; i++)
-                if (first_key <= nxt->data_[i]) break;
-            for (int j = i; j < nxt->size_; j++) result->insert(nxt->data_[j]);
-            *nxt = reinterpret_cast<BPlusLeafPage *>(
+                if (first_key <= nxt->data_[i].first) break;
+            for (int j = i; j < nxt->size_; j++) result->push_back(nxt->data_[j].second);
+            nxt = reinterpret_cast<BPlusLeafPage *>(
                 buffer_pool_manager_->FetchPage(nxt->nxt)->GetData());
             ind = nxt->page_id_;
         }
         int i;
         for (i = 0; i < nxt->size_; i++)
-            if (first_key <= nxt->data_[i]) break;
-        for (int j = i; j < nxt->size_ && nxt->data_[j] <= last_key; j++)
-            result->insert(nxt->data_[j]);
+            if (first_key <= nxt->data_[i].first) break;
+        for (int j = i; j < nxt->size_ && nxt->data_[j].first <= last_key; j++)
+            result->push_back(nxt->data_[j].second);
     };
 
    private:
