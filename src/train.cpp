@@ -258,6 +258,7 @@ std::string TrainManager::QueryTransfer(
         Date j_start_date = i_arr_date - j_dep_days;
         if (j_dep_time < i_arr_time) j_start_date += kOneDay;
         j_start_date = std::max(j_start_date, j_train.start_sale);  // 发车日期不能早于开始售票的日期
+        if (j.end_sale < j_start_date) continue;
 
         DateTime j_dep_datetime = j_start_date + j_train.departure_times[k];
         cur.ticket1.train_id = i.train_id;
