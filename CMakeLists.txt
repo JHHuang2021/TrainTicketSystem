@@ -3,6 +3,7 @@ project(Bookstore)
 
 set(CMAKE_CXX_STANDARD 20)
 #add_compile_options(-std=c++2a -fconcepts)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -fsanitize=address")
 
 include_directories(
