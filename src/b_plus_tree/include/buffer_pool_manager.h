@@ -66,6 +66,8 @@ class BufferPoolManager {
      */
     bool DeletePage(page_id_t page_id);
 
+    void CheckPage(page_id_t page_id);
+
     /**
      * Flushes all the pages in the buffer pool to disk.
      */

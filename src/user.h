@@ -69,7 +69,7 @@ class UserManager {
  private:
   std::hash<std::string_view> hasher;
   /// hash of username -> User info
-  huang::BPlusTree<size_t, User> user_data_{"user_data.dat", 1048576};
+  huang::BPlusTree<size_t, User> user_data_{"user_data.dat", 100};
   /// Logged-in users, hash of username -> privilege
   huang::linked_hashmap<size_t, int> loggedin_user_;
   static std::string PrintUser(const User &user);

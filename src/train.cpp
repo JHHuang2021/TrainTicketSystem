@@ -25,6 +25,7 @@ TrainSeats::TrainSeats(int initial_seat_num, int station_num) {
 
 TrainSeatsWrap::TrainSeatsWrap(int initial_seat_num, int station_num)
     : initial_seat_num(initial_seat_num), station_num(station_num) {}
+TrainSeatsWrap::TrainSeatsWrap(TrainSeats *seats) : seats(seats) {}
 TrainSeatsWrap::~TrainSeatsWrap() {
   if (need_destruct) delete seats;
 }
@@ -157,7 +158,6 @@ std::string TrainManager::QueryTrain(std::string_view train_id, Date target_date
   auto train_id_hash = TrainIdHasher(train_id);
   auto [train, exist] = trains_.GetValue(train_id_hash);
   if (!exist) return "-1";  // 车次不存在
-  if (train->released) return "-1";  // 不可重复 release
   if (target_date < train->start_sale || train->end_sale < target_date) return "-1";  // 超出日期范围
   std::string ret;
   append(ret, train_id, ' ', train->type, '\n');
@@ -325,14 +325,16 @@ std::string TrainManager::BuyTicket(int timestamp, std::string_view username, st
   auto user_id_hash = UserIdHasher(username);
   auto train_id_hash = TrainIdHasher(train_id);
   auto from_hash = StationHasher(from_station), to_hash = StationHasher(to_station);
-  StationTrain from_st_train = *station_trains_.GetValue(std::make_pair(from_hash, train_id_hash)).first;
-  Date start_date = date - from_st_train.departure_time.GetDays();
-  if (start_date < from_st_train.start_sale || from_st_train.end_sale < start_date || from_st_train.seat_num < number)
+  auto [from_st_train, exist_from_st_train] = station_trains_.GetValue(std::make_pair(from_hash, train_id_hash));
+  if (!exist_from_st_train) return "-1";
+  Date start_date = date - from_st_train->departure_time.GetDays();
+  if (start_date < from_st_train->start_sale || from_st_train->end_sale < start_date || from_st_train->seat_num < number)
     return "-1";
-  StationTrain to_st_train = *station_trains_.GetValue(std::make_pair(to_hash, train_id_hash)).first;
-  if (from_st_train.rank >= to_st_train.rank) return "-1";
-  TrainSeatsWrap seats = GetSeats(train_id_hash, start_date, from_st_train.seat_num, from_st_train.station_num);
-  int avail_seats = seats.RangeMin(from_st_train.rank, to_st_train.rank);
+  auto [to_st_train, exist_to_st_train] = station_trains_.GetValue(std::make_pair(to_hash, train_id_hash));
+  if (!exist_to_st_train) return "-1";
+  if (from_st_train->rank >= to_st_train->rank) return "-1";
+  TrainSeatsWrap seats = GetSeats(train_id_hash, start_date, from_st_train->seat_num, from_st_train->station_num);
+  int avail_seats = seats.RangeMin(from_st_train->rank, to_st_train->rank);
   if (avail_seats < number && !pending) return "-1";
   /*
   struct Order {
@@ -347,18 +349,18 @@ std::string TrainManager::BuyTicket(int timestamp, std::string_view username, st
   };
   */
   Order order = {Order::Status::SUCCESS, timestamp,  //
-      to_st_train.sum_price - from_st_train.sum_price, number,  //
+      to_st_train->sum_price - from_st_train->sum_price, number,  //
       start_date, username, train_id,  //
-      from_station, to_station, from_st_train.rank, to_st_train.rank,  //
-      start_date + from_st_train.departure_time, start_date + to_st_train.arrival_time};
+      from_station, to_station, from_st_train->rank, to_st_train->rank,  //
+      start_date + from_st_train->departure_time, start_date + to_st_train->arrival_time};
   std::string ret;
   if (avail_seats >= number) {
-    seats.RangeAdd(from_st_train.rank, to_st_train.rank, -number);
+    seats.RangeAdd(from_st_train->rank, to_st_train->rank, -number);
     UpdateSeats(train_id_hash, start_date, seats);
-    ret = std::to_string(1ll * number * (to_st_train.sum_price - from_st_train.sum_price));
+    ret = std::to_string(1ll * number * (to_st_train->sum_price - from_st_train->sum_price));
   } else {
     order.status = Order::Status::PENDING;
-    PendingOrder pending_order = {timestamp, number, from_st_train.rank, to_st_train.rank, user_id_hash};
+    PendingOrder pending_order = {timestamp, number, from_st_train->rank, to_st_train->rank, user_id_hash};
     pending_orders_.Insert(Tuple(train_id_hash, start_date, timestamp), pending_order);
     ret = "queue";
   }

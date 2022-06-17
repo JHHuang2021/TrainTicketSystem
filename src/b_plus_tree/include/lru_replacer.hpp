@@ -32,7 +32,6 @@ class Replacer {
     void Erase(const T &value) { holder.erase(holder.find(value)); }
     size_t Size() { return holder.size(); }
 
-   private:
     linked_hashmap<T, int> holder;
 };
 
