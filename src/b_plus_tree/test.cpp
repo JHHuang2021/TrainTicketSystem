@@ -1,8 +1,6 @@
 #include "include/b_plus_tree.hpp"
-huang::DiskManager dm("test_disk_manager");
-huang::Replacer<huang::Page*> rep;
-huang::BufferPoolManager bpm(512, &dm, &rep);
-huang::BPlusTree<int, double> bpt(&bpm);
+
+huang::BPlusTree<int, double> bpt("testdb",512);
 int main() {
     freopen("test0.in", "r", stdin);
     freopen("test.out", "w", stdout);
