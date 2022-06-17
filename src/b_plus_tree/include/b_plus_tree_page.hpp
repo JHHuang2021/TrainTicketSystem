@@ -47,6 +47,7 @@ class BPlusTreePage {
         data_[i] = {key, value};
         size_++;
     }
+    
     static const int size =
         (PAGE_SIZE - sizeof(IndexPageType) - sizeof(size_t) - sizeof(bool) -
          6 * sizeof(page_id_t)) /
