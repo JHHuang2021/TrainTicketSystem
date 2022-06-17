@@ -92,6 +92,7 @@ Date &Date::operator+=(DateDelta o) {
 Date Date::operator-(DateDelta o) const { return Date(minutes_ - o.minutes_); }
 DateTime Date::operator-(Duration o) const { return DateTime(minutes_ - o.minutes_); }
 bool operator<(const Date &a, const Date &b) { return a.minutes_ < b.minutes_; }
+bool operator==(const Date &a, const Date &b) { return a.minutes_ == b.minutes_; }
 
 DateTime::DateTime(std::string_view str) {
   // str:  MM-dd hh:mm

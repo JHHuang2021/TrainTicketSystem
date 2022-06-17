@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <string>
 
 namespace lin {
@@ -24,6 +25,9 @@ class Duration {
   friend bool operator==(const Duration &, const Duration &);
   friend bool operator<(const Duration &, const Duration &);
   friend Duration operator+(const Duration &, const Duration &);
+  friend std::ostream &operator<<(std::ostream &os, const Duration &duration) {
+    return os << duration.minutes_;
+  }
 };
 /**
  * @brief 表示日期之间相差了几天。
@@ -101,6 +105,7 @@ class Date {
   DateTime operator-(Duration o) const;
   // friend auto operator<=>(const Date &, const Date &) = default;
   friend bool operator<(const Date &, const Date &);
+  friend bool operator==(const Date &, const Date &);
 };
 /**
  * @brief 简陋的时间类型，精确到分钟，只能正确处理 2021 年 6 月至 8 月内的时间。
