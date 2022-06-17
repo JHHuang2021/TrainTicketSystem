@@ -187,10 +187,8 @@ class BPlusTree {
     }
     template <class N>
     GetSiblingAns<N> FetchSibling(BPlusTreePage<KeyType, N> *page) {
-        BPlusTreePage<KeyType, N> *p =
-            reinterpret_cast<BPlusTreePage<KeyType, N> *>(
-                buffer_pool_manager_->FetchPage(page->parent_page_id_)
-                    ->GetData());
+        BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+            buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
         GetSiblingAns<N> ret = {nullptr, false, LEFT};
         int i;
         for (i = 0; i <= p->size_; i++)
