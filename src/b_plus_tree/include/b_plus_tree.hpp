@@ -8,6 +8,7 @@
 
 #include "b_plus_tree_page.hpp"
 #include "page.h"
+#include "../../lib/vector.h"
 namespace huang {
 
 #define BPLUSTREE_TYPE BPlusTree<KeyType, ValueType>
@@ -138,7 +139,7 @@ class BPlusTree {
 
     // return the value between two keys
     void GetValue(const KeyType &first_key, const KeyType &last_key,
-                  std::vector<ValueType> *result) {
+                  lin::vector<ValueType> *result) {
         BPlusLeafPage *st = FindPos(first_key), *ed = FindPos(last_key),
                       *nxt = st;
         for (int ind = st->page_id_; ind != ed->page_id_;) {
