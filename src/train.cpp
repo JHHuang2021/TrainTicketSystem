@@ -23,6 +23,30 @@ TrainSeats::TrainSeats(int initial_seat_num, int station_num) {
   std::fill(seat_num, seat_num + station_num, initial_seat_num);
 }
 
+TrainSeatsWrap::TrainSeatsWrap(int initial_seat_num, int station_num)
+    : initial_seat_num(initial_seat_num), station_num(station_num) {}
+TrainSeatsWrap::~TrainSeatsWrap() {
+  if (need_destruct) delete seats;
+}
+int TrainSeatsWrap::RangeMin(int l, int r) {
+  if (seats) {
+    return seats->RangeMin(l, r);
+  } else {
+    return initial_seat_num;
+  }
+}
+void TrainSeatsWrap::RangeAdd(int l, int r, int x) {
+  if (seats == nullptr) {
+    seats = new TrainSeats(initial_seat_num, station_num);
+    need_destruct = true;
+  }
+  seats->RangeAdd(l, r, x);
+}
+int TrainSeatsWrap::operator[](int i) {
+  if (seats) return seats->seat_num[i];
+  return initial_seat_num;
+}
+
 int TrainSeats::RangeMin(int l, int r) {
   int res = INT_MAX;
   for (int i = l; i < r; ++i) res = std::min(res, seat_num[i]);
@@ -100,61 +124,56 @@ std::string Order::ToString() const {
 
 std::string TrainManager::AddTrain(const Train &train) {
   auto train_id_hash = TrainIdHasher(train.id);
-  bool success = trains_.emplace(train_id_hash, train).second;
-  return success ? "0" : "-1";
+  bool exist = trains_.GetValue(train_id_hash).second;
+  if (exist) return "-1";
+  trains_.Insert(train_id_hash, train);
+  return "0";
 }
 
 std::string TrainManager::DeleteTrain(std::string_view train_id) {
   auto train_id_hash = TrainIdHasher(train_id);
-  auto it = trains_.find(train_id_hash);
-  if (it == trains_.end()) return "-1";  // 车次不存在
-  Train &train = it->second;
-  if (train.released) return "-1";  // 不能删除已发布的车次
-  trains_.erase(it);
+  auto [train, exist] = trains_.GetValue(train_id_hash);
+  if (!exist) return "-1";  // 车次不存在
+  if (train->released) return "-1";  // 不能删除已发布的车次
+  trains_.Remove(train_id_hash);
   return "0";
 }
 
 std::string TrainManager::ReleaseTrain(std::string_view train_id) {
   auto train_id_hash = TrainIdHasher(train_id);
-  auto it = trains_.find(train_id_hash);
-  if (it == trains_.end()) return "-1";  // 车次不存在
-  Train &train = it->second;
-  if (train.released) return "-1";  // 不可重复 release
-  train.released = true;  // TODO: 将修改写回文件。此处因为使用 std::map 所以可以通过迭代器直接修改，但 B+ 树不能。
-  for (int i = 0; i < train.station_num; ++i) {
-    station_trains_.emplace(std::make_pair(StationHasher(train.stations[i]), train_id_hash),
-        StationTrain(train_id_hash, train.arrival_times[i], train.departure_times[i], train.sum_prices[i], i, train));
+  auto [train, exist] = trains_.GetValue(train_id_hash);
+  if (!exist) return "-1";  // 车次不存在
+  if (train->released) return "-1";  // 不可重复 release
+  train->released = true;
+  for (int i = 0; i < train->station_num; ++i) {
+    station_trains_.Insert(std::make_pair(StationHasher(train->stations[i]), train_id_hash),
+        StationTrain(
+            train_id_hash, train->arrival_times[i], train->departure_times[i], train->sum_prices[i], i, *train));
   }
   return "0";
 }
 
 std::string TrainManager::QueryTrain(std::string_view train_id, Date target_date) {
   auto train_id_hash = TrainIdHasher(train_id);
-  auto it = trains_.find(train_id_hash);
-  if (it == trains_.end()) return "-1";  // 车次不存在
-  Train &train = it->second;
-  if (target_date < train.start_sale || train.end_sale < target_date) return "-1";  // 超出日期范围
+  auto [train, exist] = trains_.GetValue(train_id_hash);
+  if (!exist) return "-1";  // 车次不存在
+  if (train->released) return "-1";  // 不可重复 release
+  if (target_date < train->start_sale || train->end_sale < target_date) return "-1";  // 超出日期范围
   std::string ret;
-  append(ret, train_id, ' ', train.type, '\n');
-  TrainSeats seats = GetSeats(train_id_hash, target_date, train.seat_num, train.station_num);
-  if (train.released) {
-    auto it = train_seats_.find(std::make_pair(train_id_hash, target_date));
-    if (it != train_seats_.end()) {
-      seats = it->second;
-    }
+  append(ret, train_id, ' ', train->type, '\n');
+  auto seats = GetSeats(train_id_hash, target_date, train->seat_num, train->station_num);
+  append(ret, train->stations[0].c_str(), " xx-xx xx:xx -> ",  //
+      DateTime(target_date, train->departure_times[0]).ToString(), ' ',  //
+      std::to_string(train->sum_prices[0]), ' ', std::to_string(seats[0]), '\n');
+  for (int i = 1; i < train->station_num - 1; ++i) {
+    append(ret, train->stations[i].c_str(), ' ',  //
+        DateTime(target_date, train->arrival_times[i]).ToString(), " -> ",
+        DateTime(target_date, train->departure_times[i]).ToString(), ' ',  //
+        std::to_string(train->sum_prices[i]), ' ', std::to_string(seats[i]), '\n');
   }
-  append(ret, train.stations[0].c_str(), " xx-xx xx:xx -> ",  //
-      DateTime(target_date, train.departure_times[0]).ToString(), ' ',  //
-      std::to_string(train.sum_prices[0]), ' ', std::to_string(seats.seat_num[0]), '\n');
-  for (int i = 1; i < train.station_num - 1; ++i) {
-    append(ret, train.stations[i].c_str(), ' ',  //
-        DateTime(target_date, train.arrival_times[i]).ToString(), " -> ",
-        DateTime(target_date, train.departure_times[i]).ToString(), ' ',  //
-        std::to_string(train.sum_prices[i]), ' ', std::to_string(seats.seat_num[i]), '\n');
-  }
-  append(ret, train.stations[train.station_num - 1].c_str(), ' ',
-      DateTime(target_date, train.arrival_times[train.station_num - 1]).ToString(), " -> xx-xx xx:xx ",
-      std::to_string(train.sum_prices[train.station_num - 1]), " x");
+  append(ret, train->stations[train->station_num - 1].c_str(), ' ',
+      DateTime(target_date, train->arrival_times[train->station_num - 1]).ToString(), " -> xx-xx xx:xx ",
+      std::to_string(train->sum_prices[train->station_num - 1]), " x");
   return ret;
 }
 
@@ -175,28 +194,30 @@ template <class T>
 using ComparisonOf = bool (*)(const T &, const T &);
 }  // namespace
 
-TrainSeats TrainManager::GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num) {
-  auto it = train_seats_.find(std::make_pair(train_id_hash, date));
-  if (it == train_seats_.end()) return TrainSeats(initial_seat_num, station_num);  // TODO: optimize
-  return it->second;
-}
-void TrainManager::UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeats &seats) {
-  auto key = std::make_pair(train_id_hash, date);
-  auto it = train_seats_.find(key);
-  if (it == train_seats_.end())
-    train_seats_.emplace(key, seats);  // TODO: optimize
+TrainSeatsWrap TrainManager::GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num) {
+  auto [seats, success] = train_seats_.GetValue(std::make_pair(train_id_hash, date));
+  if (success)
+    return TrainSeatsWrap(seats);
   else
-    it->second = seats;  // TODO: 将修改写回文件。
+    return TrainSeatsWrap(initial_seat_num, station_num);
+}
+void TrainManager::UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeatsWrap &seats) {
+  auto key = std::make_pair(train_id_hash, date);
+  auto [seats_ptr, success] = train_seats_.GetValue(key);
+  if (success)
+    *seats_ptr = *seats.seats;
+  else
+    train_seats_.Insert(key, *seats.seats);
 }
 
 std::string TrainManager::QueryTicket(
     Date date, std::string_view from_station, std::string_view to_station, SortOrder sort_order) {
   auto from_hash = StationHasher(from_station), to_hash = StationHasher(to_station);
-  vector<StationTrain> start_trains =
-      RangeFind(station_trains_, std::make_pair(from_hash, kHashMin), std::make_pair(from_hash, kHashMax));
-  vector<StationTrain> end_trains =
-      RangeFind(station_trains_, std::make_pair(to_hash, kHashMin), std::make_pair(to_hash, kHashMax));
-  if (start_trains.empty() || end_trains.empty()) return "0";
+  vector<StationTrain> start_trains, end_trains;
+  station_trains_.GetValue(std::make_pair(from_hash, kHashMin), std::make_pair(from_hash, kHashMax), &start_trains);
+  if (start_trains.empty()) return "0";
+  station_trains_.GetValue(std::make_pair(to_hash, kHashMin), std::make_pair(to_hash, kHashMax), &end_trains);
+  if (end_trains.empty()) return "0";
   vector<Ticket> result;
   for (auto i = start_trains.begin(), j = end_trains.begin(); i != start_trains.end(); ++i) {
     while (j != end_trains.end() && j->train_id_hash < i->train_id_hash) ++j;
@@ -226,11 +247,11 @@ std::string TrainManager::QueryTicket(
 std::string TrainManager::QueryTransfer(
     Date date, std::string_view from_station, std::string_view to_station, SortOrder sort_order) {
   auto from_hash{StationHasher(from_station)}, to_hash{StationHasher(to_station)};
-  vector<StationTrain> start_trains =
-      RangeFind(station_trains_, std::make_pair(from_hash, kHashMin), std::make_pair(from_hash, kHashMax));
-  vector<StationTrain> end_trains =
-      RangeFind(station_trains_, std::make_pair(to_hash, kHashMin), std::make_pair(to_hash, kHashMax));
-  if (start_trains.empty() || end_trains.empty()) return "0";
+  vector<StationTrain> start_trains, end_trains;
+  station_trains_.GetValue(std::make_pair(from_hash, kHashMin), std::make_pair(from_hash, kHashMax), &start_trains);
+  if (start_trains.empty()) return "0";
+  station_trains_.GetValue(std::make_pair(to_hash, kHashMin), std::make_pair(to_hash, kHashMax), &end_trains);
+  if (end_trains.empty()) return "0";
 
   TransferTicket ans, cur;
   ans.duration = Duration(INT_MAX);
@@ -240,12 +261,12 @@ std::string TrainManager::QueryTransfer(
   for (auto i : start_trains) {
     Date i_start_date = date - i.departure_time.GetDays();
     if (i_start_date < i.start_sale || i.end_sale < i_start_date) continue;
-    Train i_train = trains_.find(i.train_id_hash)->second;
+    Train i_train = *trains_.GetValue(i.train_id_hash).first;
     std::unordered_map<StationHash, int> station_rank;
     for (int k = i.rank + 1; k < i_train.station_num; ++k) station_rank[StationHasher(i_train.stations[k])] = k;
     for (auto j : end_trains) {
       if (i.train_id == j.train_id) continue;
-      Train j_train = trains_.find(j.train_id_hash)->second;  // TODO: 考虑使用缓存
+      Train &j_train = *trains_.GetValue(j.train_id_hash).first;  // TODO: 检查指针不会失效
       for (int k = 0; k < j.rank; ++k) {
         auto &transfer_station = j_train.stations[k];
         auto transfet_station_hash = StationHasher(transfer_station);
@@ -304,17 +325,13 @@ std::string TrainManager::BuyTicket(int timestamp, std::string_view username, st
   auto user_id_hash = UserIdHasher(username);
   auto train_id_hash = TrainIdHasher(train_id);
   auto from_hash = StationHasher(from_station), to_hash = StationHasher(to_station);
-  auto it = station_trains_.find(std::make_pair(from_hash, train_id_hash));
-  if (it == station_trains_.end()) return "-1";
-  StationTrain from_st_train = it->second;
+  StationTrain from_st_train = *station_trains_.GetValue(std::make_pair(from_hash, train_id_hash)).first;
   Date start_date = date - from_st_train.departure_time.GetDays();
   if (start_date < from_st_train.start_sale || from_st_train.end_sale < start_date || from_st_train.seat_num < number)
     return "-1";
-  it = station_trains_.find(std::make_pair(to_hash, train_id_hash));
-  if (it == station_trains_.end()) return "-1";
-  StationTrain to_st_train = it->second;
+  StationTrain to_st_train = *station_trains_.GetValue(std::make_pair(to_hash, train_id_hash)).first;
   if (from_st_train.rank >= to_st_train.rank) return "-1";
-  TrainSeats seats = GetSeats(train_id_hash, start_date, from_st_train.seat_num, from_st_train.station_num);
+  TrainSeatsWrap seats = GetSeats(train_id_hash, start_date, from_st_train.seat_num, from_st_train.station_num);
   int avail_seats = seats.RangeMin(from_st_train.rank, to_st_train.rank);
   if (avail_seats < number && !pending) return "-1";
   /*
@@ -342,16 +359,17 @@ std::string TrainManager::BuyTicket(int timestamp, std::string_view username, st
   } else {
     order.status = Order::Status::PENDING;
     PendingOrder pending_order = {timestamp, number, from_st_train.rank, to_st_train.rank, user_id_hash};
-    pending_orders_.emplace(Tuple(train_id_hash, start_date, timestamp), pending_order);
+    pending_orders_.Insert(Tuple(train_id_hash, start_date, timestamp), pending_order);
     ret = "queue";
   }
-  orders_.emplace(std::make_pair(user_id_hash, -timestamp), order);
+  orders_.Insert(std::make_pair(user_id_hash, -timestamp), order);
   return ret;
 }
 
 std::string TrainManager::QueryOrder(std::string_view username) {
   auto user_id_hash = UserIdHasher(username);
-  auto results = RangeFind(orders_, std::make_pair(user_id_hash, INT_MIN), std::make_pair(user_id_hash, 0));
+  vector<Order> results;
+  orders_.GetValue(std::make_pair(user_id_hash, INT_MIN), std::make_pair(user_id_hash, 0), &results);
   std::string ret = std::to_string(results.size());
   for (auto order : results) append(ret, '\n', order.ToString());
   return ret;
@@ -359,7 +377,8 @@ std::string TrainManager::QueryOrder(std::string_view username) {
 
 std::string TrainManager::RefundTicket(std::string_view username, const int number) {
   auto user_id_hash = UserIdHasher(username);
-  auto results = RangeFind(orders_, std::make_pair(user_id_hash, INT_MIN), std::make_pair(user_id_hash, 0));
+  vector<Order> results;
+  orders_.GetValue(std::make_pair(user_id_hash, INT_MIN), std::make_pair(user_id_hash, 0), &results);
   if (number > results.size()) return "-1";
   Order &order = results[number - 1];
   if (order.status == Order::Status::REFUNDED) return "-1";
@@ -368,22 +387,22 @@ std::string TrainManager::RefundTicket(std::string_view username, const int numb
   auto train_id_hash = TrainIdHasher(order.train_id);
 
   if (order.status == Order::Status::PENDING) {
-    pending_orders_.erase(Tuple(train_id_hash, start_date, order.timestamp));
+    pending_orders_.Remove(Tuple(train_id_hash, start_date, order.timestamp));
   } else {
-    auto &seats = train_seats_[std::make_pair(train_id_hash, start_date)];  // 买过票所以一定能查到
+    auto &seats = *train_seats_.GetValue(std::make_pair(train_id_hash, start_date)).first;  // 买过票所以一定能查到
     seats.RangeAdd(order.from_rank, order.to_rank, order.num);
-    auto pendings = RangeFind(pending_orders_,  //
-        Tuple(train_id_hash, start_date, 0), Tuple(train_id_hash, start_date, INT_MAX));
+    vector<PendingOrder> pendings;
+    pending_orders_.GetValue(Tuple(train_id_hash, start_date, 0), Tuple(train_id_hash, start_date, INT_MAX), &pendings);
     for (auto i : pendings)
       if (seats.RangeMin(i.from_rank, i.to_rank) >= i.num) {
-        auto &pending_order = orders_[std::make_pair(i.user_id_hash, -i.timestamp)];
+        auto &pending_order = *orders_.GetValue(std::make_pair(i.user_id_hash, -i.timestamp)).first;
         pending_order.status = Order::Status::SUCCESS;  // TODO: 将修改写回文件。
         seats.RangeAdd(i.from_rank, i.to_rank, -i.num);  // TODO: 将修改写回文件。
-        pending_orders_.erase(Tuple(train_id_hash, start_date, i.timestamp));
+        pending_orders_.Remove(Tuple(train_id_hash, start_date, i.timestamp));
       }
   }
   order.status = Order::REFUNDED;
-  orders_[std::make_pair(user_id_hash, -order.timestamp)] = order;
+  *orders_.GetValue(std::make_pair(user_id_hash, -order.timestamp)).first = order;
   return "0";
 }
 
