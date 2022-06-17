@@ -87,14 +87,14 @@ class TupleImpl<sizes<N...>, T...> : TupleElem<N, T>... {
 
 namespace {
 template <typename T, typename U>
-constexpr bool __tuple_cmp(const T& t, const U& u, sizes<>) {
+constexpr int __tuple_cmp(const T& t, const U& u, sizes<>) {
   return 0;
 }
 
 template <typename T, typename U, size_t _Idx0, size_t... _Idxs>
-constexpr bool __tuple_cmp(const T& t, const U& u, sizes<_Idx0, _Idxs...>) {
-  if (t.template get<_Idx0>() < u.template get<_Idx0>()) return true;
-  if (u.template get<_Idx0>() < t.template get<_Idx0>()) return false;
+constexpr int __tuple_cmp(const T& t, const U& u, sizes<_Idx0, _Idxs...>) {
+  if (t.template get<_Idx0>() < u.template get<_Idx0>()) return -1;
+  if (u.template get<_Idx0>() < t.template get<_Idx0>()) return 1;
   return __tuple_cmp(t, u, sizes<_Idxs...>());
 }
 }  // namespace
@@ -108,7 +108,17 @@ struct Tuple : TupleImpl<range<sizeof...(T)>, T...> {
 
 template <typename... Tps, typename... Ups>
 constexpr auto operator<(const Tuple<Tps...>& t, const Tuple<Ups...>& u) {
-  return __tuple_cmp(t, u, range<sizeof...(Tps)>());
+  return __tuple_cmp(t, u, range<sizeof...(Tps)>()) < 0;
+}
+
+template <typename... Tps, typename... Ups>
+constexpr auto operator<=(const Tuple<Tps...>& t, const Tuple<Ups...>& u) {
+  return __tuple_cmp(t, u, range<sizeof...(Tps)>()) <= 0;
+}
+
+template <typename... Tps, typename... Ups>
+constexpr auto operator==(const Tuple<Tps...>& t, const Tuple<Ups...>& u) {
+  return __tuple_cmp(t, u, range<sizeof...(Tps)>()) == 0;
 }
 
 template <typename... _Elements>
