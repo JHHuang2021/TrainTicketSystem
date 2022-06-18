@@ -194,11 +194,11 @@ class TrainManager {
   // std::map<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_;
 
   huang::BPlusTree<TrainIdHash, Train> trains_{"trains.dat", 512};
-  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats.dat", 100};
-  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains.dat", 100};
+  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats.dat", 200};
+  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains.dat", 200};
 
-  huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 100};
-  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 100};
+  huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 200};
+  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 200};
 
   TrainSeatsWrap GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num);
   void UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeatsWrap &seats);

@@ -42,14 +42,19 @@ class BPlusTree {
 
  public:
   explicit BPlusTree(const std::string &db_filename, size_t buffer_pool_size)
-      : dm(db_filename), rep(), bpm(buffer_pool_size, &dm, &rep), buffer_pool_manager_(&bpm) {
-    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(buffer_pool_manager_->FetchPage(0)->GetData());
+      : dm(db_filename),
+        rep(),
+        bpm(buffer_pool_size, &dm, &rep),
+        buffer_pool_manager_(&bpm) {
+    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(
+        buffer_pool_manager_->FetchPage(0)->GetData());
     size_ = header_page->size;
     buffer_pool_manager_->disk_manager_->next_page_id_ = header_page->allocator;
   };
 
   ~BPlusTree() {
-    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(buffer_pool_manager_->FetchPage(0)->GetData());
+    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(
+        buffer_pool_manager_->FetchPage(0)->GetData());
     header_page->size = size_;
     header_page->allocator = buffer_pool_manager_->disk_manager_->next_page_id_;
   }
@@ -69,26 +74,33 @@ class BPlusTree {
   template <class N>
   void print(BPlusTreePage<KeyType, N> *page) {
     if (page->IsLeafPage()) {
-      std::cout << "leaf :" << page->page_id_ << " parent:" << page->parent_page_id_ << std::endl;
-      for (int i = 0; i < page->size_; i++) std::cout << page->data_[i].first << " ";
+      std::cout << "leaf :" << page->page_id_
+                << " parent:" << page->parent_page_id_ << std::endl;
+      for (int i = 0; i < page->size_; i++)
+        std::cout << page->data_[i].first << " ";
       std::cout << std::endl;
-      for (int i = 0; i < page->size_; i++) std::cout << page->data_[i].second << " ";
+      for (int i = 0; i < page->size_; i++)
+        std::cout << page->data_[i].second << " ";
       std::cout << std::endl;
     } else {
-      std::cout << "int :" << page->page_id_ << " parent:" << page->parent_page_id_ << std::endl;
-      for (int i = 0; i <= page->size_; i++) std::cout << page->data_[i].first << " ";
+      std::cout << "int :" << page->page_id_
+                << " parent:" << page->parent_page_id_ << std::endl;
+      for (int i = 0; i <= page->size_; i++)
+        std::cout << page->data_[i].first << " ";
       std::cout << std::endl;
-      for (int i = 0; i <= page->size_; i++) std::cout << page->data_[i].second << " ";
+      for (int i = 0; i <= page->size_; i++)
+        std::cout << page->data_[i].second << " ";
       std::cout << std::endl;
     }
   }
   template <class N>
   void debug(BPlusTreePage<KeyType, N> *page) {
     print(page);
+    if (page->is_root_) return;
     if (!page->IsLeafPage() && page->size_) {
       for (int i = 0; i <= page->size_; i++) {
-        BPlusInternalPage *p =
-            reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->data_[i].second)->GetData());
+        BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+            buffer_pool_manager_->FetchPage(page->data_[i].second)->GetData());
         if (p->IsLeafPage()) {
           BPlusLeafPage *i = reinterpret_cast<BPlusLeafPage *>(p);
           debug(i);
@@ -125,28 +137,34 @@ class BPlusTree {
   };
 
   // return the value between two keys
-  void GetValue(const KeyType &first_key, const KeyType &last_key, lin::vector<ValueType> *result) {
-    if(IsEmpty()) return;
-    BPlusLeafPage *st = FindPos(first_key), *ed = FindPos(last_key), *nxt = st;
-    for (int ind = st->page_id_; ind != ed->page_id_;) {
+  void GetValue(const KeyType &first_key, const KeyType &last_key,
+                lin::vector<ValueType> *result) {
+    if (IsEmpty()) return;
+    BPlusLeafPage *st = FindPos(first_key), *nxt = st;
+    for (int ind = st->page_id_; ind != 0 && ind != -1;) {
       int i;
       for (i = 0; i < nxt->size_; i++)
         if (first_key <= nxt->data_[i].first) break;
-      for (int j = i; j < nxt->size_; j++) result->push_back(nxt->data_[j].second);
-      nxt = reinterpret_cast<BPlusLeafPage *>(buffer_pool_manager_->FetchPage(nxt->nxt)->GetData());
+      for (int j = i; j < nxt->size_; j++)
+        if (nxt->data_[j].first <= last_key)
+          result->push_back(nxt->data_[j].second);
+        else
+          return;
+      nxt = reinterpret_cast<BPlusLeafPage *>(
+          buffer_pool_manager_->FetchPage(nxt->nxt)->GetData());
       ind = nxt->page_id_;
     }
-    int i;
-    for (i = 0; i < nxt->size_; i++)
-      if (first_key <= nxt->data_[i].first) break;
-    for (int j = i; j < nxt->size_ && nxt->data_[j].first <= last_key; j++) result->push_back(nxt->data_[j].second);
   };
 
  private:
-  HeaderPage *FetchHead() { return reinterpret_cast<HeaderPage *>(buffer_pool_manager_->FetchPage(0)->GetData()); }
+  HeaderPage *FetchHead() {
+    return reinterpret_cast<HeaderPage *>(
+        buffer_pool_manager_->FetchPage(0)->GetData());
+  }
   BPlusInternalPage *FetchRoot() {
     HeaderPage *head = FetchHead();
-    return reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(head->root)->GetData());
+    return reinterpret_cast<BPlusInternalPage *>(
+        buffer_pool_manager_->FetchPage(head->root)->GetData());
   }
   BPlusLeafPage *FindPos(const KeyType &key) {
     BPlusInternalPage *page = FetchRoot();
@@ -157,8 +175,9 @@ class BPlusTree {
       int i;
       for (i = 0; i <= page->size_; i++)
         if (key < page->data_[i].first || i == page->size_) {
-          page =
-              reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->data_[i].second)->GetData());
+          page = reinterpret_cast<BPlusInternalPage *>(
+              buffer_pool_manager_->FetchPage(page->data_[i].second)
+                  ->GetData());
           pg = reinterpret_cast<BPlusLeafPage *>(page);
           break;
         }
@@ -167,8 +186,8 @@ class BPlusTree {
   }
   template <class N>
   GetSiblingAns<N> FetchSibling(BPlusTreePage<KeyType, N> *page) {
-    BPlusInternalPage *p =
-        reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+    BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+        buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
     GetSiblingAns<N> ret = {nullptr, false, LEFT};
     int i;
     for (i = 0; i <= p->size_; i++)
@@ -190,7 +209,8 @@ class BPlusTree {
     return ret;
   }
 
-  void UpdateParentKey(BPlusInternalPage *p, const KeyType &old_key, const KeyType &new_key) {
+  void UpdateParentKey(BPlusInternalPage *p, const KeyType &old_key,
+                       const KeyType &new_key) {
     while (true) {
       int i;
       for (i = 0; i < p->size_; i++)
@@ -201,7 +221,8 @@ class BPlusTree {
       if (p->is_root_)
         return;
       else
-        p = reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(p->parent_page_id_)->GetData());
+        p = reinterpret_cast<BPlusInternalPage *>(
+            buffer_pool_manager_->FetchPage(p->parent_page_id_)->GetData());
     }
   }
 
@@ -211,27 +232,30 @@ class BPlusTree {
       if (page->data_[i].first == key) break;
     if (i == page->size_) return;
     if (i == 0 && !page->is_root_) {
-      BPlusInternalPage *p =
-          reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+      BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+          buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
       UpdateParentKey(p, page->data_[0].first, page->data_[1].first);
     }
 
-    for (int j = i; j < page->size_ - 1; j++) page->data_[j] = page->data_[j + 1];
+    for (int j = i; j < page->size_ - 1; j++)
+      page->data_[j] = page->data_[j + 1];
     page->size_--;
     if (page->is_root_) return;
 
     FixPage(page);
     BPlusInternalPage *pg = reinterpret_cast<BPlusInternalPage *>(page);
-    
+
     // page = reinterpret_cast<BPlusLeafPage *>(
     //     buffer_pool_manager_->FetchPage(page->page_id_));
-    if(page->IsLeafPage()&&!page->is_root_){
-      pg = reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+    if (page->IsLeafPage() && !page->is_root_) {
+      pg = reinterpret_cast<BPlusInternalPage *>(
+          buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
       FixPage(pg);
     }
 
     while (!pg->is_root_) {
-      pg = reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(pg->parent_page_id_)->GetData());
+      pg = reinterpret_cast<BPlusInternalPage *>(
+          buffer_pool_manager_->FetchPage(pg->parent_page_id_)->GetData());
       FixPage(pg);
       // UpdateRoot(page);
     }
@@ -245,23 +269,27 @@ class BPlusTree {
     if (sibling.ifavail) {
       if (sibling.pos == LEFT) {
         if (page->IsLeafPage()) {
-          for (int i = page->size_ - 1; i >= 0; i--) page->data_[i + 1] = page->data_[i];
+          for (int i = page->size_ - 1; i >= 0; i--)
+            page->data_[i + 1] = page->data_[i];
           page->data_[0] = sibling.page->data_[sibling.page->size_ - 1];
           page->size_++;
           sibling.page->size_--;
-          BPlusInternalPage *p =
-              reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+          BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+              buffer_pool_manager_->FetchPage(page->parent_page_id_)
+                  ->GetData());
           int i;
           for (i = 0; i <= p->size_; i++)
             if (p->data_[i].second == sibling.page->page_id_) break;
           p->data_[i].first = page->data_[0].first;
         } else {
-          for (int i = page->size_; i >= 0; i--) page->data_[i + 1] = page->data_[i];
+          for (int i = page->size_; i >= 0; i--)
+            page->data_[i + 1] = page->data_[i];
           page->data_[0] = sibling.page->data_[sibling.page->size_];
           page->size_++;
           sibling.page->size_--;
-          BPlusInternalPage *p =
-              reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+          BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+              buffer_pool_manager_->FetchPage(page->parent_page_id_)
+                  ->GetData());
           int i;
           for (i = 0; i <= p->size_; i++)
             if (p->data_[i].second == sibling.page->page_id_) break;
@@ -271,18 +299,21 @@ class BPlusTree {
       } else {
         if (page->IsLeafPage()) {
           page->data_[page->size_] = sibling.page->data_[0];
-          for (int i = 1; i < sibling.page->size_; i++) sibling.page->data_[i - 1] = sibling.page->data_[i];
+          for (int i = 1; i < sibling.page->size_; i++)
+            sibling.page->data_[i - 1] = sibling.page->data_[i];
           page->size_++;
           sibling.page->size_--;
-          BPlusInternalPage *p =
-              reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+          BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+              buffer_pool_manager_->FetchPage(page->parent_page_id_)
+                  ->GetData());
           int i;
           for (i = 0; i <= p->size_; i++)
             if (p->data_[i].second == sibling.page->page_id_) break;
           p->data_[i - 1].first = sibling.page->data_[0].first;
         } else {
-          BPlusInternalPage *p =
-              reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+          BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+              buffer_pool_manager_->FetchPage(page->parent_page_id_)
+                  ->GetData());
           int i;
           for (i = 0; i <= p->size_; i++)
             if (p->data_[i].second == page->page_id_) break;
@@ -290,7 +321,8 @@ class BPlusTree {
           page->data_[++page->size_] = sibling.page->data_[0];
           p->data_[i].first = sibling.page->data_[0].first;
 
-          for (int i = 1; i <= sibling.page->size_; i++) sibling.page->data_[i - 1] = sibling.page->data_[i];
+          for (int i = 1; i <= sibling.page->size_; i++)
+            sibling.page->data_[i - 1] = sibling.page->data_[i];
           sibling.page->size_--;
           // p->data_[i - 1].first = sibling.page->data_[0].first;
         }
@@ -302,10 +334,11 @@ class BPlusTree {
         page = tmp;
       }
       if (page->IsLeafPage()) {
-        for (int i = 0; i < sibling.page->size_; i++) page->data_[i + page->size_] = sibling.page->data_[i];
+        for (int i = 0; i < sibling.page->size_; i++)
+          page->data_[i + page->size_] = sibling.page->data_[i];
         page->size_ += sibling.page->size_;
-        BPlusInternalPage *p =
-            reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+        BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+            buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
         int i;
         for (i = 0; i <= p->size_; i++)
           if (p->data_[i].second == page->page_id_) break;
@@ -314,8 +347,8 @@ class BPlusTree {
         p->size_--;
 
       } else {
-        BPlusInternalPage *p =
-            reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+        BPlusInternalPage *p = reinterpret_cast<BPlusInternalPage *>(
+            buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
         int i;
         for (i = 0; i <= p->size_; i++)
           if (p->data_[i].second == page->page_id_) break;
@@ -325,7 +358,8 @@ class BPlusTree {
         p->data_[i].second = page->page_id_;
         p->size_--;
 
-        for (int i = 0; i <= sibling.page->size_; i++) page->data_[i + page->size_] = sibling.page->data_[i];
+        for (int i = 0; i <= sibling.page->size_; i++)
+          page->data_[i + page->size_] = sibling.page->data_[i];
         page->size_ += sibling.page->size_;
 
         if (p->size_ == 0 && p->is_root_) {
@@ -348,12 +382,13 @@ class BPlusTree {
 
   void StartNewTree(const KeyType &key, const ValueType &value) {
     page_id_t header_page_id;
-    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(buffer_pool_manager_->NewPage(&header_page_id)->GetData());
+    HeaderPage *header_page = reinterpret_cast<HeaderPage *>(
+        buffer_pool_manager_->NewPage(&header_page_id)->GetData());
     header_page->root = 1;
 
     page_id_t root_page_id;
-    BPlusLeafPage *root_page =
-        reinterpret_cast<BPlusLeafPage *>(buffer_pool_manager_->NewPage(&root_page_id)->GetData());
+    BPlusLeafPage *root_page = reinterpret_cast<BPlusLeafPage *>(
+        buffer_pool_manager_->NewPage(&root_page_id)->GetData());
     root_page->Init(1, LEAF_PAGE, true);
 
     InsertIntoLeaf(key, value);
@@ -365,14 +400,16 @@ class BPlusTree {
     if (insert_leaf->size_ > insert_leaf->max_size) Split(insert_leaf);
   }
 
-  void InsertIntoInt(const page_id_t &parent_page_id, const KeyType &key, const page_id_t &page_id_left,
-      const page_id_t &page_id_right) {
-    BPlusInternalPage *parent =
-        reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(parent_page_id)->GetData());
+  void InsertIntoInt(const page_id_t &parent_page_id, const KeyType &key,
+                     const page_id_t &page_id_left,
+                     const page_id_t &page_id_right) {
+    BPlusInternalPage *parent = reinterpret_cast<BPlusInternalPage *>(
+        buffer_pool_manager_->FetchPage(parent_page_id)->GetData());
     int i;
     for (i = 0; i < parent->size_; i++)
       if (key < parent->data_[i].first) break;
-    for (int j = parent->size_; j >= i; j--) parent->data_[j + 1] = parent->data_[j];
+    for (int j = parent->size_; j >= i; j--)
+      parent->data_[j + 1] = parent->data_[j];
     parent->data_[i] = {key, page_id_left};
     parent->data_[i + 1].second = page_id_right;
     parent->size_++;
@@ -384,17 +421,20 @@ class BPlusTree {
     page_id_t new_page_id;
     buffer_pool_manager_->CheckPage(page->page_id_);
     BPlusTreePage<KeyType, N> *new_page =
-        reinterpret_cast<BPlusTreePage<KeyType, N> *>(buffer_pool_manager_->NewPage(&new_page_id)->GetData());
+        reinterpret_cast<BPlusTreePage<KeyType, N> *>(
+            buffer_pool_manager_->NewPage(&new_page_id)->GetData());
     KeyType *key;
     if (page->IsLeafPage()) {
-      new_page->Init(new_page_id, page->page_type_, false, page->size_ - page->size_ / 2);
+      new_page->Init(new_page_id, page->page_type_, false,
+                     page->size_ - page->size_ / 2);
       key = &page->data_[page->size_ / 2].first;
 
       page->size_ /= 2;
       for (int i = page->size_; i <= page->size_ + new_page->size_ - 1; i++)
         new_page->data_[i - page->size_] = page->data_[i];
     } else {
-      new_page->Init(new_page_id, page->page_type_, false, page->size_ - page->size_ / 2 - 1);
+      new_page->Init(new_page_id, page->page_type_, false,
+                     page->size_ - page->size_ / 2 - 1);
       key = &page->data_[page->size_ / 2].first;
 
       page->size_ /= 2;
@@ -408,7 +448,8 @@ class BPlusTree {
     if (page->is_root_) {
       page_id_t new_root_id;
       BPlusTreePage<KeyType, page_id_t> *new_root =
-          reinterpret_cast<BPlusTreePage<KeyType, page_id_t> *>(buffer_pool_manager_->NewPage(&new_root_id)->GetData());
+          reinterpret_cast<BPlusTreePage<KeyType, page_id_t> *>(
+              buffer_pool_manager_->NewPage(&new_root_id)->GetData());
       new_root->Init(new_root_id, INTERNAL_PAGE, true);
       page->is_root_ = false;
       InsertIntoInt(new_root_id, *key, page->page_id_, new_page_id);
@@ -421,14 +462,17 @@ class BPlusTree {
       page->parent_page_id_ = new_root_id;
       new_page->parent_page_id_ = new_root_id;
     } else {
-      InsertIntoInt(page->parent_page_id_, *key, page->page_id_, new_page->page_id_);
+      InsertIntoInt(page->parent_page_id_, *key, page->page_id_,
+                    new_page->page_id_);
       if (!new_page->IsLeafPage()) {
         auto pg = reinterpret_cast<BPlusInternalPage *>(new_page);
         UpdateRoot(pg);
       }
       new_page->parent_page_id_ = page->parent_page_id_;
-      BPlusTreePage<KeyType, page_id_t> *pg = reinterpret_cast<BPlusTreePage<KeyType, page_id_t> *>(
-          buffer_pool_manager_->FetchPage(page->parent_page_id_)->GetData());
+      BPlusTreePage<KeyType, page_id_t> *pg =
+          reinterpret_cast<BPlusTreePage<KeyType, page_id_t> *>(
+              buffer_pool_manager_->FetchPage(page->parent_page_id_)
+                  ->GetData());
       Split(pg);
     }
   }
@@ -436,8 +480,8 @@ class BPlusTree {
   void UpdateRoot(BPlusInternalPage *page) {
     if (page->IsLeafPage()) return;
     for (int i = 0; i <= page->size_; i++) {
-      BPlusInternalPage *pg =
-          reinterpret_cast<BPlusInternalPage *>(buffer_pool_manager_->FetchPage(page->data_[i].second)->GetData());
+      BPlusInternalPage *pg = reinterpret_cast<BPlusInternalPage *>(
+          buffer_pool_manager_->FetchPage(page->data_[i].second)->GetData());
       if (pg->IsLeafPage()) {
         BPlusLeafPage *i = reinterpret_cast<BPlusLeafPage *>(pg);
         i->parent_page_id_ = page->page_id_;
@@ -451,7 +495,7 @@ class BPlusTree {
   }
 
   BufferPoolManager *buffer_pool_manager_;
-  size_t size_;
+  size_t size_ = 0;
 };
 
 }  // namespace huang
