@@ -54,6 +54,7 @@ class BPTree {
     } else {
       auto res = bpt.GetValue(key);
       if (res.first) buffer.insert(std::make_pair(key, res.second));
+      if (buffer.size() > kValueBufferSize) buffer.erase(buffer.begin());
       return res;
     }
   }
