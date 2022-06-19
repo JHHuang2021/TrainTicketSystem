@@ -50,6 +50,13 @@ Page *BufferPoolManager::NewPage(page_id_t *page_id) {
     return pg;
 };
 
+void BufferPoolManager::CheckPage(page_id_t page_id){
+    if(page_map_[page_id]==replacer_->holder.begin()->first){
+      replacer_->holder.erase(replacer_->holder.begin());
+      replacer_->holder[page_map_[page_id]]=1;
+    }
+}
+
 bool BufferPoolManager::DeletePage(page_id_t page_id){
 
 };
