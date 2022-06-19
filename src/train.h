@@ -5,6 +5,7 @@
 
 // #include "b_plus_tree/include/b_plus_tree.hpp"
 #include "bpt/bpt.hpp"
+#include "lib/bpt.h"
 #include "lib/char.h"
 #include "lib/datetime.h"
 #include "lib/hash.h"
@@ -203,11 +204,11 @@ class TrainManager {
   // huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 200};
   // huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 200};
 
-  huang::BPlusTree<TrainIdHash, Train> trains_{"trains_"};
-  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats_"};
-  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains_"};
+  huang::BPTree<TrainIdHash, Train, 50> trains_{"trains_"};
+  huang::BPTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats_"};
+  huang::BPTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains_"};
 
-  huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders_"};
+  huang::BPTree<std::pair<UserIdHash, int>, Order> orders_{"orders_"};
   huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders_"};
 
   TrainSeatsWrap GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num);

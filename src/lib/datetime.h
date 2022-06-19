@@ -89,6 +89,7 @@ class Date {
  public:
   Date() : minutes_(0) {}
   explicit Date(int minutes) : minutes_(minutes) {}
+  int minutes() const;
   /**
    * @brief 从格式为「MM-dd」的字符串解析日期。
    */

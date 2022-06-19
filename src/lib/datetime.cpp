@@ -62,6 +62,7 @@ Date::Date(std::string_view str) {
   int day = GetNumber(str.data() + 3);
   minutes_ = (kSumDays[month - 1] + day) * 24 * 60;
 }
+int Date::minutes() const { return minutes_; }
 
 std::pair<int, int> Date::GetMonthDay() const {
   int days = minutes_ / (60 * 24);

@@ -7,7 +7,8 @@
 #include "../lib/vector.h"
 #include "bufferpool.hpp"
 namespace huang {
-template <class Key, class Value, int internal_size = 300, int leaf_size = 100>
+template <class Key, class Value, int internal_size = 300, int leaf_size = 100, int kInternalBufferSize = 50,
+    int kLeafBufferSize = 50>
 class BPlusTree {
  public:
   BPlusTree(const std::string& name) {
@@ -117,8 +118,7 @@ class BPlusTree {
       ret = leaf.val[pos].second;
     return {flag, ret};
   }
-  void GetValue(const Key& min_key, const Key& max_key,
-                lin::vector<Value>* ans) {
+  void GetValue(const Key& min_key, const Key& max_key, lin::vector<Value>* ans) {
     Internal tmp = root;
     while (!tmp.is_leaf) {
       int pos = BinSearchInternalKey(min_key, tmp);
@@ -142,8 +142,16 @@ class BPlusTree {
     }
   }
   void Modify(const Key& key, const Value& new_value) {
-    Remove(key);
-    Insert(key, new_value);
+    Internal tmp = root;
+    while (!tmp.is_leaf) {
+      int pos = BinSearchInternalKey(key, tmp);
+      ReadInternal(tmp, tmp.son[pos]);
+    }
+    int pos_leaf = BinSearchInternalKey(key, tmp);
+    ReadLeaf(leaf, tmp.son[pos_leaf]);
+    int pos = BinSearchLeafKey(key, leaf);
+    leaf.val[pos].second = new_value;
+    WriteLeaf(leaf);
   }
   void Debug() { ddebug(); }
 
@@ -186,8 +194,8 @@ class BPlusTree {
       this->nxt = nxt;
     }
   };
-  BufferPool<Internal> internal_pool;
-  BufferPool<Leaf> leaf_pool;
+  BufferPool<Internal, kInternalBufferSize> internal_pool;
+  BufferPool<Leaf, kLeafBufferSize> leaf_pool;
   Internal root;
   Leaf leaf;
   int size;
@@ -208,8 +216,7 @@ class BPlusTree {
   void Print(const Internal& internal) {
     for (int i = 0; i < internal.num; i++) std::cout << internal.key[i] << " ";
     std::cout << std::endl;
-    for (int i = 0; i < internal.num - 1; i++)
-      std::cout << internal.son[i] << " ";
+    for (int i = 0; i < internal.num - 1; i++) std::cout << internal.son[i] << " ";
     std::cout << std::endl;
   }
 
@@ -228,8 +235,7 @@ class BPlusTree {
       ReadLeaf(leaf, f.son[pos]);
 
       int pos_leaf = BinSearchLeafVal(val, leaf);
-      for (int i = leaf.num - 1; i >= pos_leaf; i--)
-        leaf.val[i + 1] = leaf.val[i];
+      for (int i = leaf.num - 1; i >= pos_leaf; i--) leaf.val[i + 1] = leaf.val[i];
       leaf.val[pos_leaf] = val;
       leaf.num++;
       size++;
@@ -288,8 +294,7 @@ class BPlusTree {
       ReadLeaf(leaf, f.son[pos]);
       int pos_leaf = BinSearchLeafKey(key, leaf);
 
-      for (int i = pos_leaf; i < leaf.num - 1; i++)
-        leaf.val[i] = leaf.val[i + 1];
+      for (int i = pos_leaf; i < leaf.num - 1; i++) leaf.val[i] = leaf.val[i + 1];
       leaf.num--;
       size--;
       int m = leaf_size / 2;
@@ -298,8 +303,7 @@ class BPlusTree {
         if (pos > 0) {
           ReadLeaf(sibilings_left, f.son[pos - 1]);
           if (sibilings_left.num > m) {
-            for (int i = leaf.num - 1; i >= 0; i--)
-              leaf.val[i + 1] = leaf.val[i];
+            for (int i = leaf.num - 1; i >= 0; i--) leaf.val[i + 1] = leaf.val[i];
             leaf.val[0] = sibilings_left.val[sibilings_left.num - 1];
             sibilings_left.num--;
             leaf.num++;
@@ -315,8 +319,7 @@ class BPlusTree {
           ReadLeaf(sibilings_right, f.son[pos + 1]);
           if (sibilings_right.num > m) {
             leaf.val[leaf.num] = sibilings_right.val[0];
-            for (int i = 0; i < sibilings_right.num - 1; i++)
-              sibilings_right.val[i] = sibilings_right.val[i + 1];
+            for (int i = 0; i < sibilings_right.num - 1; i++) sibilings_right.val[i] = sibilings_right.val[i + 1];
             leaf.num++;
             sibilings_right.num--;
             f.key[pos] = leaf.val[leaf.num - 1].first;
@@ -329,8 +332,7 @@ class BPlusTree {
         }
         if (pos > 0) {
           ReadLeaf(sibilings_left, f.son[pos - 1]);
-          for (int i = 0; i < leaf.num; i++)
-            sibilings_left.val[sibilings_left.num + i] = leaf.val[i];
+          for (int i = 0; i < leaf.num; i++) sibilings_left.val[sibilings_left.num + i] = leaf.val[i];
           sibilings_left.num += leaf.num;
           sibilings_left.nxt = leaf.nxt;
           WriteLeaf(sibilings_left);
@@ -346,8 +348,7 @@ class BPlusTree {
         }
         if (pos < f.num - 1) {
           ReadLeaf(sibilings_right, f.son[pos + 1]);
-          for (int i = 0; i < sibilings_right.num; i++)
-            leaf.val[leaf.num + i] = sibilings_right.val[i];
+          for (int i = 0; i < sibilings_right.num; i++) leaf.val[leaf.num + i] = sibilings_right.val[i];
           leaf.num += sibilings_right.num;
           leaf.nxt = sibilings_right.nxt;
           WriteLeaf(leaf);
@@ -396,10 +397,8 @@ class BPlusTree {
           son.key[son.num - 1] = f.key[pos];
           f.key[pos] = sibilings_right.key[0];
           // To Be Checked
-          for (int i = 0; i < sibilings_right.num - 1; i++)
-            sibilings_right.son[i] = sibilings_right.son[i + 1];
-          for (int i = 0; i < sibilings_right.num - 2; i++)
-            sibilings_right.key[i] = sibilings_right.key[i + 1];
+          for (int i = 0; i < sibilings_right.num - 1; i++) sibilings_right.son[i] = sibilings_right.son[i + 1];
+          for (int i = 0; i < sibilings_right.num - 2; i++) sibilings_right.key[i] = sibilings_right.key[i + 1];
           son.num++;
           sibilings_right.num--;
 
@@ -411,11 +410,9 @@ class BPlusTree {
       }
       if (pos > 0) {
         ReadInternal(sibilings_left, f.son[pos - 1]);
-        for (int i = 0; i < son.num; i++)
-          sibilings_left.son[sibilings_left.num + i] = son.son[i];
+        for (int i = 0; i < son.num; i++) sibilings_left.son[sibilings_left.num + i] = son.son[i];
         sibilings_left.key[sibilings_left.num - 1] = f.key[pos - 1];
-        for (int i = 0; i < son.num - 1; i++)
-          sibilings_left.key[sibilings_left.num + i] = son.key[i];
+        for (int i = 0; i < son.num - 1; i++) sibilings_left.key[sibilings_left.num + i] = son.key[i];
 
         sibilings_left.num += son.num;
         WriteInternal(sibilings_left);
@@ -431,11 +428,9 @@ class BPlusTree {
       }
       if (pos < f.num - 1) {
         ReadInternal(sibilings_right, f.son[pos + 1]);
-        for (int i = 0; i < sibilings_right.num; i++)
-          son.son[son.num + i] = sibilings_right.son[i];
+        for (int i = 0; i < sibilings_right.num; i++) son.son[son.num + i] = sibilings_right.son[i];
         son.key[son.num - 1] = f.key[pos];
-        for (int i = 0; i < sibilings_right.num - 1; i++)
-          son.key[son.num + i] = sibilings_right.key[i];
+        for (int i = 0; i < sibilings_right.num - 1; i++) son.key[son.num + i] = sibilings_right.key[i];
         son.num += sibilings_right.num;
         WriteInternal(son);
         internal_pool.Remove(sibilings_right.pos);
