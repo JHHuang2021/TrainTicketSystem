@@ -15,8 +15,8 @@ set(src_dir
   # ${PROJECT_SOURCE_DIR}/BPlusTree/buffer_pool_manager.cpp
 
   # ${PROJECT_SOURCE_DIR}/BPlusTree/test.cpp
-#   src/b_plus_tree/disk_manager.cpp
-#   src/b_plus_tree/buffer_pool_manager.cpp
+  src/b_plus_tree/disk_manager.cpp
+  src/b_plus_tree/buffer_pool_manager.cpp
   src/main.cpp
   src/command_parser.cpp
   src/user.cpp

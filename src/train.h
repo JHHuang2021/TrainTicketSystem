@@ -3,7 +3,8 @@
 #include <iostream>
 #include <map>
 
-#include "b_plus_tree/include/b_plus_tree.hpp"
+// #include "b_plus_tree/include/b_plus_tree.hpp"
+#include "bpt/bpt.hpp"
 #include "lib/char.h"
 #include "lib/datetime.h"
 #include "lib/hash.h"
@@ -40,6 +41,7 @@ struct StationTrain {
   Train::IdType train_id;
   Date start_sale, end_sale;
   int seat_num, station_num;
+  StationTrain() : train_id("xxxxxxxxxxxxxxxxxxxxxxxx") {}
   StationTrain(TrainIdHash train_id_hash_, Time arrival_time_, Time departure_time_, int sum_price_, int rank_,
       const Train &train)
       : train_id_hash(train_id_hash_),
@@ -64,13 +66,14 @@ struct TrainSeats {
   void RangeAdd(int l, int r, int x);
 };
 
-struct TrainSeatsWrap {
-  TrainSeats *seats = nullptr;
+struct TrainSeatsWrap : public TrainSeats {
+  // TrainSeats *seats = nullptr;
+  bool exist = false;
   int initial_seat_num, station_num;
-  bool need_destruct = false;
+  // bool need_destruct = false;
   TrainSeatsWrap();
   TrainSeatsWrap(int initial_seat_num, int station_num);
-  TrainSeatsWrap(TrainSeats *);
+  TrainSeatsWrap(TrainSeats);
   ~TrainSeatsWrap();
   // 左闭右开
   int RangeMin(int l, int r);
@@ -122,23 +125,23 @@ class TrainManager {
   /**
    * @brief 添加一辆火车。
    */
-  std::string AddTrain(const Train &train);
-  // std::string AddTrain(std::string_view train_id, const int station_num, const int total_seat_num,
+  std::string AddTrain(int timestamp, const Train &train);
+  // std::string AddTrain(int timestamp, std::string_view train_id, const int station_num, const int total_seat_num,
   //               vector<std::string_view> stations, vector<int> price, std::string_view start_time,
   //               vector<std::string> travel_times, vector<std::string> stopover_times, vector<std::string> sale_date,
   //               const char type);
 
   /// 删除指定 train_id 的车次，删除车次必须保证未发布。
-  std::string DeleteTrain(std::string_view train_id);
+  std::string DeleteTrain(int timestamp, std::string_view train_id);
 
   /**
    * @brief 发布火车。发布前的车次，不可发售车票，无法被 query_ticket 和 query_transfer 操作所查询到；
    * 发布后的车次不可被删除，可发售车票。
    */
-  std::string ReleaseTrain(std::string_view train_id);
+  std::string ReleaseTrain(int timestamp, std::string_view train_id);
 
   /// 询问符合条件的火车。
-  std::string QueryTrain(std::string_view train_id, Date target_date);
+  std::string QueryTrain(int timestamp, std::string_view train_id, Date target_date);
 
   /// 排序依据
   enum SortOrder { TIME, COST };
@@ -148,7 +151,7 @@ class TrainManager {
    *
    * @note 这里的日期是列车从 \p from_station 出发的日期，不是从列车始发站出发的日期。
    */
-  std::string QueryTicket(
+  std::string QueryTicket(int timestamp, 
       Date date, std::string_view from_station, std::string_view to_station, SortOrder sort_order = TIME);
   /**
    * @brief 在恰好换乘一次（换乘同一辆车不算恰好换乘一次）的情况下查询符合条件的车次。
@@ -156,7 +159,7 @@ class TrainManager {
    *
    * @note 这里的日期是列车从 \p from_station 出发的日期，不是从列车始发站出发的日期。
    */
-  std::string QueryTransfer(
+  std::string QueryTransfer(int timestamp, 
       Date date, std::string_view from_station, std::string_view to_station, SortOrder sort_order = TIME);
 
   /**
@@ -173,12 +176,14 @@ class TrainManager {
    * @brief 查询用户 \p username 的所有订单信息，按照交易时间顺序从新到旧排序。
    * （候补订单即使补票成功，交易时间也以下单时刻为准。）
    */
-  std::string QueryOrder(std::string_view username);
+  std::string QueryOrder(int timestamp, std::string_view username);
 
   /**
    * @brief 用户 \p username 退订从新到旧（即 query_order 的返回顺序）第 \p number 个（1-base）订单。
    */
-  std::string RefundTicket(std::string_view username, const int number = 1);
+  std::string RefundTicket(int timestamp, std::string_view username, const int number = 1);
+
+  void RollBack(int timestamp);
 
  private:
   Hasher<User::IdType> UserIdHasher;
@@ -193,15 +198,22 @@ class TrainManager {
   // std::map<std::pair<UserIdHash, int>, Order> orders_;
   // std::map<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_;
 
-  huang::BPlusTree<TrainIdHash, Train> trains_{"trains.dat", 1048576};
-  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats.dat", 1048576};
-  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains.dat", 1048576};
+  // huang::BPlusTree<TrainIdHash, Train> trains_{"trains.dat", 512};
+  // huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats.dat", 200};
+  // huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains.dat", 200};
 
-  huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 1048576};
-  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 1048576};
+  // huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 200};
+  // huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 200};
+
+  huang::BPlusTree<TrainIdHash, Train, 600, 2> trains_{"trains_"};
+  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats, 400, 20> train_seats_{"train_seats_"};
+  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain, 400, 120> station_trains_{"station_trains_"};
+
+  huang::BPlusTree<std::pair<UserIdHash, int>, Order, 400, 50> orders_{"orders_"};
+  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder, 400, 120> pending_orders_{"pending_orders_"};
 
   TrainSeatsWrap GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num);
-  void UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeatsWrap &seats);
+  void UpdateSeats(int timestamp,TrainIdHash train_id_hash, Date date, const TrainSeatsWrap &seats);
 };
 
 }  // namespace lin

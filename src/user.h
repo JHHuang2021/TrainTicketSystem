@@ -1,6 +1,7 @@
 #pragma once
 
-#include "b_plus_tree/include/b_plus_tree.hpp"
+// #include "b_plus_tree/include/b_plus_tree.hpp"
+#include "bpt/bpt.hpp"
 #include "lib/char.h"
 #include "lib/optional_arg.h"
 
@@ -32,20 +33,20 @@ class UserManager {
   /**
    * @brief 创建新用户。
    */
-  std::string AddUser(std::string_view cur_username, std::string_view username, std::string_view password,
+  std::string AddUser(int timestamp, std::string_view cur_username, std::string_view username, std::string_view password,
                       std::string_view name, std::string_view email, const int privilege);
   /**
    * @brief 用户登录。
    */
-  std::string Login(std::string_view username, std::string_view password);
+  std::string Login(int timestamp, std::string_view username, std::string_view password);
   /**
    * @brief 用户退出登录。
    */
-  std::string Logout(std::string_view username);
+  std::string Logout(int timestamp, std::string_view username);
   /**
    * @brief 查询用户信息。
    */
-  std::string QueryProfile(std::string_view cur_username, std::string_view username);
+  std::string QueryProfile(int timestamp, std::string_view cur_username, std::string_view username);
   /**
    * 已弃用
    * TODO: Delete it in future
@@ -61,15 +62,17 @@ class UserManager {
   /**
    * @brief 修改用户信息。
    */
-  std::string ModifyProfile(std::string_view cur_username, std::string_view username, OptionalArg password,
+  std::string ModifyProfile(int timestamp, std::string_view cur_username, std::string_view username, OptionalArg password,
                             OptionalArg name, OptionalArg email, OptionalInt privilege);
   
   bool IsLoggedIn(std::string_view username);
+  void RollBack(int timestamp);
 
  private:
   std::hash<std::string_view> hasher;
   /// hash of username -> User info
-  huang::BPlusTree<size_t, User> user_data_{"user_data.dat", 1048576};
+  // huang::BPlusTree<size_t, User> user_data_{"user_data.dat", 100};
+  huang::BPlusTree<size_t, User, 600, 10> user_data_{"user_data_"};
   /// Logged-in users, hash of username -> privilege
   huang::linked_hashmap<size_t, int> loggedin_user_;
   static std::string PrintUser(const User &user);
