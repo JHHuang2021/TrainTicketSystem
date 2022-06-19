@@ -204,12 +204,12 @@ class TrainManager {
   // huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 200};
   // huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 200};
 
-  huang::BPTree<TrainIdHash, Train, 50> trains_{"trains_"};
-  huang::BPTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats_"};
-  huang::BPTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains_"};
+  huang::BPlusTree<TrainIdHash, Train, 600, 2> trains_{"trains_"};
+  huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats, 400, 20> train_seats_{"train_seats_"};
+  huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain, 400, 120> station_trains_{"station_trains_"};
 
-  huang::BPTree<std::pair<UserIdHash, int>, Order> orders_{"orders_"};
-  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders_"};
+  huang::BPlusTree<std::pair<UserIdHash, int>, Order, 400, 50> orders_{"orders_"};
+  huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder, 400, 120> pending_orders_{"pending_orders_"};
 
   TrainSeatsWrap GetSeats(TrainIdHash train_id_hash, Date date, int initial_seat_num, int station_num);
   void UpdateSeats(TrainIdHash train_id_hash, Date date, const TrainSeatsWrap &seats);

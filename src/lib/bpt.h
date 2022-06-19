@@ -31,7 +31,7 @@ struct Hash<std::pair<T, U>> {
 };
 
 // 在原本 BPlusTree 的基础上加入元素级别的读取缓存
-template <class Key, class Value, int kValueBufferSize = 1000, int kInternalSize = 300, int kLeafSize = 100,
+template <class Key, class Value, int kValueBufferSize = 1000, int kInternalSize = 300, int kLeafSize = 10,
     int kInternalBufferSize = 50, int kLeafBufferSize = 50>
 class BPTree {
   BPlusTree<Key, Value, kInternalSize, kLeafSize, kInternalSize, kLeafBufferSize> bpt;

@@ -7,8 +7,8 @@
 #include "../lib/vector.h"
 #include "bufferpool.hpp"
 namespace huang {
-template <class Key, class Value, int internal_size = 300, int leaf_size = 100, int kInternalBufferSize = 50,
-    int kLeafBufferSize = 50>
+template <class Key, class Value, int internal_size = 400, int leaf_size = 10, int kInternalBufferSize = 400,
+    int kLeafBufferSize = 400>
 class BPlusTree {
  public:
   BPlusTree(const std::string& name) {
