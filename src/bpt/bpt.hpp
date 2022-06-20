@@ -7,7 +7,14 @@
 #include "../lib/vector.h"
 #include "bufferpool.hpp"
 namespace huang {
-template <class Key, class Value, int internal_size = 400, int leaf_size = 10, int kInternalBufferSize = 400,
+/**
+ * @brief Implementation of simple B+ tree data structure where
+ * internal pages direct the search and leaf pages contain actual data.
+ * - We only support unique key.
+ * - Support insert & remove.
+ * - The structure should shrink and grow dynamically.
+ */
+template <class Key, class Value, int kInternalSize = 400, int kLeafSize = 10, int kInternalBufferSize = 400,
     int kLeafBufferSize = 400>
 class BPlusTree {
  public:
@@ -70,10 +77,12 @@ class BPlusTree {
     tree_file.close();
     leaf_file.close();
   }
+  /// Returns true if this B+ tree has no keys and values. 
   bool Empty() { return size == 0; }
+  /// Inserts a key-value pair into this B+ tree. 
   void Insert(const Key& key, const Value& value) {
     if (InsertIfFatherSplit({key, value}, root)) {
-      int m = internal_size / 2;
+      int m = kInternalSize / 2;
       Internal new_brother(m, GetInternalIndex(), root.is_leaf);
       Internal new_root(2, GetInternalIndex(), false);
 
@@ -91,6 +100,7 @@ class BPlusTree {
       WriteInternal(root);
     }
   }
+  /// Removes a key and its value from this B+ tree.
   void Remove(const Key& key) {
     if (RemoveIfFatherMerge(key, root)) {
       if (!root.is_leaf && root.num == 1) {
@@ -101,6 +111,7 @@ class BPlusTree {
       }
     }
   }
+  /// Returns the value associated with a given key. 
   std::pair<bool, Value> GetValue(const Key& key) {
     Value ret;
     bool flag = true;
@@ -118,6 +129,7 @@ class BPlusTree {
       ret = leaf.val[pos].second;
     return {flag, ret};
   }
+  /// Returns all values between two keys. 
   void GetValue(const Key& min_key, const Key& max_key, lin::vector<Value>* ans) {
     Internal tmp = root;
     while (!tmp.is_leaf) {
@@ -141,6 +153,7 @@ class BPlusTree {
         ReadLeaf(leaf, leaf.nxt);
     }
   }
+  /// Updates the value that the given key maps to.
   void Modify(const Key& key, const Value& new_value) {
     Internal tmp = root;
     while (!tmp.is_leaf) {
@@ -161,8 +174,8 @@ class BPlusTree {
   struct Internal {
     bool is_leaf;
     int pos, num;
-    int son[internal_size + 1];
-    Key key[internal_size + 1];
+    int son[kInternalSize + 1];
+    Key key[kInternalSize + 1];
     Internal() {}
     Internal(int num, int pos, bool is_leaf) {
       memset(son, 0, sizeof(son));
@@ -180,7 +193,7 @@ class BPlusTree {
   struct Leaf {
     int pos, nxt = 0;
     int num;
-    std::pair<Key, Value> val[leaf_size + 1];
+    std::pair<Key, Value> val[kLeafSize + 1];
     Leaf() {}
     Leaf(int num, int pos, int nxt) {
       memset(val, 0, sizeof(val));
@@ -239,8 +252,8 @@ class BPlusTree {
       leaf.val[pos_leaf] = val;
       leaf.num++;
       size++;
-      if (leaf.num == leaf_size) {
-        int m = leaf_size / 2;
+      if (leaf.num == kLeafSize) {
+        int m = kLeafSize / 2;
         Leaf new_leaf(m, GetLeafIndex(), leaf.nxt);
         for (int i = 0; i < m; i++) new_leaf.val[i] = leaf.val[i + m];
         leaf.nxt = new_leaf.pos;
@@ -252,7 +265,7 @@ class BPlusTree {
         f.son[pos + 1] = new_leaf.pos;
         f.key[pos] = leaf.val[m - 1].first;
         f.num++;
-        if (f.num == internal_size)
+        if (f.num == kInternalSize)
           return true;
         else
           WriteInternal(f);
@@ -266,7 +279,7 @@ class BPlusTree {
     int pos = BinSearchInternalKey(val.first, f);
     ReadInternal(son, f.son[pos]);
     if (InsertIfFatherSplit(val, son)) {
-      int m = internal_size / 2;
+      int m = kInternalSize / 2;
       Internal new_brother(m, GetInternalIndex(), son.is_leaf);
       for (int i = 0; i < m; i++) new_brother.son[i] = son.son[m + i];
       for (int i = 0; i < m - 1; i++) new_brother.key[i] = son.key[m + i];
@@ -280,7 +293,7 @@ class BPlusTree {
       f.key[pos] = son.key[m - 1];
       f.num++;
 
-      if (f.num == internal_size)
+      if (f.num == kInternalSize)
         return true;
       else
         WriteInternal(f);
@@ -297,7 +310,7 @@ class BPlusTree {
       for (int i = pos_leaf; i < leaf.num - 1; i++) leaf.val[i] = leaf.val[i + 1];
       leaf.num--;
       size--;
-      int m = leaf_size / 2;
+      int m = kLeafSize / 2;
       if (leaf.num < m) {
         Leaf sibilings_left, sibilings_right;
         if (pos > 0) {
@@ -371,7 +384,7 @@ class BPlusTree {
     int pos = BinSearchInternalKey(key, f);
     ReadInternal(son, f.son[pos]);
     if (RemoveIfFatherMerge(key, son)) {
-      int m = internal_size / 2;
+      int m = kInternalSize / 2;
       Internal sibilings_left, sibilings_right;
       if (pos > 0) {
         ReadInternal(sibilings_left, f.son[pos - 1]);
