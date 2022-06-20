@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>可选参数 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="元组" href="tuple.html" />
+    <link rel="prev" title="动态数组" href="vector.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">可选参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuple.html">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">日期时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">可选参数</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="vector.html" title="上一章：动态数组"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 动态数组</span>
+    </a>
+  </li>
+  <li>
+    <a href="tuple.html" title="下一章：元组"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">元组 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>可选参数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>方便地表示函数中的一个可选参数。提供了 <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> 和 <code class="docutils literal notranslate"><span class="pre">int</span></code> 两种类型的可选参数。</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv411OptionalArg">
+<span id="_CPPv311OptionalArg"></span><span id="_CPPv211OptionalArg"></span><span id="OptionalArg"></span><span class="target" id="classOptionalArg"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalArg</span></span></span><a class="headerlink" href="#_CPPv411OptionalArg" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;optional_arg.h&gt;</em></div>
+<p>An optional argument of type <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalArg11OptionalArgEv">
+<span id="_CPPv3N11OptionalArg11OptionalArgEv"></span><span id="_CPPv2N11OptionalArg11OptionalArgEv"></span><span id="OptionalArg::OptionalArg"></span><span class="target" id="classOptionalArg_1aea4b9ba65f743cb90fdbddd9465512b1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalArg</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalArg11OptionalArgEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN11OptionalArg11OptionalArgEDpRR4Args">
+<span id="_CPPv3IDpEN11OptionalArg11OptionalArgEDpRR4Args"></span><span id="_CPPv2IDpEN11OptionalArg11OptionalArgEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classOptionalArg_1a71f394b044c357055d56669a6efcd793"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalArg</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN11OptionalArg11OptionalArgEDpRR4Args" title="OptionalArg::OptionalArg::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN11OptionalArg11OptionalArgEDpRR4Args" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalArgcvNSt11string_viewEEv">
+<span id="_CPPv3N11OptionalArgcvNSt11string_viewEEv"></span><span id="_CPPv2N11OptionalArgcvNSt11string_viewEEv"></span><span id="OptionalArg::castto-std::string_view-operator"></span><span class="target" id="classOptionalArg_1af561a6c449aa36adfd1b5d827845d321"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalArgcvNSt11string_viewEEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK11OptionalArg9has_valueEv">
+<span id="_CPPv3NK11OptionalArg9has_valueEv"></span><span id="_CPPv2NK11OptionalArg9has_valueEv"></span><span id="OptionalArg::has_valueC"></span><span class="target" id="classOptionalArg_1a75951d839cc1de87b51cab5c5e5015fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_value</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK11OptionalArg9has_valueEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalArgaSERKNSt11string_viewE">
+<span id="_CPPv3N11OptionalArgaSERKNSt11string_viewE"></span><span id="_CPPv2N11OptionalArgaSERKNSt11string_viewE"></span><span id="OptionalArg::assign-operator__std::string_viewCR"></span><span class="target" id="classOptionalArg_1a83a0f23394d6754da088da0305464945"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv411OptionalArg" title="OptionalArg"><span class="n"><span class="pre">OptionalArg</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalArgaSERKNSt11string_viewE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalArg2s_E">
+<span id="_CPPv3N11OptionalArg2s_E"></span><span id="_CPPv2N11OptionalArg2s_E"></span><span id="OptionalArg::s___std::string_view"></span><span class="target" id="classOptionalArg_1a54fae58ab805efd71ce33acdd068bd6e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">s_</span></span></span><a class="headerlink" href="#_CPPv4N11OptionalArg2s_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv411OptionalInt">
+<span id="_CPPv311OptionalInt"></span><span id="_CPPv211OptionalInt"></span><span id="OptionalInt"></span><span class="target" id="classOptionalInt"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalInt</span></span></span><a class="headerlink" href="#_CPPv411OptionalInt" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;optional_arg.h&gt;</em></div>
+<p>An optional int </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalInt11OptionalIntEv">
+<span id="_CPPv3N11OptionalInt11OptionalIntEv"></span><span id="_CPPv2N11OptionalInt11OptionalIntEv"></span><span id="OptionalInt::OptionalInt"></span><span class="target" id="classOptionalInt_1a93cbeb67cc654cd7e7b07ec5dc16ec27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalInt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalInt11OptionalIntEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalInt11OptionalIntEi">
+<span id="_CPPv3N11OptionalInt11OptionalIntEi"></span><span id="_CPPv2N11OptionalInt11OptionalIntEi"></span><span id="OptionalInt::OptionalInt__i"></span><span class="target" id="classOptionalInt_1a543165defdd5229624575f08ea56a8f5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptionalInt</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalInt11OptionalIntEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalIntcviEv">
+<span id="_CPPv3N11OptionalIntcviEv"></span><span id="_CPPv2N11OptionalIntcviEv"></span><span id="OptionalInt::castto-i-operator"></span><span class="target" id="classOptionalInt_1a325783123f25e806034c5b7299bb93a1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalIntcviEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK11OptionalInt9has_valueEv">
+<span id="_CPPv3NK11OptionalInt9has_valueEv"></span><span id="_CPPv2NK11OptionalInt9has_valueEv"></span><span id="OptionalInt::has_valueC"></span><span class="target" id="classOptionalInt_1a6138ce6ba05263e5ff79e47e826826c1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_value</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK11OptionalInt9has_valueEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalIntaSEi">
+<span id="_CPPv3N11OptionalIntaSEi"></span><span id="_CPPv2N11OptionalIntaSEi"></span><span id="OptionalInt::assign-operator__i"></span><span class="target" id="classOptionalInt_1a707b332d8ecffce6930ec24c81a68325"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv411OptionalInt" title="OptionalInt"><span class="n"><span class="pre">OptionalInt</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N11OptionalIntaSEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalInt4val_E">
+<span id="_CPPv3N11OptionalInt4val_E"></span><span id="_CPPv2N11OptionalInt4val_E"></span><span id="OptionalInt::val___i"></span><span class="target" id="classOptionalInt_1ae994832ccfff0b2ef48b444921466ba0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">val_</span></span></span><a class="headerlink" href="#_CPPv4N11OptionalInt4val_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N11OptionalInt8engaged_E">
+<span id="_CPPv3N11OptionalInt8engaged_E"></span><span id="_CPPv2N11OptionalInt8engaged_E"></span><span id="OptionalInt::engaged___b"></span><span class="target" id="classOptionalInt_1a524f003d740d01f1ceb9a619282ef2fa"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">engaged_</span></span></span><a class="headerlink" href="#_CPPv4N11OptionalInt8engaged_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

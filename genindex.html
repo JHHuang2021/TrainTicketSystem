@@ -55,13 +55,16 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="api/char.html">字符串</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/vector.html">动态数组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/optional_arg.html">可选参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/tuple.html">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/datetime.html">日期时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">工具函数</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/b_plus_tree.html">B+ 树</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/command_parser.html">指令解析</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/user.html">用户管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/train.html">火车管理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/order.html">订单管理</a></li>
 </ul>
 </ul>
 </li>
@@ -112,9 +115,8 @@
 <div class="genindex-jumpbox">
  <a href="#C"><strong>C</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#O"><strong>O</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  
 </div>
@@ -135,10 +137,10 @@
 </li>
       <li><a href="api/char.html#_CPPv4N4CharltERK4CharI4sizeERK4CharI4sizeE">Char::operator&lt; (C++ function)</a>
 </li>
-      <li><a href="api/char.html#_CPPv4N4CharlsERNSt7ostreamERK4CharI4sizeE">Char::operator&lt;&lt; (C++ function)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/char.html#_CPPv4N4CharlsERNSt7ostreamERK4CharI4sizeE">Char::operator&lt;&lt; (C++ function)</a>
+</li>
       <li><a href="api/char.html#_CPPv4N4CharleERK4CharI4sizeERK4CharI4sizeE">Char::operator&lt;= (C++ function)</a>
 </li>
       <li><a href="api/char.html#_CPPv4N4CharaSERK4Char">Char::operator= (C++ function)</a>
@@ -152,10 +154,6 @@
       <li><a href="api/char.html#_CPPv4N4CharrsERNSt7istreamER4CharI4sizeE">Char::operator&gt;&gt; (C++ function)</a>
 </li>
       <li><a href="api/char.html#_CPPv4NK4Char3strEv">Char::str (C++ function)</a>
-</li>
-      <li><a href="api/command_parser.html#_CPPv413CommandParser">CommandParser (C++ class)</a>
-</li>
-      <li><a href="api/command_parser.html#_CPPv4N13CommandParser3RunEv">CommandParser::Run (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -178,82 +176,574 @@
   </ul></td>
 </tr></table>
 
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/command_parser.html#_CPPv43lin">lin (C++ type)</a>, <a href="api/datetime.html#_CPPv43lin">[1]</a>, <a href="api/train.html#_CPPv43lin">[2]</a>, <a href="api/tuple.html#_CPPv43lin">[3]</a>, <a href="api/user.html#_CPPv43lin">[4]</a>, <a href="api/utils.html#_CPPv43lin">[5]</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I_bDpEN3lin6appendEvRNSt6stringEDpRR7Strings">lin::append (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_tDpEN3lin6chooseE">lin::choose (C++ type)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE">lin::Choose&lt;0, H, T...&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE">lin::Choose&lt;N, H, T...&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParserE">lin::CommandParser (C++ class)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser4argvE">lin::CommandParser::argv (C++ member)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser13CommandParserEP11UserManagerP12TrainManager">lin::CommandParser::CommandParser (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser13ParseAddTrainEv">lin::CommandParser::ParseAddTrain (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser12ParseAddUserEv">lin::CommandParser::ParseAddUser (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser14ParseBuyTicketEv">lin::CommandParser::ParseBuyTicket (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser10ParseCleanEv">lin::CommandParser::ParseClean (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser16ParseDeleteTrainEv">lin::CommandParser::ParseDeleteTrain (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser10ParseLoginEv">lin::CommandParser::ParseLogin (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser11ParseLogoutEv">lin::CommandParser::ParseLogout (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser18ParseModifyProfileEv">lin::CommandParser::ParseModifyProfile (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser11ParseNumberEPKc">lin::CommandParser::ParseNumber (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser15ParseQueryOrderEv">lin::CommandParser::ParseQueryOrder (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser17ParseQueryProfileEv">lin::CommandParser::ParseQueryProfile (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser16ParseQueryTicketEv">lin::CommandParser::ParseQueryTicket (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser15ParseQueryTrainEv">lin::CommandParser::ParseQueryTrain (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser18ParseQueryTransferEv">lin::CommandParser::ParseQueryTransfer (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser17ParseRefundTicketEv">lin::CommandParser::ParseRefundTicket (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser17ParseReleaseTrainEv">lin::CommandParser::ParseReleaseTrain (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser13ParseRollbackEv">lin::CommandParser::ParseRollback (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser3RunEv">lin::CommandParser::Run (C++ function)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4I0EN3lin13CommandParser5SplitE6vectorI1TEPcKc">lin::CommandParser::Split (C++ function)</a>, <a href="api/command_parser.html#_CPPv4I0EN3lin13CommandParser5SplitEvPcA_1TKc">[1]</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser9timestampE">lin::CommandParser::timestamp (C++ member)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser14train_manager_E">lin::CommandParser::train_manager_ (C++ member)</a>
+</li>
+      <li><a href="api/command_parser.html#_CPPv4N3lin13CommandParser13user_manager_E">lin::CommandParser::user_manager_ (C++ member)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4IDpEN3lin11concatenateENSt6stringEDpRR7Strings">lin::concatenate (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4DateE">lin::Date (C++ class)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4Date4DateENSt11string_viewE">lin::Date::Date (C++ function)</a>, <a href="api/datetime.html#_CPPv4N3lin4Date4DateEi">[1]</a>, <a href="api/datetime.html#_CPPv4N3lin4Date4DateEv">[2]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Date11GetMonthDayEv">lin::Date::GetMonthDay (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Date7minutesEv">lin::Date::minutes (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4Date8minutes_E">lin::Date::minutes_ (C++ member)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4DateplE4Time">lin::Date::operator+ (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4DatepLE4Time">lin::Date::operator+= (C++ function)</a>, <a href="api/datetime.html#_CPPv4N3lin4DatepLE9DateDelta">[1]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4DatemiE8Duration">lin::Date::operator- (C++ function)</a>, <a href="api/datetime.html#_CPPv4NK3lin4DatemiE9DateDelta">[1]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4DateltERK4DateRK4Date">lin::Date::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4DateeqERK4DateRK4Date">lin::Date::operator== (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Date8ToStringEv">lin::Date::ToString (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin9DateDeltaE">lin::DateDelta (C++ class)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin9DateDelta9DateDeltaEi">lin::DateDelta::DateDelta (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin9DateDelta7minutesEv">lin::DateDelta::minutes (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin9DateDelta8minutes_E">lin::DateDelta::minutes_ (C++ member)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimeE">lin::DateTime (C++ class)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTime8DateTimeE4Date4Time">lin::DateTime::DateTime (C++ function)</a>, <a href="api/datetime.html#_CPPv4N3lin8DateTime8DateTimeENSt11string_viewE">[1]</a>, <a href="api/datetime.html#_CPPv4N3lin8DateTime8DateTimeEi">[2]</a>, <a href="api/datetime.html#_CPPv4N3lin8DateTime8DateTimeEv">[3]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime7GetDateEv">lin::DateTime::GetDate (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime14GetDateAndTimeEv">lin::DateTime::GetDateAndTime (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime13GetHourMinuteEv">lin::DateTime::GetHourMinute (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime11GetMonthDayEv">lin::DateTime::GetMonthDay (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime7GetTimeEv">lin::DateTime::GetTime (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTime8minutes_E">lin::DateTime::minutes_ (C++ member)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTimeplE4Time">lin::DateTime::operator+ (C++ function)</a>, <a href="api/datetime.html#_CPPv4NK3lin8DateTimeplE8Duration">[1]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimepLE8Duration">lin::DateTime::operator+= (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTimemiERK8DateTime">lin::DateTime::operator- (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimeltERK8DateTimeRK8DateTime">lin::DateTime::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimeleERK8DateTimeRK8DateTime">lin::DateTime::operator&lt;= (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimeeqERK8DateTimeRK8DateTime">lin::DateTime::operator== (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimegtERK8DateTimeRK8DateTime">lin::DateTime::operator&gt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DateTimegeERK8DateTimeRK8DateTime">lin::DateTime::operator&gt;= (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8DateTime8ToStringEv">lin::DateTime::ToString (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detailE">lin::detail (C++ type)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE">lin::detail::concatenate_impl&lt;String, Rest...&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE11concatenateERNSt6stringERR6StringDpRR4Rest">lin::detail::concatenate_impl&lt;String, Rest...&gt;::concatenate (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE4sizeERR6StringDpRR4Rest">lin::detail::concatenate_impl&lt;String, Rest...&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I0EN3lin6detail16concatenate_implI6StringEE">lin::detail::concatenate_impl&lt;String&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16concatenate_implI6StringE11concatenateERNSt6stringERR6String">lin::detail::concatenate_impl&lt;String&gt;::concatenate (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16concatenate_implI6StringE4sizeERR6String">lin::detail::concatenate_impl&lt;String&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail19PhonyNameDueToError4sizeERKNSt6stringE">lin::detail::PhonyNameDueToError::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I0EN3lin6detail11string_sizeE6size_tRR6String">lin::detail::string_size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4IEN3lin6detail16string_size_implIPcEE">lin::detail::string_size_impl&lt;char*&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implIPcE4sizeEPc">lin::detail::string_size_impl&lt;char*&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4IEN3lin6detail16string_size_implIcEE">lin::detail::string_size_impl&lt;char&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implIcE4sizeEc">lin::detail::string_size_impl&lt;char&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_cEE">lin::detail::string_size_impl&lt;char[N]&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implIA1N_cE4sizeERA1N_c">lin::detail::string_size_impl&lt;char[N]&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4IEN3lin6detail16string_size_implIPKcEE">lin::detail::string_size_impl&lt;const char*&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implIPKcE4sizeEPKc">lin::detail::string_size_impl&lt;const char*&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_KcEE">lin::detail::string_size_impl&lt;const char[N]&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implIA1N_KcE4sizeERA1N_Kc">lin::detail::string_size_impl&lt;const char[N]&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4IEN3lin6detail16string_size_implINSt6stringEEE">lin::detail::string_size_impl&lt;std::string&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4N3lin6detail16string_size_implINSt6stringEE4sizeERKNSt6stringE">lin::detail::string_size_impl&lt;std::string&gt;::size (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DurationE">lin::Duration (C++ class)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8Duration8DurationEi">lin::Duration::Duration (C++ function)</a>, <a href="api/datetime.html#_CPPv4N3lin8Duration8DurationEv">[1]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin8Duration7minutesEv">lin::Duration::minutes (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8Duration8minutes_E">lin::Duration::minutes_ (C++ member)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DurationplERK8DurationRK8Duration">lin::Duration::operator+ (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DurationltERK8DurationRK8Duration">lin::Duration::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DurationlsERNSt7ostreamERK8Duration">lin::Duration::operator&lt;&lt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin8DurationeqERK8DurationRK8Duration">lin::Duration::operator== (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I0EN3lin2idE">lin::id (C++ struct)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin2id4typeE">lin::id::type (C++ type)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpDpEN3linltEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">lin::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpDpEN3linleEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">lin::operator&lt;= (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpDpEN3lineqEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">lin::operator== (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5OrderE">lin::Order (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order12arr_datetimeE">lin::Order::arr_datetime (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order4costE">lin::Order::cost (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order12dep_datetimeE">lin::Order::dep_datetime (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order9from_rankE">lin::Order::from_rank (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order12from_stationE">lin::Order::from_station (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order3numE">lin::Order::num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order10start_dateE">lin::Order::start_date (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order6StatusE">lin::Order::Status (C++ enum)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order6statusE">lin::Order::status (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order6Status7PENDINGE">lin::Order::Status::PENDING (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order6Status8REFUNDEDE">lin::Order::Status::REFUNDED (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order6Status7SUCCESSE">lin::Order::Status::SUCCESS (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order9timestampE">lin::Order::timestamp (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order7to_rankE">lin::Order::to_rank (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order10to_stationE">lin::Order::to_station (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4NK3lin5Order8ToStringEv">lin::Order::ToString (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order8train_idE">lin::Order::train_id (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Order8usernameE">lin::Order::username (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrderE">lin::PendingOrder (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrder9from_rankE">lin::PendingOrder::from_rank (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrder3numE">lin::PendingOrder::num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrder9timestampE">lin::PendingOrder::timestamp (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrder7to_rankE">lin::PendingOrder::to_rank (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12PendingOrder12user_id_hashE">lin::PendingOrder::user_id_hash (C++ member)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_tEN3lin5rangeE">lin::range (C++ type)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE">lin::Range&lt;L, I, sizes&lt;N...&gt;&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE">lin::Range&lt;L, L, sizes&lt;N...&gt;&gt; (C++ struct)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_Dp6size_tEN3lin5sizesE">lin::sizes (C++ struct)</a>
+</li>
+      <li><a href="api/utils.html#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare">lin::Sort (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin11StationHashE">lin::StationHash (C++ type)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrainE">lin::StationTrain (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain12arrival_timeE">lin::StationTrain::arrival_time (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain14departure_timeE">lin::StationTrain::departure_time (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain8end_saleE">lin::StationTrain::end_sale (C++ member)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain4rankE">lin::StationTrain::rank (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain8seat_numE">lin::StationTrain::seat_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain10start_saleE">lin::StationTrain::start_sale (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain11station_numE">lin::StationTrain::station_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain12StationTrainE11TrainIdHash4Time4TimeiiRK5Train">lin::StationTrain::StationTrain (C++ function)</a>, <a href="api/train.html#_CPPv4N3lin12StationTrain12StationTrainEv">[1]</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain9sum_priceE">lin::StationTrain::sum_price (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain8train_idE">lin::StationTrain::train_id (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12StationTrain13train_id_hashE">lin::StationTrain::train_id_hash (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6TicketE">lin::Ticket (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket11CompareCostERK6TicketRK6Ticket">lin::Ticket::CompareCost (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket11CompareTimeERK6TicketRK6Ticket">lin::Ticket::CompareTime (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket4costE">lin::Ticket::cost (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket8durationE">lin::Ticket::duration (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket8end_timeE">lin::Ticket::end_time (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket4seatE">lin::Ticket::seat (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket10start_timeE">lin::Ticket::start_time (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin6Ticket8train_idE">lin::Ticket::train_id (C++ member)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpEN3lin3tieE5TupleIDpR9_ElementsEDpR9_Elements">lin::tie (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4TimeE">lin::Time (C++ class)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Time7GetDaysEv">lin::Time::GetDays (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Time10GetDayTimeEv">lin::Time::GetDayTime (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Time13GetHourMinuteEv">lin::Time::GetHourMinute (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Time7minutesEv">lin::Time::minutes (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4Time8minutes_E">lin::Time::minutes_ (C++ member)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4TimeplE8Duration">lin::Time::operator+ (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4TimepLE8Duration">lin::Time::operator+= (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4TimemiERK4Time">lin::Time::operator- (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4TimeltERK4TimeRK4Time">lin::Time::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4N3lin4Time4TimeENSt11string_viewE">lin::Time::Time (C++ function)</a>, <a href="api/datetime.html#_CPPv4N3lin4Time4TimeEi">[1]</a>, <a href="api/datetime.html#_CPPv4N3lin4Time4TimeEv">[2]</a>
+</li>
+      <li><a href="api/datetime.html#_CPPv4NK3lin4Time8ToStringEv">lin::Time::ToString (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5TrainE">lin::Train (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train13arrival_timesE">lin::Train::arrival_times (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train15departure_timesE">lin::Train::departure_times (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train8end_saleE">lin::Train::end_sale (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train2idE">lin::Train::id (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train6IdTypeE">lin::Train::IdType (C++ type)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train14kMaxStationNumE">lin::Train::kMaxStationNum (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train8releasedE">lin::Train::released (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train8seat_numE">lin::Train::seat_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train10start_saleE">lin::Train::start_sale (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train11station_numE">lin::Train::station_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train11StationNameE">lin::Train::StationName (C++ type)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train8stationsE">lin::Train::stations (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train10sum_pricesE">lin::Train::sum_prices (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin5Train4typeE">lin::Train::type (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin11TrainIdHashE">lin::TrainIdHash (C++ type)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManagerE">lin::TrainManager (C++ class)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager8AddTrainERK5Train">lin::TrainManager::AddTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager9BuyTicketEiNSt11string_viewENSt11string_viewE4DateKiNSt11string_viewENSt11string_viewEKb">lin::TrainManager::BuyTicket (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager11DeleteTrainENSt11string_viewE">lin::TrainManager::DeleteTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager8GetSeatsE11TrainIdHash4Dateii">lin::TrainManager::GetSeats (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager7orders_E">lin::TrainManager::orders_ (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager15pending_orders_E">lin::TrainManager::pending_orders_ (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager10QueryOrderENSt11string_viewE">lin::TrainManager::QueryOrder (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager11QueryTicketE4DateNSt11string_viewENSt11string_viewE9SortOrder">lin::TrainManager::QueryTicket (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager10QueryTrainENSt11string_viewE4Date">lin::TrainManager::QueryTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager13QueryTransferE4DateNSt11string_viewENSt11string_viewE9SortOrder">lin::TrainManager::QueryTransfer (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager12RefundTicketENSt11string_viewEKi">lin::TrainManager::RefundTicket (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager12ReleaseTrainENSt11string_viewE">lin::TrainManager::ReleaseTrain (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager9SortOrderE">lin::TrainManager::SortOrder (C++ enum)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager9SortOrder4COSTE">lin::TrainManager::SortOrder::COST (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager9SortOrder4TIMEE">lin::TrainManager::SortOrder::TIME (C++ enumerator)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager15station_trains_E">lin::TrainManager::station_trains_ (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager13StationHasherE">lin::TrainManager::StationHasher (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager12train_seats_E">lin::TrainManager::train_seats_ (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager13TrainIdHasherE">lin::TrainManager::TrainIdHasher (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager7trains_E">lin::TrainManager::trains_ (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager11UpdateSeatsE11TrainIdHash4DateRK14TrainSeatsWrap">lin::TrainManager::UpdateSeats (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin12TrainManager12UserIdHasherE">lin::TrainManager::UserIdHasher (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10TrainSeatsE">lin::TrainSeats (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10TrainSeats8RangeAddEiii">lin::TrainSeats::RangeAdd (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10TrainSeats8RangeMinEii">lin::TrainSeats::RangeMin (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10TrainSeats8seat_numE">lin::TrainSeats::seat_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10TrainSeats10TrainSeatsEii">lin::TrainSeats::TrainSeats (C++ function)</a>, <a href="api/train.html#_CPPv4N3lin10TrainSeats10TrainSeatsEv">[1]</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrapE">lin::TrainSeatsWrap (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap5existE">lin::TrainSeatsWrap::exist (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap16initial_seat_numE">lin::TrainSeatsWrap::initial_seat_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrapixEi">lin::TrainSeatsWrap::operator[] (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap8RangeAddEiii">lin::TrainSeatsWrap::RangeAdd (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap8RangeMinEii">lin::TrainSeatsWrap::RangeMin (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap11station_numE">lin::TrainSeatsWrap::station_num (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapE10TrainSeats">lin::TrainSeatsWrap::TrainSeatsWrap (C++ function)</a>, <a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEii">[1]</a>, <a href="api/train.html#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEv">[2]</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TrainSeatsWrapD0Ev">lin::TrainSeatsWrap::~TrainSeatsWrap (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicketE">lin::TransferTicket (C++ struct)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket11CompareCostERK14TransferTicketRK14TransferTicket">lin::TransferTicket::CompareCost (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket11CompareTimeERK14TransferTicketRK14TransferTicket">lin::TransferTicket::CompareTime (C++ function)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket4costE">lin::TransferTicket::cost (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket8durationE">lin::TransferTicket::duration (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket7ticket1E">lin::TransferTicket::ticket1 (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket7ticket2E">lin::TransferTicket::ticket2 (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket16transfer_stationE">lin::TransferTicket::transfer_station (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin14TransferTicket14TransferTicketEv">lin::TransferTicket::TransferTicket (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpEN3lin5TupleE">lin::Tuple (C++ struct)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin5Tuple4sizeEv">lin::Tuple::size (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin5Tuple5TupleEDp1T">lin::Tuple::Tuple (C++ function)</a>, <a href="api/tuple.html#_CPPv4N3lin5Tuple5TupleEv">[1]</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_t0EN3lin9TupleElemE">lin::TupleElem (C++ class)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin9TupleElem4elemE">lin::TupleElem::elem (C++ member)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin9TupleElem3getEv">lin::TupleElem::get (C++ function)</a>, <a href="api/tuple.html#_CPPv4NK3lin9TupleElem3getEv">[1]</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4IDpEN3lin9TupleElem9TupleElemEDp4Args">lin::TupleElem::TupleElem (C++ function)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE">lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt; (C++ class)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE">lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::elem (C++ type)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getER4pickI1MEv">lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::get (C++ function)</a>, <a href="api/tuple.html#_CPPv4I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getERK4pickI1MEv">[1]</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE">lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::pick (C++ type)</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEDp1T">lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::TupleImpl (C++ function)</a>, <a href="api/tuple.html#_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEv">[1]</a>
+</li>
+      <li><a href="api/tuple.html#_CPPv4I0EN3lin7type_ofE">lin::type_of (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4UserE">lin::User (C++ struct)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User5emailE">lin::User::email (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User9EmailTypeE">lin::User::EmailType (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User6IdTypeE">lin::User::IdType (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User4nameE">lin::User::name (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User8NameTypeE">lin::User::NameType (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4NK3lin4UserltERK4User">lin::User::operator&lt; (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4NK3lin4UserleERK4User">lin::User::operator&lt;= (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4NK3lin4UsergtERK4User">lin::User::operator&gt; (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4NK3lin4UsergeERK4User">lin::User::operator&gt;= (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User8passwordE">lin::User::password (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User12PasswordTypeE">lin::User::PasswordType (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User9privilegeE">lin::User::privilege (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User4UserE6IdType12PasswordType8NameType9EmailTypei">lin::User::User (C++ function)</a>, <a href="api/user.html#_CPPv4N3lin4User4UserEv">[1]</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin4User8usernameE">lin::User::username (C++ member)</a>
+</li>
+      <li><a href="api/train.html#_CPPv4N3lin10UserIdHashE">lin::UserIdHash (C++ type)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManagerE">lin::UserManager (C++ class)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager7AddUserEiNSt11string_viewENSt11string_viewENSt11string_viewENSt11string_viewENSt11string_viewEKi">lin::UserManager::AddUser (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager6hasherE">lin::UserManager::hasher (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager10IsLoggedInENSt11string_viewE">lin::UserManager::IsLoggedIn (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager14loggedin_user_E">lin::UserManager::loggedin_user_ (C++ member)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager5LoginEiNSt11string_viewENSt11string_viewE">lin::UserManager::Login (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager6LogoutEiNSt11string_viewE">lin::UserManager::Logout (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager13ModifyProfileEiNSt11string_viewENSt11string_viewE11OptionalArg11OptionalArg11OptionalArg11OptionalInt">lin::UserManager::ModifyProfile (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager9PrintUserERK4User">lin::UserManager::PrintUser (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager12QueryProfileEiNSt11string_viewENSt11string_viewE">lin::UserManager::QueryProfile (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager8RollBackEi">lin::UserManager::RollBack (C++ function)</a>
+</li>
+      <li><a href="api/user.html#_CPPv4N3lin11UserManager10user_data_E">lin::UserManager::user_data_ (C++ member)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/order.html#_CPPv412OrderManager">OrderManager (C++ class)</a>
+      <li><a href="api/optional_arg.html#_CPPv411OptionalArg">OptionalArg (C++ class)</a>
 </li>
-      <li><a href="api/order.html#_CPPv4N12OrderManager9BuyTicketERKNSt6stringERKNSt6stringE8TimeTypeKiRKNSt6stringERKNSt6stringEKb">OrderManager::BuyTicket (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4NK11OptionalArg9has_valueEv">OptionalArg::has_value (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/order.html#_CPPv4N12OrderManager10QueryOrderEKNSt6stringE">OrderManager::QueryOrder (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalArgcvNSt11string_viewEEv">OptionalArg::operator std::string_view (C++ function)</a>
 </li>
-      <li><a href="api/order.html#_CPPv4N12OrderManager12RefundTicketERKNSt6stringEKi">OrderManager::RefundTicket (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalArgaSERKNSt11string_viewE">OptionalArg::operator= (C++ function)</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/train.html#_CPPv412TrainManager">TrainManager (C++ class)</a>
+      <li><a href="api/optional_arg.html#_CPPv4IDpEN11OptionalArg11OptionalArgEDpRR4Args">OptionalArg::OptionalArg (C++ function)</a>, <a href="api/optional_arg.html#_CPPv4N11OptionalArg11OptionalArgEv">[1]</a>
 </li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc">TrainManager::AddTrain (C++ function)</a>
-</li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">TrainManager::QueryTicket (C++ function)</a>
-</li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType">TrainManager::QueryTrain (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalArg2s_E">OptionalArg::s_ (C++ member)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/train.html#_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">TrainManager::QueryTransfer (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv411OptionalInt">OptionalInt (C++ class)</a>
 </li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE">TrainManager::ReleaseTrain (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalInt8engaged_E">OptionalInt::engaged_ (C++ member)</a>
 </li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrderE">TrainManager::SortOrder (C++ enum)</a>
+      <li><a href="api/optional_arg.html#_CPPv4NK11OptionalInt9has_valueEv">OptionalInt::has_value (C++ function)</a>
 </li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrder4COSTE">TrainManager::SortOrder::COST (C++ enumerator)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalIntcviEv">OptionalInt::operator int (C++ function)</a>
 </li>
-      <li><a href="api/train.html#_CPPv4N12TrainManager9SortOrder4TIMEE">TrainManager::SortOrder::TIME (C++ enumerator)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalIntaSEi">OptionalInt::operator= (C++ function)</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="U">U</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/user.html#_CPPv411UserManager">UserManager (C++ class)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalInt11OptionalIntEi">OptionalInt::OptionalInt (C++ function)</a>, <a href="api/optional_arg.html#_CPPv4N11OptionalInt11OptionalIntEv">[1]</a>
 </li>
-      <li><a href="api/user.html#_CPPv4N11UserManager7AddUserERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringEKi">UserManager::AddUser (C++ function)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager5LoginERKNSt6stringERKNSt6stringE">UserManager::Login (C++ function)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager6LogoutERKNSt6stringE">UserManager::Logout (C++ function)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager13ModifyProfileERKNSt6stringERK6vectorI11ProfileItemE">UserManager::ModifyProfile (C++ function)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItemE">UserManager::ProfileItem (C++ struct)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem7contentE">UserManager::ProfileItem::content (C++ member)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4TypeE">UserManager::ProfileItem::Type (C++ enum)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4typeE">UserManager::ProfileItem::type (C++ member)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type8MailAddrE">UserManager::ProfileItem::Type::MailAddr (C++ enumerator)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type4NameE">UserManager::ProfileItem::Type::Name (C++ enumerator)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type8PasswordE">UserManager::ProfileItem::Type::Password (C++ enumerator)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem4Type9PrivilegeE">UserManager::ProfileItem::Type::Privilege (C++ enumerator)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager11ProfileItem5valueE">UserManager::ProfileItem::value (C++ member)</a>
-</li>
-      <li><a href="api/user.html#_CPPv4N11UserManager12QueryProfileERKNSt6stringE">UserManager::QueryProfile (C++ function)</a>
+      <li><a href="api/optional_arg.html#_CPPv4N11OptionalInt4val_E">OptionalInt::val_ (C++ member)</a>
 </li>
   </ul></td>
 </tr></table>

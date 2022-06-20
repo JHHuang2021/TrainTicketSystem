@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>工具函数 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="B+ 树" href="b_plus_tree.html" />
+    <link rel="prev" title="日期时间" href="datetime.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_arg.html">可选参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuple.html">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">日期时间</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">工具函数</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">工具函数</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="datetime.html" title="上一章：日期时间"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 日期时间</span>
+    </a>
+  </li>
+  <li>
+    <a href="b_plus_tree.html" title="下一章：B+ 树"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">B+ 树 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>工具函数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>主要是快速排序函数和字符串拼接函数。</p>
+<p>使用 operator+ 合并多个字符串时，可能引起内存的反复移动，导致效率低下。</p>
+<p>一种解决方法是，合并前先在 string 里预留空间（reserve），之后把每个字符串都附加到 string 之后（operator+=）。</p>
+<p>代码实现参考了 <a class="reference external" href="https://stackoverflow.com/a/18899027">https://stackoverflow.com/a/18899027</a>。</p>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4IEN3lin6detail16string_size_implINSt6stringEEE">
+<span id="_CPPv3IEN3lin6detail16string_size_implINSt6stringEEE"></span><span id="_CPPv2IEN3lin6detail16string_size_implINSt6stringEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01std_1_1string_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin6detailE" title="lin::detail"><span class="n"><span class="pre">detail</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IEN3lin6detail16string_size_implINSt6stringEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implINSt6stringEE4sizeERKNSt6stringE">
+<span id="_CPPv3N3lin6detail16string_size_implINSt6stringEE4sizeERKNSt6stringE"></span><span id="_CPPv2N3lin6detail16string_size_implINSt6stringEE4sizeERKNSt6stringE"></span><span id="lin::detail::string_size_impl:ss:::size__ssCR"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01std_1_1string_01_4_1a593e941f41817cb00f85811ef5ba481e"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implINSt6stringEE4sizeERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv43lin">
+<span id="_CPPv33lin"></span><span id="_CPPv23lin"></span><span id="lin"></span><span class="target" id="namespacelin"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lin</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare">
+<span id="_CPPv3I00EN3lin4SortE4Iter4Iter7Compare"></span><span id="_CPPv2I00EN3lin4SortE4Iter4Iter7Compare"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Iter</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Compare</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">less</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare" title="lin::Sort::Iter"><span class="n"><span class="pre">Iter</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="utils_8h_1aab824a28627a80a187548f997d9c4654"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sort</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare" title="lin::Sort::Iter"><span class="n"><span class="pre">Iter</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare" title="lin::Sort::Iter"><span class="n"><span class="pre">Iter</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">last</span></span>, <a class="reference internal" href="#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare" title="lin::Sort::Compare"><span class="n"><span class="pre">Compare</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">cmp</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN3lin4SortEv4Iter4Iter7Compare" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Sort the elements of a sequence using a predicate for comparison. </p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first</strong> – An iterator. </p></li>
+<li><p><strong>last</strong> – Another iterator. </p></li>
+<li><p><strong>cmp</strong> – A comparison functor. </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>Nothing. Sorts the elements in the range <code class="docutils literal notranslate"></code>[first, last) in ascending order, such that <code class="docutils literal notranslate"><span class="pre">cmp</span></code>(*(i+1),*i) is false for every iterator <em>i</em> in the range <code class="docutils literal notranslate"></code>[first,last-1). The relative ordering of equivalent elements is not preserved. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN3lin11concatenateENSt6stringEDpRR7Strings">
+<span id="_CPPv3IDpEN3lin11concatenateEDpRR7Strings"></span><span id="_CPPv2IDpEN3lin11concatenateEDpRR7Strings"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Strings</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="utils_8h_1aeeb24a230c61315a115687aa2396fa05"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">concatenate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3lin11concatenateENSt6stringEDpRR7Strings" title="lin::concatenate::Strings"><span class="n"><span class="pre">Strings</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">strings</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3lin11concatenateENSt6stringEDpRR7Strings" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_bDpEN3lin6appendEvRNSt6stringEDpRR7Strings">
+<span id="_CPPv3I_bDpEN3lin6appendERNSt6stringEDpRR7Strings"></span><span id="_CPPv2I_bDpEN3lin6appendERNSt6stringEDpRR7Strings"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reserve</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Strings</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="utils_8h_1a6bb274c95e4d3ab8bb312153636e9ae4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4I_bDpEN3lin6appendEvRNSt6stringEDpRR7Strings" title="lin::append::Strings"><span class="n"><span class="pre">Strings</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">strings</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_bDpEN3lin6appendEvRNSt6stringEDpRR7Strings" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detailE">
+<span id="_CPPv3N3lin6detailE"></span><span id="_CPPv2N3lin6detailE"></span><span id="lin::detail"></span><span class="target" id="namespacelin_1_1detail"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">detail</span></span></span><a class="headerlink" href="#_CPPv4N3lin6detailE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>使用 operator+ 合并多个字符串时，可能引起内存的反复移动。 一种解决方法是，合并前先在 string 里预留空间（reserve）， 之后把每个字符串都附加到 string 之后（operator+=）。 代码实现参考了 <a class="reference external" href="https://stackoverflow.com/a/18899027。">https://stackoverflow.com/a/18899027。</a> </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin6detail11string_sizeE6size_tRR6String">
+<span id="_CPPv3I0EN3lin6detail11string_sizeERR6String"></span><span id="_CPPv2I0EN3lin6detail11string_sizeERR6String"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="namespacelin_1_1detail_1a2577b0983bd8d168aeff2afdcb4cee65"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3lin6detail11string_sizeE6size_tRR6String" title="lin::detail::string_size::String"><span class="n"><span class="pre">String</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3lin6detail11string_sizeE6size_tRR6String" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_KcEE">
+<span id="_CPPv3I_6size_tEN3lin6detail16string_size_implIA1N_KcEE"></span><span id="_CPPv2I_6size_tEN3lin6detail16string_size_implIAN_KcEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01const_01char_0fN_0e_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_KcEE" title="lin::detail::string_size_impl&lt;const char[N]&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_KcEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implIA1N_KcE4sizeERA1N_Kc">
+<span id="_CPPv3N3lin6detail16string_size_implIA1N_KcE4sizeERA1N_Kc"></span><span id="_CPPv2N3lin6detail16string_size_implIAN_KcE4sizeERAN_Kc"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01const_01char_0fN_0e_4_1ac8fc7a7639a62b0180874ceb49d1e794"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_KcEE" title="lin::detail::string_size_impl&lt;const char[N]&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">]</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implIA1N_KcE4sizeERA1N_Kc" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_cEE">
+<span id="_CPPv3I_6size_tEN3lin6detail16string_size_implIA1N_cEE"></span><span id="_CPPv2I_6size_tEN3lin6detail16string_size_implIAN_cEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_0fN_0e_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_cEE" title="lin::detail::string_size_impl&lt;char[N]&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_cEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implIA1N_cE4sizeERA1N_c">
+<span id="_CPPv3N3lin6detail16string_size_implIA1N_cE4sizeERA1N_c"></span><span id="_CPPv2N3lin6detail16string_size_implIAN_cE4sizeERAN_c"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_0fN_0e_4_1a01c1c4ba61727ae2f083c687ee34cc5c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin6detail16string_size_implIA1N_cEE" title="lin::detail::string_size_impl&lt;char[N]&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">]</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implIA1N_cE4sizeERA1N_c" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4IEN3lin6detail16string_size_implIPKcEE">
+<span id="_CPPv3IEN3lin6detail16string_size_implIPKcEE"></span><span id="_CPPv2IEN3lin6detail16string_size_implIPKcEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01const_01char_01_5_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IEN3lin6detail16string_size_implIPKcEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implIPKcE4sizeEPKc">
+<span id="_CPPv3N3lin6detail16string_size_implIPKcE4sizeEPKc"></span><span id="_CPPv2N3lin6detail16string_size_implIPKcE4sizeEPKc"></span><span id="lin::detail::string_size_impl:cCP:::size__cCP"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01const_01char_01_5_01_4_1a1f106706e30d9358a08ee4c332a5f805"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implIPKcE4sizeEPKc" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4IEN3lin6detail16string_size_implIPcEE">
+<span id="_CPPv3IEN3lin6detail16string_size_implIPcEE"></span><span id="_CPPv2IEN3lin6detail16string_size_implIPcEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_01_5_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IEN3lin6detail16string_size_implIPcEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implIPcE4sizeEPc">
+<span id="_CPPv3N3lin6detail16string_size_implIPcE4sizeEPc"></span><span id="_CPPv2N3lin6detail16string_size_implIPcE4sizeEPc"></span><span id="lin::detail::string_size_impl:cP:::size__cP"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_01_5_01_4_1a613b9c0176802d06b2632182660e7355"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implIPcE4sizeEPc" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4IEN3lin6detail16string_size_implIcEE">
+<span id="_CPPv3IEN3lin6detail16string_size_implIcEE"></span><span id="_CPPv2IEN3lin6detail16string_size_implIcEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_size_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IEN3lin6detail16string_size_implIcEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16string_size_implIcE4sizeEc">
+<span id="_CPPv3N3lin6detail16string_size_implIcE4sizeEc"></span><span id="_CPPv2N3lin6detail16string_size_implIcE4sizeEc"></span><span id="lin::detail::string_size_impl:c:::size__c"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01char_01_4_1a0a990a0e7b5f25158afb9cfc06862dbc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16string_size_implIcE4sizeEc" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp">
+<span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01std_1_1string_01_4"></span><span class="sig-name descname"><span class="pre">template&lt;&gt;</span> <span class="pre">string</span> <span class="pre">&gt;</span></span></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail19PhonyNameDueToError4sizeERKNSt6stringE">
+<span id="_CPPv3N3lin6detail19PhonyNameDueToError4sizeERKNSt6stringE"></span><span id="_CPPv2N3lin6detail19PhonyNameDueToError4sizeERKNSt6stringE"></span><span id="lin::detail::PhonyNameDueToError::size__ssCR"></span><span class="target" id="structlin_1_1detail_1_1string__size__impl_3_01std_1_1string_01_4_1a593e941f41817cb00f85811ef5ba481e"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail19PhonyNameDueToError4sizeERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin6detail16concatenate_implI6StringEE">
+<span id="_CPPv3I0EN3lin6detail16concatenate_implI6StringEE"></span><span id="_CPPv2I0EN3lin6detail16concatenate_implI6StringEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">concatenate_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3lin6detail16concatenate_implI6StringEE" title="lin::detail::concatenate_impl&lt;String&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3lin6detail16concatenate_implI6StringEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16concatenate_implI6StringE4sizeERR6String">
+<span id="_CPPv3N3lin6detail16concatenate_implI6StringE4sizeERR6String"></span><span id="_CPPv2N3lin6detail16concatenate_implI6StringE4sizeERR6String"></span><span id="lin::detail::concatenate_impl:String:::size__StringRR"></span><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_01_4_1afdd0c2ef707a9aefa38f5058e4f258a3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3lin6detail16concatenate_implI6StringEE" title="lin::detail::concatenate_impl&lt;String&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16concatenate_implI6StringE4sizeERR6String" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16concatenate_implI6StringE11concatenateERNSt6stringERR6String">
+<span id="_CPPv3N3lin6detail16concatenate_implI6StringE11concatenateERNSt6stringERR6String"></span><span id="_CPPv2N3lin6detail16concatenate_implI6StringE11concatenateERNSt6stringERR6String"></span><span id="lin::detail::concatenate_impl:String:::concatenate__ssR.StringRR"></span><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_01_4_1ab6a5ddb3209472107cabba3848a3c257"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">concatenate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">result</span></span>, <a class="reference internal" href="#_CPPv4I0EN3lin6detail16concatenate_implI6StringEE" title="lin::detail::concatenate_impl&lt;String&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16concatenate_implI6StringE11concatenateERNSt6stringERR6String" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE">
+<span id="_CPPv3I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE"></span><span id="_CPPv2I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Rest</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_00_01Rest_8_8_8_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">concatenate_impl</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::Rest"><span class="n"><span class="pre">Rest</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE4sizeERR6StringDpRR4Rest">
+<span id="_CPPv3N3lin6detail16concatenate_implI6StringDp4RestE4sizeERR6StringDpRR4Rest"></span><span id="_CPPv2N3lin6detail16concatenate_implI6StringDp4RestE4sizeERR6StringDpRR4Rest"></span><span id="lin::detail::concatenate_impl:String.RestDp:::size__StringRR.RestRRDp"></span><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_00_01Rest_8_8_8_01_4_1ab3b5814747fb750eecc5f88c6a865c9f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::Rest"><span class="n"><span class="pre">Rest</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rest</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE4sizeERR6StringDpRR4Rest" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE11concatenateERNSt6stringERR6StringDpRR4Rest">
+<span id="_CPPv3N3lin6detail16concatenate_implI6StringDp4RestE11concatenateERNSt6stringERR6StringDpRR4Rest"></span><span id="_CPPv2N3lin6detail16concatenate_implI6StringDp4RestE11concatenateERNSt6stringERR6StringDpRR4Rest"></span><span id="lin::detail::concatenate_impl:String.RestDp:::concatenate__ssR.StringRR.RestRRDp"></span><span class="target" id="structlin_1_1detail_1_1concatenate__impl_3_01String_00_01Rest_8_8_8_01_4_1a4b8192c046fa5f9195ab8af070979ffc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">concatenate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">result</span></span>, <a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::String"><span class="n"><span class="pre">String</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4I0DpEN3lin6detail16concatenate_implI6StringDp4RestEE" title="lin::detail::concatenate_impl&lt;String, Rest...&gt;::Rest"><span class="n"><span class="pre">Rest</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rest</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6detail16concatenate_implI6StringDp4RestE11concatenateERNSt6stringERR6StringDpRR4Rest" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

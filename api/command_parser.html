@@ -58,13 +58,16 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_arg.html">可选参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuple.html">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">日期时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">指令解析</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
 </ul>
 </ul>
 </li>
@@ -122,21 +125,158 @@
       
   <section id="id1">
 <h1>指令解析<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv413CommandParser">
-<span id="_CPPv313CommandParser"></span><span id="_CPPv213CommandParser"></span><span id="CommandParser"></span><span class="target" id="classCommandParser"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandParser</span></span></span><a class="headerlink" href="#_CPPv413CommandParser" title="永久链接至目标">¶</a><br /></dt>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv43lin">
+<span id="_CPPv33lin"></span><span id="_CPPv23lin"></span><span id="lin"></span><span class="target" id="namespacelin"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lin</span></span></span><a class="headerlink" href="#_CPPv43lin" title="永久链接至目标">¶</a><br /></dt>
+<dd><dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParserE">
+<span id="_CPPv3N3lin13CommandParserE"></span><span id="_CPPv2N3lin13CommandParserE"></span><span id="lin::CommandParser"></span><span class="target" id="classlin_1_1CommandParser"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandParser</span></span></span><a class="headerlink" href="#_CPPv4N3lin13CommandParserE" title="永久链接至目标">¶</a><br /></dt>
 <dd><div class="docutils container">
 <em>#include &lt;command_parser.h&gt;</em></div>
 <p>解析输入指令，并调用相应的函数。 </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N13CommandParser3RunEv">
-<span id="_CPPv3N13CommandParser3RunEv"></span><span id="_CPPv2N13CommandParser3RunEv"></span><span id="CommandParser::Run"></span><span class="target" id="classCommandParser_1a8d6fe192e3c7149240247bd4c483d40f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Run</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13CommandParser3RunEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser13CommandParserEP11UserManagerP12TrainManager">
+<span id="_CPPv3N3lin13CommandParser13CommandParserEP11UserManagerP12TrainManager"></span><span id="_CPPv2N3lin13CommandParser13CommandParserEP11UserManagerP12TrainManager"></span><span id="lin::CommandParser::CommandParser__UserManagerP.TrainManagerP"></span><span class="target" id="classlin_1_1CommandParser_1aa9bfe9cd529ade10ab72d3aa45ffcf6c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CommandParser</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="user.html#_CPPv4N3lin11UserManagerE" title="lin::UserManager"><span class="n"><span class="pre">UserManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">user_manager</span></span>, <a class="reference internal" href="train.html#_CPPv4N3lin12TrainManagerE" title="lin::TrainManager"><span class="n"><span class="pre">TrainManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">train_manager</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser13CommandParserEP11UserManagerP12TrainManager" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser3RunEv">
+<span id="_CPPv3N3lin13CommandParser3RunEv"></span><span id="_CPPv2N3lin13CommandParser3RunEv"></span><span id="lin::CommandParser::Run"></span><span class="target" id="classlin_1_1CommandParser_1a2cb3c83a7446d169614ef6496d9b6883"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Run</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser3RunEv" title="永久链接至目标">¶</a><br /></dt>
 <dd><p>循环读入指令并解析，直到遇到 exit。 </p>
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser12ParseAddUserEv">
+<span id="_CPPv3N3lin13CommandParser12ParseAddUserEv"></span><span id="_CPPv2N3lin13CommandParser12ParseAddUserEv"></span><span id="lin::CommandParser::ParseAddUser"></span><span class="target" id="classlin_1_1CommandParser_1a3c0215de639c744d6828976ff260f6ba"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseAddUser</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser12ParseAddUserEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser10ParseLoginEv">
+<span id="_CPPv3N3lin13CommandParser10ParseLoginEv"></span><span id="_CPPv2N3lin13CommandParser10ParseLoginEv"></span><span id="lin::CommandParser::ParseLogin"></span><span class="target" id="classlin_1_1CommandParser_1a6537fe6c8fc816915d6ce3b449adfc2d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseLogin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser10ParseLoginEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser11ParseLogoutEv">
+<span id="_CPPv3N3lin13CommandParser11ParseLogoutEv"></span><span id="_CPPv2N3lin13CommandParser11ParseLogoutEv"></span><span id="lin::CommandParser::ParseLogout"></span><span class="target" id="classlin_1_1CommandParser_1ae4540dc52f1d2d3a3419f58898ddbd35"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseLogout</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser11ParseLogoutEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser17ParseQueryProfileEv">
+<span id="_CPPv3N3lin13CommandParser17ParseQueryProfileEv"></span><span id="_CPPv2N3lin13CommandParser17ParseQueryProfileEv"></span><span id="lin::CommandParser::ParseQueryProfile"></span><span class="target" id="classlin_1_1CommandParser_1af10f005d0ae4ea4d32224dad40585659"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseQueryProfile</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser17ParseQueryProfileEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser18ParseModifyProfileEv">
+<span id="_CPPv3N3lin13CommandParser18ParseModifyProfileEv"></span><span id="_CPPv2N3lin13CommandParser18ParseModifyProfileEv"></span><span id="lin::CommandParser::ParseModifyProfile"></span><span class="target" id="classlin_1_1CommandParser_1a8e98e6675b34731c064cc8169c0960e1"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseModifyProfile</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser18ParseModifyProfileEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser13ParseAddTrainEv">
+<span id="_CPPv3N3lin13CommandParser13ParseAddTrainEv"></span><span id="_CPPv2N3lin13CommandParser13ParseAddTrainEv"></span><span id="lin::CommandParser::ParseAddTrain"></span><span class="target" id="classlin_1_1CommandParser_1adcd91bd3e6aa85aabf6fdd4c8d3d25eb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseAddTrain</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser13ParseAddTrainEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser16ParseDeleteTrainEv">
+<span id="_CPPv3N3lin13CommandParser16ParseDeleteTrainEv"></span><span id="_CPPv2N3lin13CommandParser16ParseDeleteTrainEv"></span><span id="lin::CommandParser::ParseDeleteTrain"></span><span class="target" id="classlin_1_1CommandParser_1a0221544d23e82bd92ff078fc5570f57a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseDeleteTrain</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser16ParseDeleteTrainEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser17ParseReleaseTrainEv">
+<span id="_CPPv3N3lin13CommandParser17ParseReleaseTrainEv"></span><span id="_CPPv2N3lin13CommandParser17ParseReleaseTrainEv"></span><span id="lin::CommandParser::ParseReleaseTrain"></span><span class="target" id="classlin_1_1CommandParser_1aa7a439cf8cbe736559377b40f8328d5a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseReleaseTrain</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser17ParseReleaseTrainEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser15ParseQueryTrainEv">
+<span id="_CPPv3N3lin13CommandParser15ParseQueryTrainEv"></span><span id="_CPPv2N3lin13CommandParser15ParseQueryTrainEv"></span><span id="lin::CommandParser::ParseQueryTrain"></span><span class="target" id="classlin_1_1CommandParser_1a67766f69de0858c03b86d44b522cc4e8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseQueryTrain</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser15ParseQueryTrainEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser16ParseQueryTicketEv">
+<span id="_CPPv3N3lin13CommandParser16ParseQueryTicketEv"></span><span id="_CPPv2N3lin13CommandParser16ParseQueryTicketEv"></span><span id="lin::CommandParser::ParseQueryTicket"></span><span class="target" id="classlin_1_1CommandParser_1a003847b6f6cc5d1b67995981ab358586"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseQueryTicket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser16ParseQueryTicketEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser18ParseQueryTransferEv">
+<span id="_CPPv3N3lin13CommandParser18ParseQueryTransferEv"></span><span id="_CPPv2N3lin13CommandParser18ParseQueryTransferEv"></span><span id="lin::CommandParser::ParseQueryTransfer"></span><span class="target" id="classlin_1_1CommandParser_1a05e5b1996346aff9b930800a98d531f6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseQueryTransfer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser18ParseQueryTransferEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser14ParseBuyTicketEv">
+<span id="_CPPv3N3lin13CommandParser14ParseBuyTicketEv"></span><span id="_CPPv2N3lin13CommandParser14ParseBuyTicketEv"></span><span id="lin::CommandParser::ParseBuyTicket"></span><span class="target" id="classlin_1_1CommandParser_1adc53c1d67c52fdf731fe7aeedd2d6b7b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseBuyTicket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser14ParseBuyTicketEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser15ParseQueryOrderEv">
+<span id="_CPPv3N3lin13CommandParser15ParseQueryOrderEv"></span><span id="_CPPv2N3lin13CommandParser15ParseQueryOrderEv"></span><span id="lin::CommandParser::ParseQueryOrder"></span><span class="target" id="classlin_1_1CommandParser_1a1566cab2c32512232cf7144880538883"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseQueryOrder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser15ParseQueryOrderEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser17ParseRefundTicketEv">
+<span id="_CPPv3N3lin13CommandParser17ParseRefundTicketEv"></span><span id="_CPPv2N3lin13CommandParser17ParseRefundTicketEv"></span><span id="lin::CommandParser::ParseRefundTicket"></span><span class="target" id="classlin_1_1CommandParser_1afca45a726b701d1a9e03f857b2ea59e5"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseRefundTicket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser17ParseRefundTicketEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser13ParseRollbackEv">
+<span id="_CPPv3N3lin13CommandParser13ParseRollbackEv"></span><span id="_CPPv2N3lin13CommandParser13ParseRollbackEv"></span><span id="lin::CommandParser::ParseRollback"></span><span class="target" id="classlin_1_1CommandParser_1a0d98f0d1d25953a3ee49cf7c66a23972"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseRollback</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser13ParseRollbackEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser10ParseCleanEv">
+<span id="_CPPv3N3lin13CommandParser10ParseCleanEv"></span><span id="_CPPv2N3lin13CommandParser10ParseCleanEv"></span><span id="lin::CommandParser::ParseClean"></span><span class="target" id="classlin_1_1CommandParser_1a9786956823041fd02ac34560453d34e6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseClean</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser10ParseCleanEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser13user_manager_E">
+<span id="_CPPv3N3lin13CommandParser13user_manager_E"></span><span id="_CPPv2N3lin13CommandParser13user_manager_E"></span><span id="lin::CommandParser::user_manager___UserManagerP"></span><span class="target" id="classlin_1_1CommandParser_1a7dd4f237f6322734921c2aa2d40a34b2"></span><a class="reference internal" href="user.html#_CPPv4N3lin11UserManagerE" title="lin::UserManager"><span class="n"><span class="pre">UserManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">user_manager_</span></span></span><a class="headerlink" href="#_CPPv4N3lin13CommandParser13user_manager_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser14train_manager_E">
+<span id="_CPPv3N3lin13CommandParser14train_manager_E"></span><span id="_CPPv2N3lin13CommandParser14train_manager_E"></span><span id="lin::CommandParser::train_manager___TrainManagerP"></span><span class="target" id="classlin_1_1CommandParser_1ae0d2a1cadac6d650a2233d0cc1903e14"></span><a class="reference internal" href="train.html#_CPPv4N3lin12TrainManagerE" title="lin::TrainManager"><span class="n"><span class="pre">TrainManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">train_manager_</span></span></span><a class="headerlink" href="#_CPPv4N3lin13CommandParser14train_manager_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser9timestampE">
+<span id="_CPPv3N3lin13CommandParser9timestampE"></span><span id="_CPPv2N3lin13CommandParser9timestampE"></span><span id="lin::CommandParser::timestamp__i"></span><span class="target" id="classlin_1_1CommandParser_1a91727ce41d16b746af3b3833fcf80b71"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timestamp</span></span></span><a class="headerlink" href="#_CPPv4N3lin13CommandParser9timestampE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser4argvE">
+<span id="_CPPv3N3lin13CommandParser4argvE"></span><span id="_CPPv2N3lin13CommandParser4argvE"></span><span id="lin::CommandParser::argv__vector:cP:"></span><span class="target" id="classlin_1_1CommandParser_1a0f7050007fe3d2585c9720a9b50e23df"></span><a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">argv</span></span></span><a class="headerlink" href="#_CPPv4N3lin13CommandParser4argvE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-functions">Private Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin13CommandParser5SplitE6vectorI1TEPcKc">
+<span id="_CPPv3I0EN3lin13CommandParser5SplitEPcKc"></span><span id="_CPPv2I0EN3lin13CommandParser5SplitEPcKc"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1CommandParser_1a69576173e3df6fa51d9e151df1d8d83b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3lin13CommandParser5SplitE6vectorI1TEPcKc" title="lin::CommandParser::Split::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Split</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sep</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="sc"><span class="pre">'</span> <span class="pre">'</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3lin13CommandParser5SplitE6vectorI1TEPcKc" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Splits a C-style string by blank character. Note that the original string WILL BE MODIFIED. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin13CommandParser5SplitEvPcA_1TKc">
+<span id="_CPPv3I0EN3lin13CommandParser5SplitEPcA_1TKc"></span><span id="_CPPv2I0EN3lin13CommandParser5SplitEPcA_1TKc"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1CommandParser_1a921b62235ac2b1744c4726588d7dc241"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Split</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span>, <a class="reference internal" href="#_CPPv4I0EN3lin13CommandParser5SplitEvPcA_1TKc" title="lin::CommandParser::Split::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">result</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sep</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="sc"><span class="pre">'</span> <span class="pre">'</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3lin13CommandParser5SplitEvPcA_1TKc" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Splits a C-style string by blank character, stores the result in the given array. Note that the original string WILL BE MODIFIED. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin13CommandParser11ParseNumberEPKc">
+<span id="_CPPv3N3lin13CommandParser11ParseNumberEPKc"></span><span id="_CPPv2N3lin13CommandParser11ParseNumberEPKc"></span><span id="lin::CommandParser::ParseNumber__cCP"></span><span class="target" id="classlin_1_1CommandParser_1a85c0457a964a0db8f1f1c3a79daf4f82"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParseNumber</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin13CommandParser11ParseNumberEPKc" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Gets a positive number from a C-style string WITHOUT checking the character is a digit. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </section>

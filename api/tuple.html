@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>元组 &#8212; 火车票管理系统  文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="日期时间" href="datetime.html" />
+    <link rel="prev" title="可选参数" href="optional_arg.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          火车票管理系统</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">主页 <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_arg.html">可选参数</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">日期时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">火车管理</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">当前页 <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">元组</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="optional_arg.html" title="上一章：可选参数"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 可选参数</span>
+    </a>
+  </li>
+  <li>
+    <a href="datetime.html" title="下一章：日期时间"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">日期时间 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="搜索" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="id1">
+<h1>元组<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>实现一个简陋的 <code class="docutils literal notranslate"><span class="pre">Tuple</span></code>。</p>
+<p>重载了小于号和小于等于号，使得多关键字比较更为方便。</p>
+<p>参考了 <a class="reference external" href="https://codereview.stackexchange.com/a/44832">https://codereview.stackexchange.com/a/44832</a> 和 GCC。</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv43lin">
+<span id="_CPPv33lin"></span><span id="_CPPv23lin"></span><span id="lin"></span><span class="target" id="namespacelin"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lin</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin7type_ofE">
+<span id="_CPPv3I0EN3lin7type_ofE"></span><span id="_CPPv2I0EN3lin7type_ofE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a924daa9e0cd5216034795488d5c72306"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_of</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3lin7type_ofE" title="lin::type_of::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type</span></span><a class="headerlink" href="#_CPPv4I0EN3lin7type_ofE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tDpEN3lin6chooseE">
+<span id="_CPPv3I_6size_tDpEN3lin6chooseE"></span><span id="_CPPv2I_6size_tDpEN3lin6chooseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a48e0e03f4ad01e7dd7a4d3b232bed5eb"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">choose</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3lin7type_ofE" title="lin::type_of"><span class="n"><span class="pre">type_of</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Choose</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tDpEN3lin6chooseE" title="lin::choose::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_tDpEN3lin6chooseE" title="lin::choose::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tDpEN3lin6chooseE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin5rangeE">
+<span id="_CPPv3I_6size_tEN3lin5rangeE"></span><span id="_CPPv2I_6size_tEN3lin5rangeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">L</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a9296987f15abba4e620266d33727280e"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">range</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3lin7type_ofE" title="lin::type_of"><span class="n"><span class="pre">type_of</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Range</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin5rangeE" title="lin::range::L"><span class="n"><span class="pre">L</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin5rangeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpDpEN3linltEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">
+<span id="_CPPv3IDpDpEN3linltERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span id="_CPPv2IDpDpEN3linltERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Tps</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ups</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a0fb1fd66912096288b86f4a9bba9267b"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3linltEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator&lt;::Tps"><span class="n"><span class="pre">Tps</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3linltEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator&lt;::Ups"><span class="n"><span class="pre">Ups</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpDpEN3linltEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpDpEN3linleEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">
+<span id="_CPPv3IDpDpEN3linleERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span id="_CPPv2IDpDpEN3linleERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Tps</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ups</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a1b5a8f60eb7a88b0e91fec8798289515"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3linleEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator&lt;=::Tps"><span class="n"><span class="pre">Tps</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3linleEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator&lt;=::Ups"><span class="n"><span class="pre">Ups</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpDpEN3linleEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpDpEN3lineqEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE">
+<span id="_CPPv3IDpDpEN3lineqERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span id="_CPPv2IDpDpEN3lineqERK5TupleIDp3TpsERK5TupleIDp3UpsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Tps</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ups</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a6eb9417a5d20dbb23d44d3873e24469d"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3lineqEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator==::Tps"><span class="n"><span class="pre">Tps</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpDpEN3lineqEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="lin::operator==::Ups"><span class="n"><span class="pre">Ups</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">u</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpDpEN3lineqEDaRK5TupleIDp3TpsERK5TupleIDp3UpsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN3lin3tieE5TupleIDpR9_ElementsEDpR9_Elements">
+<span id="_CPPv3IDpEN3lin3tieEDpR9_Elements"></span><span id="_CPPv2IDpEN3lin3tieEDpR9_Elements"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">_Elements</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="tuple_8h_1a4def9863b41eebb11b295f921591dae0"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3lin3tieE5TupleIDpR9_ElementsEDpR9_Elements" title="lin::tie::_Elements"><span class="n"><span class="pre">_Elements</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tie</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3lin3tieE5TupleIDpR9_ElementsEDpR9_Elements" title="lin::tie::_Elements"><span class="n"><span class="pre">_Elements</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">__args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4IDpEN3lin3tieE5TupleIDpR9_ElementsEDpR9_Elements" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3lin2idE">
+<span id="_CPPv3I0EN3lin2idE"></span><span id="_CPPv2I0EN3lin2idE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1id"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">id</span></span></span><a class="headerlink" href="#_CPPv4I0EN3lin2idE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin2id4typeE">
+<span id="_CPPv3N3lin2id4typeE"></span><span id="_CPPv2N3lin2id4typeE"></span><span class="target" id="structlin_1_1id_1accd213e50c7cdfea7dde969b80bcff6f"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3lin2idE" title="lin::id::T"><span class="n"><span class="pre">T</span></span></a><a class="headerlink" href="#_CPPv4N3lin2id4typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_Dp6size_tEN3lin5sizesE">
+<span id="_CPPv3I_Dp6size_tEN3lin5sizesE"></span><span id="_CPPv2I_Dp6size_tEN3lin5sizesE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1sizes"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sizes</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3lin2idE" title="lin::id"><span class="n"><span class="pre">id</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE">
+<span id="_CPPv3I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE"></span><span id="_CPPv2I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">H</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1Choose_3_01N_00_01H_00_01T_8_8_8_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Choose</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="lin::Choose&lt;N, H, T...&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="lin::Choose&lt;N, H, T...&gt;::H"><span class="n"><span class="pre">H</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="lin::Choose&lt;N, H, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Choose</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="lin::Choose&lt;N, H, T...&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="lin::Choose&lt;N, H, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_t0DpEN3lin6ChooseI1N1HDp1TEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE">
+<span id="_CPPv3I0DpEN3lin6ChooseIXL0EE1HDp1TEE"></span><span id="_CPPv2I0DpEN3lin6ChooseIX0E1HDp1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">H</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1Choose_3_010_00_01H_00_01T_8_8_8_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Choose</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE" title="lin::Choose&lt;0, H, T...&gt;::H"><span class="n"><span class="pre">H</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE" title="lin::Choose&lt;0, H, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3lin2idE" title="lin::id"><span class="n"><span class="pre">id</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE" title="lin::Choose&lt;0, H, T...&gt;::H"><span class="n"><span class="pre">H</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0DpEN3lin6ChooseIXL0EE1HDp1TEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE">
+<span id="_CPPv3I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE"></span><span id="_CPPv2I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">L</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">I</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1Range_3_01L_00_01I_00_01sizes_3_01N_8_8_8_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Range</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::L"><span class="n"><span class="pre">L</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::I"><span class="n"><span class="pre">I</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Range</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::L"><span class="n"><span class="pre">L</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::I"><span class="n"><span class="pre">I</span></span></a><span class="w"> </span><span class="o"><span class="pre">+</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="lin::Range&lt;L, I, sizes&lt;N...&gt;&gt;::I"><span class="n"><span class="pre">I</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_t_6size_t_Dp6size_tEN3lin5RangeI1L1I5sizesIDp1NEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE">
+<span id="_CPPv3I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE"></span><span id="_CPPv2I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">L</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1Range_3_01L_00_01L_00_01sizes_3_01N_8_8_8_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Range</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE" title="lin::Range&lt;L, L, sizes&lt;N...&gt;&gt;::L"><span class="n"><span class="pre">L</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE" title="lin::Range&lt;L, L, sizes&lt;N...&gt;&gt;::L"><span class="n"><span class="pre">L</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE" title="lin::Range&lt;L, L, sizes&lt;N...&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE" title="lin::Range&lt;L, L, sizes&lt;N...&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_t_Dp6size_tEN3lin5RangeI1L1L5sizesIDp1NEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_t0EN3lin9TupleElemE">
+<span id="_CPPv3I_6size_t0EN3lin9TupleElemE"></span><span id="_CPPv2I_6size_t0EN3lin9TupleElemE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleElem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TupleElem</span></span></span><a class="headerlink" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="#classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4"><span class="std std-ref">lin::TupleImpl&lt; sizes&lt; N… &gt;, T… &gt;</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN3lin9TupleElem9TupleElemEDp4Args">
+<span id="_CPPv3IDpEN3lin9TupleElem9TupleElemEDp4Args"></span><span id="_CPPv2IDpEN3lin9TupleElem9TupleElemEDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleElem_1a5094d67860ccb7aa7277e741320885b0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TupleElem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3lin9TupleElem9TupleElemEDp4Args" title="lin::TupleElem::TupleElem::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3lin9TupleElem9TupleElemEDp4Args" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin9TupleElem3getEv">
+<span id="_CPPv3N3lin9TupleElem3getEv"></span><span id="_CPPv2N3lin9TupleElem3getEv"></span><span id="lin::TupleElem::get"></span><span class="target" id="classlin_1_1TupleElem_1a5606b00e3a189c2a512e01cdfb4d6afc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="lin::TupleElem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin9TupleElem3getEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3lin9TupleElem3getEv">
+<span id="_CPPv3NK3lin9TupleElem3getEv"></span><span id="_CPPv2NK3lin9TupleElem3getEv"></span><span id="lin::TupleElem::getC"></span><span class="target" id="classlin_1_1TupleElem_1a65c86b3d9dbd0a1c58e91d01566ab8ac"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="lin::TupleElem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3lin9TupleElem3getEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin9TupleElem4elemE">
+<span id="_CPPv3N3lin9TupleElem4elemE"></span><span id="_CPPv2N3lin9TupleElem4elemE"></span><span id="lin::TupleElem::elem__T"></span><span class="target" id="classlin_1_1TupleElem_1aa40f4f72ee0f294cf7da920698060565"></span><a class="reference internal" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="lin::TupleElem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">elem</span></span></span><a class="headerlink" href="#_CPPv4N3lin9TupleElem4elemE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE">
+<span id="_CPPv3I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE"></span><span id="_CPPv2I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TupleImpl</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tEN3lin5sizesE" title="lin::sizes"><span class="n"><span class="pre">sizes</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="lin::TupleElem"><span class="n"><span class="pre">TupleElem</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEv">
+<span id="_CPPv3N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEv"></span><span id="_CPPv2N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEv"></span><span id="lin::TupleImpl:sizes:NDp:.TDp:::TupleImpl"></span><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1adb0e671067f46faf1340b2ccd75a2387"></span><span class="sig-name descname"><span class="n"><span class="pre">TupleImpl</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEDp1T">
+<span id="_CPPv3N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEDp1T"></span><span id="_CPPv2N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEDp1T"></span><span id="lin::TupleImpl:sizes:NDp:.TDp:::TupleImpl__TDp"></span><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1a34369bb40097d8ca4e99639f526079eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TupleImpl</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin9TupleImplI5sizesIDp1NEDp1TE9TupleImplEDp1T" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getER4pickI1MEv">
+<span id="_CPPv3I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getEv"></span><span id="_CPPv2I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">M</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1a6a60e9e0c87916a304724e123e595bf1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::pick"><span class="n"><span class="pre">pick</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getER4pickI1MEv" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::get::M"><span class="n"><span class="pre">M</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE3getER4pickI1MEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getERK4pickI1MEv">
+<span id="_CPPv3I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getEv"></span><span id="_CPPv2I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">M</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1afe80dc170a7d28bfef155c58bcc2a47d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::pick"><span class="n"><span class="pre">pick</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getERK4pickI1MEv" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::get::M"><span class="n"><span class="pre">M</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I_6size_tENK3lin9TupleImplI5sizesIDp1NEDp1TE3getERK4pickI1MEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-types">Private Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE">
+<span id="_CPPv3I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE"></span><span id="_CPPv2I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">M</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1af6cd5b44f9a958edfcbb2a76dce07f46"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pick</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_tDpEN3lin6chooseE" title="lin::choose"><span class="n"><span class="pre">choose</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::pick::M"><span class="n"><span class="pre">M</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_Dp6size_tDpEN3lin9TupleImplI5sizesIDp1NEDp1TEE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE">
+<span id="_CPPv3I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE"></span><span id="_CPPv2I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">M</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classlin_1_1TupleImpl_3_01sizes_3_01N_8_8_8_01_4_00_01T_8_8_8_01_4_1ad554440a9ea1775f3af7fe315ed534a4"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">elem</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_t0EN3lin9TupleElemE" title="lin::TupleElem"><span class="n"><span class="pre">TupleElem</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::elem::M"><span class="n"><span class="pre">M</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4pickE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::pick"><span class="n"><span class="pre">pick</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE" title="lin::TupleImpl&lt;sizes&lt;N...&gt;, T...&gt;::elem::M"><span class="n"><span class="pre">M</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I_6size_tEN3lin9TupleImplI5sizesIDp1NEDp1TE4elemE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN3lin5TupleE">
+<span id="_CPPv3IDpEN3lin5TupleE"></span><span id="_CPPv2IDpEN3lin5TupleE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structlin_1_1Tuple"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tuple</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">TupleImpl</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_6size_tEN3lin5rangeE" title="lin::range"><span class="n"><span class="pre">range</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">sizeof</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IDpEN3lin5TupleE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Tuple5TupleEv">
+<span id="_CPPv3N3lin5Tuple5TupleEv"></span><span id="_CPPv2N3lin5Tuple5TupleEv"></span><span id="lin::Tuple::Tuple"></span><span class="target" id="structlin_1_1Tuple_1a770f904ce719689c94b2b4eb1d05db3f"></span><span class="sig-name descname"><span class="n"><span class="pre">Tuple</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3lin5Tuple5TupleEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Tuple5TupleEDp1T">
+<span id="_CPPv3N3lin5Tuple5TupleEDp1T"></span><span id="_CPPv2N3lin5Tuple5TupleEDp1T"></span><span id="lin::Tuple::Tuple__TDp"></span><span class="target" id="structlin_1_1Tuple_1a59072f2de464508d187989fe85377e85"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tuple</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin5Tuple5TupleEDp1T" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Tuple4sizeEv">
+<span id="_CPPv3N3lin5Tuple4sizeEv"></span><span id="_CPPv2N3lin5Tuple4sizeEv"></span><span id="lin::Tuple::sizeCE"></span><span class="target" id="structlin_1_1Tuple_1a92025a4dc60009793df88d05e7885fc4"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin5Tuple4sizeEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">返回顶端</a>
+      
+    </p>
+    <p>
+        版权所有 &copy; 2022, ccchhh, 1024th。<br/>
+      本页面使用 <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0 构建。<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

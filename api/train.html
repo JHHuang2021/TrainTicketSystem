@@ -16,7 +16,6 @@
     <script src="../_static/translations.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="订单管理" href="order.html" />
     <link rel="prev" title="用户管理" href="user.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -58,13 +57,16 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="char.html">字符串</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector.html">动态数组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optional_arg.html">可选参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuple.html">元组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datetime.html">日期时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="b_plus_tree.html">B+ 树</a></li>
 <li class="toctree-l1"><a class="reference internal" href="command_parser.html">指令解析</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user.html">用户管理</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">火车管理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="order.html">订单管理</a></li>
 </ul>
 </ul>
 </li>
@@ -89,10 +91,6 @@
                 
   <li>
     <a href="user.html" title="上一章：用户管理"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 用户管理</span>
-    </a>
-  </li>
-  <li>
-    <a href="order.html" title="下一章：订单管理"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">订单管理 &raquo;</span>
     </a>
   </li>
               
@@ -122,24 +120,428 @@
       
   <section id="id1">
 <h1>火车管理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv412TrainManager">
-<span id="_CPPv312TrainManager"></span><span id="_CPPv212TrainManager"></span><span id="TrainManager"></span><span class="target" id="classTrainManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainManager</span></span></span><a class="headerlink" href="#_CPPv412TrainManager" title="永久链接至目标">¶</a><br /></dt>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv43lin">
+<span id="_CPPv33lin"></span><span id="_CPPv23lin"></span><span id="lin"></span><span class="target" id="namespacelin"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lin</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10UserIdHashE">
+<span id="_CPPv3N3lin10UserIdHashE"></span><span id="_CPPv2N3lin10UserIdHashE"></span><span class="target" id="train_8h_1a8e8cdaf184d2915d733efcf136436e3f"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserIdHash</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N3lin10UserIdHashE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin11TrainIdHashE">
+<span id="_CPPv3N3lin11TrainIdHashE"></span><span id="_CPPv2N3lin11TrainIdHashE"></span><span class="target" id="train_8h_1ad5ac582eac8e136166d5597327e31ea9"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainIdHash</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N3lin11TrainIdHashE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin11StationHashE">
+<span id="_CPPv3N3lin11StationHashE"></span><span id="_CPPv2N3lin11StationHashE"></span><span class="target" id="train_8h_1a8c24b28431828628c890db2acdfde0a6"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationHash</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N3lin11StationHashE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5TrainE">
+<span id="_CPPv3N3lin5TrainE"></span><span id="_CPPv2N3lin5TrainE"></span><span id="lin::Train"></span><span class="target" id="structlin_1_1Train"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Train</span></span></span><a class="headerlink" href="#_CPPv4N3lin5TrainE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>储存一辆火车的全部信息。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train6IdTypeE">
+<span id="_CPPv3N3lin5Train6IdTypeE"></span><span id="_CPPv2N3lin5Train6IdTypeE"></span><span class="target" id="structlin_1_1Train_1a8a44b8da4a888aa8369ff73a724a0ffb"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IdType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="char.html#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="m"><span class="pre">20</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3lin5Train6IdTypeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train11StationNameE">
+<span id="_CPPv3N3lin5Train11StationNameE"></span><span id="_CPPv2N3lin5Train11StationNameE"></span><span class="target" id="structlin_1_1Train_1a7e4ad098cd79ac695aa76620cc2b0431"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationName</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="char.html#_CPPv4I_KiE4Char" title="Char"><span class="n"><span class="pre">Char</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="m"><span class="pre">40</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3lin5Train11StationNameE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train2idE">
+<span id="_CPPv3N3lin5Train2idE"></span><span id="_CPPv2N3lin5Train2idE"></span><span id="lin::Train::id__IdType"></span><span class="target" id="structlin_1_1Train_1a9ae1833ceadb05b7b15c4d2deda2a9c8"></span><a class="reference internal" href="#_CPPv4N3lin5Train6IdTypeE" title="lin::Train::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">id</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train2idE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train4typeE">
+<span id="_CPPv3N3lin5Train4typeE"></span><span id="_CPPv2N3lin5Train4typeE"></span><span id="lin::Train::type__c"></span><span class="target" id="structlin_1_1Train_1ae14364b1fc79c57682540d5b55b5d8a1"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train4typeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train8seat_numE">
+<span id="_CPPv3N3lin5Train8seat_numE"></span><span id="_CPPv2N3lin5Train8seat_numE"></span><span id="lin::Train::seat_num__i"></span><span class="target" id="structlin_1_1Train_1a9b364e5e2235faf107c2ee0f693e79b5"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">seat_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train8seat_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train11station_numE">
+<span id="_CPPv3N3lin5Train11station_numE"></span><span id="_CPPv2N3lin5Train11station_numE"></span><span id="lin::Train::station_num__i"></span><span class="target" id="structlin_1_1Train_1a374cf95d6eae3af92f0d361013a14603"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">station_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train11station_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train8stationsE">
+<span id="_CPPv3N3lin5Train8stationsE"></span><span id="_CPPv2N3lin5Train8stationsE"></span><span id="lin::Train::stations__StationNameA"></span><span class="target" id="structlin_1_1Train_1a6cd49b582d0ffed57c8370f10841b405"></span><a class="reference internal" href="#_CPPv4N3lin5Train11StationNameE" title="lin::Train::StationName"><span class="n"><span class="pre">StationName</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stations</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="lin::Train::kMaxStationNum"><span class="n"><span class="pre">kMaxStationNum</span></span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N3lin5Train8stationsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train10sum_pricesE">
+<span id="_CPPv3N3lin5Train10sum_pricesE"></span><span id="_CPPv2N3lin5Train10sum_pricesE"></span><span id="lin::Train::sum_prices__iA"></span><span class="target" id="structlin_1_1Train_1a6a06da9ba40a9d1f510413c867622cae"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum_prices</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="lin::Train::kMaxStationNum"><span class="n"><span class="pre">kMaxStationNum</span></span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin5Train10sum_pricesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train10start_saleE">
+<span id="_CPPv3N3lin5Train10start_saleE"></span><span id="_CPPv2N3lin5Train10start_saleE"></span><span id="lin::Train::start_sale__Date"></span><span class="target" id="structlin_1_1Train_1abbf1a97590ee4465a020c0536d4c218f"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_sale</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train10start_saleE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train8end_saleE">
+<span id="_CPPv3N3lin5Train8end_saleE"></span><span id="_CPPv2N3lin5Train8end_saleE"></span><span id="lin::Train::end_sale__Date"></span><span class="target" id="structlin_1_1Train_1a54fb6d01ab714a2562226f1a62b0fbf5"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end_sale</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Train8end_saleE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train13arrival_timesE">
+<span id="_CPPv3N3lin5Train13arrival_timesE"></span><span id="_CPPv2N3lin5Train13arrival_timesE"></span><span id="lin::Train::arrival_times__TimeA"></span><span class="target" id="structlin_1_1Train_1a017956a69c49b542e593f47080397f73"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrival_times</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="lin::Train::kMaxStationNum"><span class="n"><span class="pre">kMaxStationNum</span></span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin5Train13arrival_timesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train15departure_timesE">
+<span id="_CPPv3N3lin5Train15departure_timesE"></span><span id="_CPPv2N3lin5Train15departure_timesE"></span><span id="lin::Train::departure_times__TimeA"></span><span class="target" id="structlin_1_1Train_1a26af41eea4ff72676abc8ca0090d58c9"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">departure_times</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="lin::Train::kMaxStationNum"><span class="n"><span class="pre">kMaxStationNum</span></span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin5Train15departure_timesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train8releasedE">
+<span id="_CPPv3N3lin5Train8releasedE"></span><span id="_CPPv2N3lin5Train8releasedE"></span><span id="lin::Train::released__b"></span><span class="target" id="structlin_1_1Train_1a1cbd2a62a77e7de99cfd982b7bf13b58"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">released</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3lin5Train8releasedE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Train14kMaxStationNumE">
+<span id="_CPPv3N3lin5Train14kMaxStationNumE"></span><span id="_CPPv2N3lin5Train14kMaxStationNumE"></span><span id="lin::Train::kMaxStationNum__iC"></span><span class="target" id="structlin_1_1Train_1a983d3d2625857e4dbacc24f5a9050110"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kMaxStationNum</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">100</span></span><a class="headerlink" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrainE">
+<span id="_CPPv3N3lin12StationTrainE"></span><span id="_CPPv2N3lin12StationTrainE"></span><span id="lin::StationTrain"></span><span class="target" id="structlin_1_1StationTrain"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationTrain</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrainE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录经过某个站点的火车信息，用于查票。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain12StationTrainEv">
+<span id="_CPPv3N3lin12StationTrain12StationTrainEv"></span><span id="_CPPv2N3lin12StationTrain12StationTrainEv"></span><span id="lin::StationTrain::StationTrain"></span><span class="target" id="structlin_1_1StationTrain_1ab6cf733e31f07c9fa9e56751c536bb3b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationTrain</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12StationTrain12StationTrainEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain12StationTrainE11TrainIdHash4Time4TimeiiRK5Train">
+<span id="_CPPv3N3lin12StationTrain12StationTrainE11TrainIdHash4Time4TimeiiRK5Train"></span><span id="_CPPv2N3lin12StationTrain12StationTrainE11TrainIdHash4Time4TimeiiRK5Train"></span><span id="lin::StationTrain::StationTrain__TrainIdHash.Time.Time.i.i.TrainCR"></span><span class="target" id="structlin_1_1StationTrain_1a62e972611f6462949bcefbab14b1db56"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationTrain</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">train_id_hash_</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">arrival_time_</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">departure_time_</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sum_price_</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank_</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12StationTrain12StationTrainE11TrainIdHash4Time4TimeiiRK5Train" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain13train_id_hashE">
+<span id="_CPPv3N3lin12StationTrain13train_id_hashE"></span><span id="_CPPv2N3lin12StationTrain13train_id_hashE"></span><span id="lin::StationTrain::train_id_hash__TrainIdHash"></span><span class="target" id="structlin_1_1StationTrain_1aa311f6eca0c267fd7fda5eab82b2c90e"></span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">train_id_hash</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain13train_id_hashE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain12arrival_timeE">
+<span id="_CPPv3N3lin12StationTrain12arrival_timeE"></span><span id="_CPPv2N3lin12StationTrain12arrival_timeE"></span><span id="lin::StationTrain::arrival_time__Time"></span><span class="target" id="structlin_1_1StationTrain_1a4e2092719df53e93f06c49e6bd129d2d"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrival_time</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain12arrival_timeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain14departure_timeE">
+<span id="_CPPv3N3lin12StationTrain14departure_timeE"></span><span id="_CPPv2N3lin12StationTrain14departure_timeE"></span><span id="lin::StationTrain::departure_time__Time"></span><span class="target" id="structlin_1_1StationTrain_1acddae872c6345afc6be38faa2969ab21"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4TimeE" title="lin::Time"><span class="n"><span class="pre">Time</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">departure_time</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain14departure_timeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain9sum_priceE">
+<span id="_CPPv3N3lin12StationTrain9sum_priceE"></span><span id="_CPPv2N3lin12StationTrain9sum_priceE"></span><span id="lin::StationTrain::sum_price__i"></span><span class="target" id="structlin_1_1StationTrain_1ae4982ef655717a293acce4841f67d54a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum_price</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain9sum_priceE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain4rankE">
+<span id="_CPPv3N3lin12StationTrain4rankE"></span><span id="_CPPv2N3lin12StationTrain4rankE"></span><span id="lin::StationTrain::rank__i"></span><span class="target" id="structlin_1_1StationTrain_1acc3b6d73102c90cf74566a6eceaa5109"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rank</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain4rankE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain8train_idE">
+<span id="_CPPv3N3lin12StationTrain8train_idE"></span><span id="_CPPv2N3lin12StationTrain8train_idE"></span><span id="lin::StationTrain::train_id__Train::IdType"></span><span class="target" id="structlin_1_1StationTrain_1ab29f015f9ecd2c435715248d46c6adeb"></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train6IdTypeE" title="lin::Train::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">train_id</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain8train_idE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain10start_saleE">
+<span id="_CPPv3N3lin12StationTrain10start_saleE"></span><span id="_CPPv2N3lin12StationTrain10start_saleE"></span><span id="lin::StationTrain::start_sale__Date"></span><span class="target" id="structlin_1_1StationTrain_1a8e3256504b761fe90addf3ca27e84fda"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_sale</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain10start_saleE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain8end_saleE">
+<span id="_CPPv3N3lin12StationTrain8end_saleE"></span><span id="_CPPv2N3lin12StationTrain8end_saleE"></span><span id="lin::StationTrain::end_sale__Date"></span><span class="target" id="structlin_1_1StationTrain_1a28472d9bd9db3ba137e36aeee278c967"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end_sale</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain8end_saleE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain8seat_numE">
+<span id="_CPPv3N3lin12StationTrain8seat_numE"></span><span id="_CPPv2N3lin12StationTrain8seat_numE"></span><span id="lin::StationTrain::seat_num__i"></span><span class="target" id="structlin_1_1StationTrain_1afdab0e06bc7207b0cd53e0133af2f41d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">seat_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain8seat_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12StationTrain11station_numE">
+<span id="_CPPv3N3lin12StationTrain11station_numE"></span><span id="_CPPv2N3lin12StationTrain11station_numE"></span><span id="lin::StationTrain::station_num__i"></span><span class="target" id="structlin_1_1StationTrain_1accc38b277364c782ad38c36f48cd9c19"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">station_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin12StationTrain11station_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeatsE">
+<span id="_CPPv3N3lin10TrainSeatsE"></span><span id="_CPPv2N3lin10TrainSeatsE"></span><span id="lin::TrainSeats"></span><span class="target" id="structlin_1_1TrainSeats"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeats</span></span></span><a class="headerlink" href="#_CPPv4N3lin10TrainSeatsE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录车次剩余座位信息。 </p>
+<p>Subclassed by <a class="reference internal" href="#structlin_1_1TrainSeatsWrap"><span class="std std-ref">lin::TrainSeatsWrap</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeats10TrainSeatsEv">
+<span id="_CPPv3N3lin10TrainSeats10TrainSeatsEv"></span><span id="_CPPv2N3lin10TrainSeats10TrainSeatsEv"></span><span id="lin::TrainSeats::TrainSeats"></span><span class="target" id="structlin_1_1TrainSeats_1a117e55290a62eab935c8d8a2b44cd7c2"></span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeats</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin10TrainSeats10TrainSeatsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeats10TrainSeatsEii">
+<span id="_CPPv3N3lin10TrainSeats10TrainSeatsEii"></span><span id="_CPPv2N3lin10TrainSeats10TrainSeatsEii"></span><span id="lin::TrainSeats::TrainSeats__i.i"></span><span class="target" id="structlin_1_1TrainSeats_1a192fe8f2582f54c56e8c12790c864089"></span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeats</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">initial_seat_num</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">station_num</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin10TrainSeats10TrainSeatsEii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeats8RangeMinEii">
+<span id="_CPPv3N3lin10TrainSeats8RangeMinEii"></span><span id="_CPPv2N3lin10TrainSeats8RangeMinEii"></span><span id="lin::TrainSeats::RangeMin__i.i"></span><span class="target" id="structlin_1_1TrainSeats_1a8bed8632d588ca8c573a6a248c4f738d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RangeMin</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin10TrainSeats8RangeMinEii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeats8RangeAddEiii">
+<span id="_CPPv3N3lin10TrainSeats8RangeAddEiii"></span><span id="_CPPv2N3lin10TrainSeats8RangeAddEiii"></span><span id="lin::TrainSeats::RangeAdd__i.i.i"></span><span class="target" id="structlin_1_1TrainSeats_1a7d9bbfcfd338f45c76a7f0eb6cf05e53"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RangeAdd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin10TrainSeats8RangeAddEiii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin10TrainSeats8seat_numE">
+<span id="_CPPv3N3lin10TrainSeats8seat_numE"></span><span id="_CPPv2N3lin10TrainSeats8seat_numE"></span><span id="lin::TrainSeats::seat_num__iA"></span><span class="target" id="structlin_1_1TrainSeats_1abc780c4769d9572def7c1c5a2328e81a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">seat_num</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train14kMaxStationNumE" title="lin::Train::kMaxStationNum"><span class="n"><span class="pre">kMaxStationNum</span></span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N3lin10TrainSeats8seat_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrapE">
+<span id="_CPPv3N3lin14TrainSeatsWrapE"></span><span id="_CPPv2N3lin14TrainSeatsWrapE"></span><span id="lin::TrainSeatsWrap"></span><span class="target" id="structlin_1_1TrainSeatsWrap"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeatsWrap</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="command_parser.html#_CPPv43lin" title="lin"><span class="n"><span class="pre">lin</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin10TrainSeatsE" title="lin::TrainSeats"><span class="n"><span class="pre">TrainSeats</span></span></a><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrapE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>对 <a class="reference internal" href="#structlin_1_1TrainSeats"><span class="std std-ref">TrainSeats</span></a> 的包装。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEv">
+<span id="_CPPv3N3lin14TrainSeatsWrap14TrainSeatsWrapEv"></span><span id="_CPPv2N3lin14TrainSeatsWrap14TrainSeatsWrapEv"></span><span id="lin::TrainSeatsWrap::TrainSeatsWrap"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a8391c5379badf92e6629c9109b9e06ce"></span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeatsWrap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEii">
+<span id="_CPPv3N3lin14TrainSeatsWrap14TrainSeatsWrapEii"></span><span id="_CPPv2N3lin14TrainSeatsWrap14TrainSeatsWrapEii"></span><span id="lin::TrainSeatsWrap::TrainSeatsWrap__i.i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1ad98e5939247ee7c9199e10657af16601"></span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeatsWrap</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">initial_seat_num</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">station_num</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapEii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapE10TrainSeats">
+<span id="_CPPv3N3lin14TrainSeatsWrap14TrainSeatsWrapE10TrainSeats"></span><span id="_CPPv2N3lin14TrainSeatsWrap14TrainSeatsWrapE10TrainSeats"></span><span id="lin::TrainSeatsWrap::TrainSeatsWrap__TrainSeats"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a1d644f91f3ea8e1d9a1ae7e680aca2a9"></span><span class="sig-name descname"><span class="n"><span class="pre">TrainSeatsWrap</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3lin10TrainSeatsE" title="lin::TrainSeats"><span class="n"><span class="pre">TrainSeats</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap14TrainSeatsWrapE10TrainSeats" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrapD0Ev">
+<span id="_CPPv3N3lin14TrainSeatsWrapD0Ev"></span><span id="_CPPv2N3lin14TrainSeatsWrapD0Ev"></span><span id="lin::TrainSeatsWrap::~TrainSeatsWrap"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a62187cf138190724dff238cba3795a59"></span><span class="sig-name descname"><span class="n"><span class="pre">~TrainSeatsWrap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrapD0Ev" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap8RangeMinEii">
+<span id="_CPPv3N3lin14TrainSeatsWrap8RangeMinEii"></span><span id="_CPPv2N3lin14TrainSeatsWrap8RangeMinEii"></span><span id="lin::TrainSeatsWrap::RangeMin__i.i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a5055a92b69386b67dca99ca629f6625c"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RangeMin</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap8RangeMinEii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap8RangeAddEiii">
+<span id="_CPPv3N3lin14TrainSeatsWrap8RangeAddEiii"></span><span id="_CPPv2N3lin14TrainSeatsWrap8RangeAddEiii"></span><span id="lin::TrainSeatsWrap::RangeAdd__i.i.i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a0e72e8ec535cdcfa6d8e808dcf68aa71"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RangeAdd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap8RangeAddEiii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrapixEi">
+<span id="_CPPv3N3lin14TrainSeatsWrapixEi"></span><span id="_CPPv2N3lin14TrainSeatsWrapixEi"></span><span id="lin::TrainSeatsWrap::subscript-operator__i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a7aacbb4db086a9ce5e70dddcc6dce988"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrapixEi" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap5existE">
+<span id="_CPPv3N3lin14TrainSeatsWrap5existE"></span><span id="_CPPv2N3lin14TrainSeatsWrap5existE"></span><span id="lin::TrainSeatsWrap::exist__b"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1abcb1e98ab3c0c52bfef7a372346b68f3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exist</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap5existE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap16initial_seat_numE">
+<span id="_CPPv3N3lin14TrainSeatsWrap16initial_seat_numE"></span><span id="_CPPv2N3lin14TrainSeatsWrap16initial_seat_numE"></span><span id="lin::TrainSeatsWrap::initial_seat_num__i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a476d42215a9dc6bbaa3a3a416a0827e7"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">initial_seat_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap16initial_seat_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TrainSeatsWrap11station_numE">
+<span id="_CPPv3N3lin14TrainSeatsWrap11station_numE"></span><span id="_CPPv2N3lin14TrainSeatsWrap11station_numE"></span><span id="lin::TrainSeatsWrap::station_num__i"></span><span class="target" id="structlin_1_1TrainSeatsWrap_1a1633f09d4a5a08c55f9c09a23570a5ce"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">station_num</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TrainSeatsWrap11station_numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6TicketE">
+<span id="_CPPv3N3lin6TicketE"></span><span id="_CPPv2N3lin6TicketE"></span><span id="lin::Ticket"></span><span class="target" id="structlin_1_1Ticket"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Ticket</span></span></span><a class="headerlink" href="#_CPPv4N3lin6TicketE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录一张车票的信息。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket8train_idE">
+<span id="_CPPv3N3lin6Ticket8train_idE"></span><span id="_CPPv2N3lin6Ticket8train_idE"></span><span id="lin::Ticket::train_id__Train::IdType"></span><span class="target" id="structlin_1_1Ticket_1a46ff10b35963368ba190f4a5985f19a1"></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train6IdTypeE" title="lin::Train::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">train_id</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket8train_idE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket10start_timeE">
+<span id="_CPPv3N3lin6Ticket10start_timeE"></span><span id="_CPPv2N3lin6Ticket10start_timeE"></span><span id="lin::Ticket::start_time__DateTime"></span><span class="target" id="structlin_1_1Ticket_1ae094777ae636733fbd9595715e826ffd"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DateTimeE" title="lin::DateTime"><span class="n"><span class="pre">DateTime</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_time</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket10start_timeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket8end_timeE">
+<span id="_CPPv3N3lin6Ticket8end_timeE"></span><span id="_CPPv2N3lin6Ticket8end_timeE"></span><span id="lin::Ticket::end_time__DateTime"></span><span class="target" id="structlin_1_1Ticket_1a68c3805bcc91ed6a855c251cabbd8c81"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DateTimeE" title="lin::DateTime"><span class="n"><span class="pre">DateTime</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end_time</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket8end_timeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket8durationE">
+<span id="_CPPv3N3lin6Ticket8durationE"></span><span id="_CPPv2N3lin6Ticket8durationE"></span><span id="lin::Ticket::duration__Duration"></span><span class="target" id="structlin_1_1Ticket_1ab3f6a4a080ef698901e740175d5c6aaf"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DurationE" title="lin::Duration"><span class="n"><span class="pre">Duration</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">duration</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket8durationE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket4costE">
+<span id="_CPPv3N3lin6Ticket4costE"></span><span id="_CPPv2N3lin6Ticket4costE"></span><span id="lin::Ticket::cost__i"></span><span class="target" id="structlin_1_1Ticket_1a8deafd5a8949cced19a6b172f53e4072"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cost</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket4costE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket4seatE">
+<span id="_CPPv3N3lin6Ticket4seatE"></span><span id="_CPPv2N3lin6Ticket4seatE"></span><span id="lin::Ticket::seat__i"></span><span class="target" id="structlin_1_1Ticket_1a5995ad8d19ecdd04d8cf92b15f1a1104"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">seat</span></span></span><a class="headerlink" href="#_CPPv4N3lin6Ticket4seatE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket11CompareTimeERK6TicketRK6Ticket">
+<span id="_CPPv3N3lin6Ticket11CompareTimeERK6TicketRK6Ticket"></span><span id="_CPPv2N3lin6Ticket11CompareTimeERK6TicketRK6Ticket"></span><span id="lin::Ticket::CompareTime__TicketCR.TicketCR"></span><span class="target" id="structlin_1_1Ticket_1a5d650a5a1c38fe31a6378c69d9e912b5"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompareTime</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6Ticket11CompareTimeERK6TicketRK6Ticket" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin6Ticket11CompareCostERK6TicketRK6Ticket">
+<span id="_CPPv3N3lin6Ticket11CompareCostERK6TicketRK6Ticket"></span><span id="_CPPv2N3lin6Ticket11CompareCostERK6TicketRK6Ticket"></span><span id="lin::Ticket::CompareCost__TicketCR.TicketCR"></span><span class="target" id="structlin_1_1Ticket_1a99202cfb42f84ad30c27fe54ed3e9d29"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompareCost</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin6Ticket11CompareCostERK6TicketRK6Ticket" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicketE">
+<span id="_CPPv3N3lin14TransferTicketE"></span><span id="_CPPv2N3lin14TransferTicketE"></span><span id="lin::TransferTicket"></span><span class="target" id="structlin_1_1TransferTicket"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TransferTicket</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicketE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录一种换乘方案的信息。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket14TransferTicketEv">
+<span id="_CPPv3N3lin14TransferTicket14TransferTicketEv"></span><span id="_CPPv2N3lin14TransferTicket14TransferTicketEv"></span><span id="lin::TransferTicket::TransferTicket"></span><span class="target" id="structlin_1_1TransferTicket_1a2673c8083bbd4a9d6ae9db9762b01e5d"></span><span class="sig-name descname"><span class="n"><span class="pre">TransferTicket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket14TransferTicketEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket8durationE">
+<span id="_CPPv3N3lin14TransferTicket8durationE"></span><span id="_CPPv2N3lin14TransferTicket8durationE"></span><span id="lin::TransferTicket::duration__Duration"></span><span class="target" id="structlin_1_1TransferTicket_1a0911d56c2db9847fbea700a91d9d656a"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DurationE" title="lin::Duration"><span class="n"><span class="pre">Duration</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">duration</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket8durationE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket4costE">
+<span id="_CPPv3N3lin14TransferTicket4costE"></span><span id="_CPPv2N3lin14TransferTicket4costE"></span><span id="lin::TransferTicket::cost__i"></span><span class="target" id="structlin_1_1TransferTicket_1a9ba02a691792593323be6389c39a6c4b"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cost</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket4costE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket7ticket1E">
+<span id="_CPPv3N3lin14TransferTicket7ticket1E"></span><span id="_CPPv2N3lin14TransferTicket7ticket1E"></span><span id="lin::TransferTicket::ticket1__Ticket"></span><span class="target" id="structlin_1_1TransferTicket_1a358d655fb3b478486a8aad8dcaa7094d"></span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ticket1</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket7ticket1E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket7ticket2E">
+<span id="_CPPv3N3lin14TransferTicket7ticket2E"></span><span id="_CPPv2N3lin14TransferTicket7ticket2E"></span><span id="lin::TransferTicket::ticket2__Ticket"></span><span class="target" id="structlin_1_1TransferTicket_1a0ca112069b561646639ac39cd75e3612"></span><a class="reference internal" href="#_CPPv4N3lin6TicketE" title="lin::Ticket"><span class="n"><span class="pre">Ticket</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ticket2</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket7ticket2E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket16transfer_stationE">
+<span id="_CPPv3N3lin14TransferTicket16transfer_stationE"></span><span id="_CPPv2N3lin14TransferTicket16transfer_stationE"></span><span id="lin::TransferTicket::transfer_station__ss"></span><span class="target" id="structlin_1_1TransferTicket_1a1dcea4ab4534d865de308372d61302dd"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">transfer_station</span></span></span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket16transfer_stationE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket11CompareTimeERK14TransferTicketRK14TransferTicket">
+<span id="_CPPv3N3lin14TransferTicket11CompareTimeERK14TransferTicketRK14TransferTicket"></span><span id="_CPPv2N3lin14TransferTicket11CompareTimeERK14TransferTicketRK14TransferTicket"></span><span id="lin::TransferTicket::CompareTime__TransferTicketCR.TransferTicketCR"></span><span class="target" id="structlin_1_1TransferTicket_1a4b324e01ee415d06b74e167f4b9cc34a"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompareTime</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin14TransferTicketE" title="lin::TransferTicket"><span class="n"><span class="pre">TransferTicket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin14TransferTicketE" title="lin::TransferTicket"><span class="n"><span class="pre">TransferTicket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket11CompareTimeERK14TransferTicketRK14TransferTicket" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin14TransferTicket11CompareCostERK14TransferTicketRK14TransferTicket">
+<span id="_CPPv3N3lin14TransferTicket11CompareCostERK14TransferTicketRK14TransferTicket"></span><span id="_CPPv2N3lin14TransferTicket11CompareCostERK14TransferTicketRK14TransferTicket"></span><span id="lin::TransferTicket::CompareCost__TransferTicketCR.TransferTicketCR"></span><span class="target" id="structlin_1_1TransferTicket_1aa3746be9c66fcbc14207ebde20cb3849"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompareCost</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin14TransferTicketE" title="lin::TransferTicket"><span class="n"><span class="pre">TransferTicket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin14TransferTicketE" title="lin::TransferTicket"><span class="n"><span class="pre">TransferTicket</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin14TransferTicket11CompareCostERK14TransferTicketRK14TransferTicket" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5OrderE">
+<span id="_CPPv3N3lin5OrderE"></span><span id="_CPPv2N3lin5OrderE"></span><span id="lin::Order"></span><span class="target" id="structlin_1_1Order"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Order</span></span></span><a class="headerlink" href="#_CPPv4N3lin5OrderE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录订单信息。 </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrderE">
-<span id="_CPPv3N12TrainManager9SortOrderE"></span><span id="_CPPv2N12TrainManager9SortOrderE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6f"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SortOrder</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrderE" title="永久链接至目标">¶</a><br /></dt>
-<dd><p>排序依据 </p>
-<p><em>Values:</em></p>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order6StatusE">
+<span id="_CPPv3N3lin5Order6StatusE"></span><span id="_CPPv2N3lin5Order6StatusE"></span><span class="target" id="structlin_1_1Order_1a7bde21cc30f0687d6a15dc28bc630d9c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Status</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order6StatusE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrder4TIMEE">
-<span id="_CPPv3N12TrainManager9SortOrder4TIMEE"></span><span id="_CPPv2N12TrainManager9SortOrder4TIMEE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6fa80e5531aff7b636c1235c347e2fb48ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TIME</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order6Status7SUCCESSE">
+<span id="_CPPv3N3lin5Order6Status7SUCCESSE"></span><span id="_CPPv2N3lin5Order6Status7SUCCESSE"></span><span class="target" id="structlin_1_1Order_1a7bde21cc30f0687d6a15dc28bc630d9cabd017fce56d145782d29a4b75c0aedb5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order6Status7SUCCESSE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager9SortOrder4COSTE">
-<span id="_CPPv3N12TrainManager9SortOrder4COSTE"></span><span id="_CPPv2N12TrainManager9SortOrder4COSTE"></span><span class="target" id="classTrainManager_1ae0f3dcd8cfba914b587e03cc35dedc6fa4f181e35a115feb07aad4475c5ec1be4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COST</span></span></span><a class="headerlink" href="#_CPPv4N12TrainManager9SortOrder4COSTE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order6Status7PENDINGE">
+<span id="_CPPv3N3lin5Order6Status7PENDINGE"></span><span id="_CPPv2N3lin5Order6Status7PENDINGE"></span><span class="target" id="structlin_1_1Order_1a7bde21cc30f0687d6a15dc28bc630d9cab47df109932fefb020e29c26b4b96c7f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PENDING</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order6Status7PENDINGE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order6Status8REFUNDEDE">
+<span id="_CPPv3N3lin5Order6Status8REFUNDEDE"></span><span id="_CPPv2N3lin5Order6Status8REFUNDEDE"></span><span class="target" id="structlin_1_1Order_1a7bde21cc30f0687d6a15dc28bc630d9caca7bc0ebe4298e814a63438f2e30550f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">REFUNDED</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order6Status8REFUNDEDE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -148,44 +550,272 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc">
-<span id="_CPPv3N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc"></span><span id="_CPPv2N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc"></span><span id="TrainManager::AddTrain__ssCR.iC.iC.vector:ss:.vector:i:.ssCR.vector:ss:.vector:ss:.vector:ss:.cC"></span><span class="target" id="classTrainManager_1abee9c594b408070cfac21809a730c477"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddTrain</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train_id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">station_num</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">total_seat_num</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stations</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">price</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_time</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">travel_times</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stopover_times</span></span>, <a class="reference internal" href="vector.html#_CPPv4I0E6vector" title="vector"><span class="n"><span class="pre">vector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sale_date</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager8AddTrainERKNSt6stringEKiKi6vectorINSt6stringEE6vectorIiERKNSt6stringE6vectorINSt6stringEE6vectorINSt6stringEE6vectorINSt6stringEEKc" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK3lin5Order8ToStringEv">
+<span id="_CPPv3NK3lin5Order8ToStringEv"></span><span id="_CPPv2NK3lin5Order8ToStringEv"></span><span id="lin::Order::ToStringC"></span><span class="target" id="structlin_1_1Order_1a98d6257ceacfedee4c72b07507c29deb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ToString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3lin5Order8ToStringEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order6statusE">
+<span id="_CPPv3N3lin5Order6statusE"></span><span id="_CPPv2N3lin5Order6statusE"></span><span id="lin::Order::status__Status"></span><span class="target" id="structlin_1_1Order_1a754262516e2823b781ddf73f8f057589"></span><a class="reference internal" href="#_CPPv4N3lin5Order6StatusE" title="lin::Order::Status"><span class="n"><span class="pre">Status</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order6statusE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order9timestampE">
+<span id="_CPPv3N3lin5Order9timestampE"></span><span id="_CPPv2N3lin5Order9timestampE"></span><span id="lin::Order::timestamp__i"></span><span class="target" id="structlin_1_1Order_1ae6b19cb766915fe9e8779f5d9a4a91a2"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timestamp</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order9timestampE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order4costE">
+<span id="_CPPv3N3lin5Order4costE"></span><span id="_CPPv2N3lin5Order4costE"></span><span id="lin::Order::cost__i"></span><span class="target" id="structlin_1_1Order_1a0e7a802a79176f6e33d3db7b4efe019a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cost</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order4costE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order3numE">
+<span id="_CPPv3N3lin5Order3numE"></span><span id="_CPPv2N3lin5Order3numE"></span><span id="lin::Order::num__i"></span><span class="target" id="structlin_1_1Order_1a403882cf47bf83530f84bdf4c4a88e5b"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order3numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order10start_dateE">
+<span id="_CPPv3N3lin5Order10start_dateE"></span><span id="_CPPv2N3lin5Order10start_dateE"></span><span id="lin::Order::start_date__Date"></span><span class="target" id="structlin_1_1Order_1a54aac7ce1407fb0ed35af56b1ea310e4"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start_date</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order10start_dateE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order8usernameE">
+<span id="_CPPv3N3lin5Order8usernameE"></span><span id="_CPPv2N3lin5Order8usernameE"></span><span id="lin::Order::username__User::IdType"></span><span class="target" id="structlin_1_1Order_1adf8a49ade1891c275bdc651ef5890eb9"></span><a class="reference internal" href="user.html#_CPPv4N3lin4UserE" title="lin::User"><span class="n"><span class="pre">User</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="user.html#_CPPv4N3lin4User6IdTypeE" title="lin::User::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">username</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order8usernameE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order8train_idE">
+<span id="_CPPv3N3lin5Order8train_idE"></span><span id="_CPPv2N3lin5Order8train_idE"></span><span id="lin::Order::train_id__Train::IdType"></span><span class="target" id="structlin_1_1Order_1a0e6513579b8ba1ae91119f962c3bcea9"></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train6IdTypeE" title="lin::Train::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">train_id</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order8train_idE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order12from_stationE">
+<span id="_CPPv3N3lin5Order12from_stationE"></span><span id="_CPPv2N3lin5Order12from_stationE"></span><span id="lin::Order::from_station__Train::StationName"></span><span class="target" id="structlin_1_1Order_1a713dfc0bb0e7d6201703de16b925741a"></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train11StationNameE" title="lin::Train::StationName"><span class="n"><span class="pre">StationName</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">from_station</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order12from_stationE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order10to_stationE">
+<span id="_CPPv3N3lin5Order10to_stationE"></span><span id="_CPPv2N3lin5Order10to_stationE"></span><span id="lin::Order::to_station__Train::StationName"></span><span class="target" id="structlin_1_1Order_1a18bc2747ed75a968c869e66a3a51936a"></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train11StationNameE" title="lin::Train::StationName"><span class="n"><span class="pre">StationName</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_station</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order10to_stationE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order9from_rankE">
+<span id="_CPPv3N3lin5Order9from_rankE"></span><span id="_CPPv2N3lin5Order9from_rankE"></span><span id="lin::Order::from_rank__i"></span><span class="target" id="structlin_1_1Order_1a9a1c56fa195cf4b626402a7458d3d4ba"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">from_rank</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order9from_rankE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order7to_rankE">
+<span id="_CPPv3N3lin5Order7to_rankE"></span><span id="_CPPv2N3lin5Order7to_rankE"></span><span id="lin::Order::to_rank__i"></span><span class="target" id="structlin_1_1Order_1a737200a1ca75b8b621668c3a3423f063"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_rank</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order7to_rankE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order12dep_datetimeE">
+<span id="_CPPv3N3lin5Order12dep_datetimeE"></span><span id="_CPPv2N3lin5Order12dep_datetimeE"></span><span id="lin::Order::dep_datetime__DateTime"></span><span class="target" id="structlin_1_1Order_1a92b3770e8db101d3a28079277b44a0de"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DateTimeE" title="lin::DateTime"><span class="n"><span class="pre">DateTime</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dep_datetime</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order12dep_datetimeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin5Order12arr_datetimeE">
+<span id="_CPPv3N3lin5Order12arr_datetimeE"></span><span id="_CPPv2N3lin5Order12arr_datetimeE"></span><span id="lin::Order::arr_datetime__DateTime"></span><span class="target" id="structlin_1_1Order_1a960613b308a04e5df6e28992f08abf78"></span><a class="reference internal" href="datetime.html#_CPPv4N3lin8DateTimeE" title="lin::DateTime"><span class="n"><span class="pre">DateTime</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arr_datetime</span></span></span><a class="headerlink" href="#_CPPv4N3lin5Order12arr_datetimeE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrderE">
+<span id="_CPPv3N3lin12PendingOrderE"></span><span id="_CPPv2N3lin12PendingOrderE"></span><span id="lin::PendingOrder"></span><span class="target" id="structlin_1_1PendingOrder"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PendingOrder</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrderE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;train.h&gt;</em></div>
+<p>记录候补车票信息。 </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrder9timestampE">
+<span id="_CPPv3N3lin12PendingOrder9timestampE"></span><span id="_CPPv2N3lin12PendingOrder9timestampE"></span><span id="lin::PendingOrder::timestamp__i"></span><span class="target" id="structlin_1_1PendingOrder_1abeeda2cd9c66867114bd33f57caacb11"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timestamp</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrder9timestampE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrder3numE">
+<span id="_CPPv3N3lin12PendingOrder3numE"></span><span id="_CPPv2N3lin12PendingOrder3numE"></span><span id="lin::PendingOrder::num__i"></span><span class="target" id="structlin_1_1PendingOrder_1aed80646996024078e7ff5b19434f595e"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrder3numE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrder9from_rankE">
+<span id="_CPPv3N3lin12PendingOrder9from_rankE"></span><span id="_CPPv2N3lin12PendingOrder9from_rankE"></span><span id="lin::PendingOrder::from_rank__i"></span><span class="target" id="structlin_1_1PendingOrder_1ad93e17210b591f0da76039e69e85f3c8"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">from_rank</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrder9from_rankE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrder7to_rankE">
+<span id="_CPPv3N3lin12PendingOrder7to_rankE"></span><span id="_CPPv2N3lin12PendingOrder7to_rankE"></span><span id="lin::PendingOrder::to_rank__i"></span><span class="target" id="structlin_1_1PendingOrder_1accdf478a472536dd77ab0662cf6dfaea"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_rank</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrder7to_rankE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12PendingOrder12user_id_hashE">
+<span id="_CPPv3N3lin12PendingOrder12user_id_hashE"></span><span id="_CPPv2N3lin12PendingOrder12user_id_hashE"></span><span id="lin::PendingOrder::user_id_hash__UserIdHash"></span><span class="target" id="structlin_1_1PendingOrder_1aa5579553ecfd3b42e56f91aedcc5c43a"></span><a class="reference internal" href="#_CPPv4N3lin10UserIdHashE" title="lin::UserIdHash"><span class="n"><span class="pre">UserIdHash</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">user_id_hash</span></span></span><a class="headerlink" href="#_CPPv4N3lin12PendingOrder12user_id_hashE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManagerE">
+<span id="_CPPv3N3lin12TrainManagerE"></span><span id="_CPPv2N3lin12TrainManagerE"></span><span id="lin::TrainManager"></span><span class="target" id="classlin_1_1TrainManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainManager</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManagerE" title="永久链接至目标">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager9SortOrderE">
+<span id="_CPPv3N3lin12TrainManager9SortOrderE"></span><span id="_CPPv2N3lin12TrainManager9SortOrderE"></span><span class="target" id="classlin_1_1TrainManager_1affab957d836910836aac69cbfcf3403d"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SortOrder</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager9SortOrderE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>排序依据 </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager9SortOrder4TIMEE">
+<span id="_CPPv3N3lin12TrainManager9SortOrder4TIMEE"></span><span id="_CPPv2N3lin12TrainManager9SortOrder4TIMEE"></span><span class="target" id="classlin_1_1TrainManager_1affab957d836910836aac69cbfcf3403da89e18578b2241095e2463269eeac7ae7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TIME</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager9SortOrder4TIMEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager9SortOrder4COSTE">
+<span id="_CPPv3N3lin12TrainManager9SortOrder4COSTE"></span><span id="_CPPv2N3lin12TrainManager9SortOrder4COSTE"></span><span class="target" id="classlin_1_1TrainManager_1affab957d836910836aac69cbfcf3403da6faf211b3c17276ea200fd5b564cac73"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COST</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager9SortOrder4COSTE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager8AddTrainERK5Train">
+<span id="_CPPv3N3lin12TrainManager8AddTrainERK5Train"></span><span id="_CPPv2N3lin12TrainManager8AddTrainERK5Train"></span><span id="lin::TrainManager::AddTrain__TrainCR"></span><span class="target" id="classlin_1_1TrainManager_1a031f1a597d10c1b0990d2623e7d2b68e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddTrain</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager8AddTrainERK5Train" title="永久链接至目标">¶</a><br /></dt>
 <dd><p>添加一辆火车。 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE">
-<span id="_CPPv3N12TrainManager12ReleaseTrainERKNSt6stringE"></span><span id="_CPPv2N12TrainManager12ReleaseTrainERKNSt6stringE"></span><span id="TrainManager::ReleaseTrain__ssCR"></span><span class="target" id="classTrainManager_1a87457a85186860178b4f3271e8bb4f23"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReleaseTrain</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">train_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager12ReleaseTrainERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
-<dd><p>发布火车。发布前的车次，不可发售车票；发布后的车次不可被删除，可发售车票。 </p>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager11DeleteTrainENSt11string_viewE">
+<span id="_CPPv3N3lin12TrainManager11DeleteTrainENSt11string_viewE"></span><span id="_CPPv2N3lin12TrainManager11DeleteTrainENSt11string_viewE"></span><span id="lin::TrainManager::DeleteTrain__std::string_view"></span><span class="target" id="classlin_1_1TrainManager_1a316910bc04afbdccf46be70dafef0f0c"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DeleteTrain</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager11DeleteTrainENSt11string_viewE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>删除指定 train_id 的车次，删除车次必须保证未发布。 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType">
-<span id="_CPPv3N12TrainManager10QueryTrainE11TrainIDType8TimeType"></span><span id="_CPPv2N12TrainManager10QueryTrainE11TrainIDType8TimeType"></span><span id="TrainManager::QueryTrain__TrainIDType.TimeType"></span><span class="target" id="classTrainManager_1ad963df0476f94f15d9b6cfd8542a4668"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTrain</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TrainIDType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span>, <span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_date</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager10QueryTrainE11TrainIDType8TimeType" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager12ReleaseTrainENSt11string_viewE">
+<span id="_CPPv3N3lin12TrainManager12ReleaseTrainENSt11string_viewE"></span><span id="_CPPv2N3lin12TrainManager12ReleaseTrainENSt11string_viewE"></span><span id="lin::TrainManager::ReleaseTrain__std::string_view"></span><span class="target" id="classlin_1_1TrainManager_1a09f39d1cd95fb458019088b34e193d49"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReleaseTrain</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager12ReleaseTrainENSt11string_viewE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>发布火车。发布前的车次，不可发售车票，无法被 query_ticket 和 query_transfer 操作所查询到； 发布后的车次不可被删除，可发售车票。 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager10QueryTrainENSt11string_viewE4Date">
+<span id="_CPPv3N3lin12TrainManager10QueryTrainENSt11string_viewE4Date"></span><span id="_CPPv2N3lin12TrainManager10QueryTrainENSt11string_viewE4Date"></span><span id="lin::TrainManager::QueryTrain__std::string_view.Date"></span><span class="target" id="classlin_1_1TrainManager_1aa9574fc62239d254b96783c486f59d9f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTrain</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">target_date</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager10QueryTrainENSt11string_viewE4Date" title="永久链接至目标">¶</a><br /></dt>
 <dd><p>询问符合条件的火车。 </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">
-<span id="_CPPv3N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="_CPPv2N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="TrainManager::QueryTicket__TimeType.ssR.ssR.SortOrder"></span><span class="target" id="classTrainManager_1ae484eedf9cb6cd10e2f1e5bfde1e5673"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTicket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">terminal_station</span></span>, <a class="reference internal" href="#_CPPv4N12TrainManager9SortOrderE" title="TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager11QueryTicketE8TimeTypeRNSt6stringERNSt6stringE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
-<dd><p>查询指定日期时从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发，并到达 <code class="docutils literal notranslate"><span class="pre">terminal_station</span></code> 的车票。 </p>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager11QueryTicketE4DateNSt11string_viewENSt11string_viewE9SortOrder">
+<span id="_CPPv3N3lin12TrainManager11QueryTicketE4DateNSt11string_viewENSt11string_viewE9SortOrder"></span><span id="_CPPv2N3lin12TrainManager11QueryTicketE4DateNSt11string_viewENSt11string_viewE9SortOrder"></span><span id="lin::TrainManager::QueryTicket__Date.std::string_view.std::string_view.SortOrder"></span><span class="target" id="classlin_1_1TrainManager_1a28027e0311aad9b9821d9e72354f9215"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTicket</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">from_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">to_station</span></span>, <a class="reference internal" href="#_CPPv4N3lin12TrainManager9SortOrderE" title="lin::TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin12TrainManager9SortOrder4TIMEE" title="lin::TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager11QueryTicketE4DateNSt11string_viewENSt11string_viewE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>查询指定日期时从 <code class="docutils literal notranslate"><span class="pre">from_station</span></code> 出发，并到达 <code class="docutils literal notranslate"><span class="pre">to_station</span></code> 的车票。 </p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">from_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
 </div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder">
-<span id="_CPPv3N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="_CPPv2N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder"></span><span id="TrainManager::QueryTransfer__TimeType.ssR.ssR.SortOrder"></span><span class="target" id="classTrainManager_1aea7ff611b170686559197612ee9179df"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTransfer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TimeType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">start_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">terminal_station</span></span>, <a class="reference internal" href="#_CPPv4N12TrainManager9SortOrderE" title="TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N12TrainManager9SortOrder4TIMEE" title="TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12TrainManager13QueryTransferE8TimeTypeRNSt6stringERNSt6stringE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager13QueryTransferE4DateNSt11string_viewENSt11string_viewE9SortOrder">
+<span id="_CPPv3N3lin12TrainManager13QueryTransferE4DateNSt11string_viewENSt11string_viewE9SortOrder"></span><span id="_CPPv2N3lin12TrainManager13QueryTransferE4DateNSt11string_viewENSt11string_viewE9SortOrder"></span><span id="lin::TrainManager::QueryTransfer__Date.std::string_view.std::string_view.SortOrder"></span><span class="target" id="classlin_1_1TrainManager_1af75b255914d6626ea5839cd003e64770"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryTransfer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">from_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">to_station</span></span>, <a class="reference internal" href="#_CPPv4N3lin12TrainManager9SortOrderE" title="lin::TrainManager::SortOrder"><span class="n"><span class="pre">SortOrder</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sort_order</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin12TrainManager9SortOrder4TIMEE" title="lin::TrainManager::TIME"><span class="n"><span class="pre">TIME</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager13QueryTransferE4DateNSt11string_viewENSt11string_viewE9SortOrder" title="永久链接至目标">¶</a><br /></dt>
 <dd><p>在恰好换乘一次（换乘同一辆车不算恰好换乘一次）的情况下查询符合条件的车次。 仅输出最优解。如果出现多个最优解（排序关键字最小)，则选择在第一辆列车上花费的时间更少的方案。 </p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">start_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">from_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
 </div>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager9BuyTicketEiNSt11string_viewENSt11string_viewE4DateKiNSt11string_viewENSt11string_viewEKb">
+<span id="_CPPv3N3lin12TrainManager9BuyTicketEiNSt11string_viewENSt11string_viewE4DateKiNSt11string_viewENSt11string_viewEKb"></span><span id="_CPPv2N3lin12TrainManager9BuyTicketEiNSt11string_viewENSt11string_viewE4DateKiNSt11string_viewENSt11string_viewEKb"></span><span id="lin::TrainManager::BuyTicket__i.std::string_view.std::string_view.Date.iC.std::string_view.std::string_view.bC"></span><span class="target" id="classlin_1_1TrainManager_1a2d3275f369d2ddcb02ea0549b49c3995"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BuyTicket</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timestamp</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">username</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">train_id</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">number</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">from_station</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">to_station</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pending</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager9BuyTicketEiNSt11string_viewENSt11string_viewE4DateKiNSt11string_viewENSt11string_viewEKb" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>买票。 </p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这里的日期是列车从 <code class="docutils literal notranslate"><span class="pre">from_station</span></code> 出发的日期，不是从列车始发站出发的日期。 </p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>pending</strong> – 为真时表示在余票不足的情况下愿意接受候补购票，当有余票时立即视为此用户购买了车票。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager10QueryOrderENSt11string_viewE">
+<span id="_CPPv3N3lin12TrainManager10QueryOrderENSt11string_viewE"></span><span id="_CPPv2N3lin12TrainManager10QueryOrderENSt11string_viewE"></span><span id="lin::TrainManager::QueryOrder__std::string_view"></span><span class="target" id="classlin_1_1TrainManager_1a097562582f8d9bec0cbc1438ddba7056"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryOrder</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">username</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager10QueryOrderENSt11string_viewE" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>查询用户 <code class="docutils literal notranslate"><span class="pre">username</span></code> 的所有订单信息，按照交易时间顺序从新到旧排序。 （候补订单即使补票成功，交易时间也以下单时刻为准。） </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager12RefundTicketENSt11string_viewEKi">
+<span id="_CPPv3N3lin12TrainManager12RefundTicketENSt11string_viewEKi"></span><span id="_CPPv2N3lin12TrainManager12RefundTicketENSt11string_viewEKi"></span><span id="lin::TrainManager::RefundTicket__std::string_view.iC"></span><span class="target" id="classlin_1_1TrainManager_1aa97da95b12bfc94c130a235e6c784137"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RefundTicket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">number</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager12RefundTicketENSt11string_viewEKi" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>用户 <code class="docutils literal notranslate"><span class="pre">username</span></code> 退订从新到旧（即 query_order 的返回顺序）第 <code class="docutils literal notranslate"><span class="pre">number</span></code> 个（1-base）订单。 </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager8GetSeatsE11TrainIdHash4Dateii">
+<span id="_CPPv3N3lin12TrainManager8GetSeatsE11TrainIdHash4Dateii"></span><span id="_CPPv2N3lin12TrainManager8GetSeatsE11TrainIdHash4Dateii"></span><span id="lin::TrainManager::GetSeats__TrainIdHash.Date.i.i"></span><span class="target" id="classlin_1_1TrainManager_1ae2d478cbdb751a3fb4e047e601d68239"></span><a class="reference internal" href="#_CPPv4N3lin14TrainSeatsWrapE" title="lin::TrainSeatsWrap"><span class="n"><span class="pre">TrainSeatsWrap</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetSeats</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">train_id_hash</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">initial_seat_num</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">station_num</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager8GetSeatsE11TrainIdHash4Dateii" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager11UpdateSeatsE11TrainIdHash4DateRK14TrainSeatsWrap">
+<span id="_CPPv3N3lin12TrainManager11UpdateSeatsE11TrainIdHash4DateRK14TrainSeatsWrap"></span><span id="_CPPv2N3lin12TrainManager11UpdateSeatsE11TrainIdHash4DateRK14TrainSeatsWrap"></span><span id="lin::TrainManager::UpdateSeats__TrainIdHash.Date.TrainSeatsWrapCR"></span><span class="target" id="classlin_1_1TrainManager_1a30d8bbe237f773a531303790e3ad2a4c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateSeats</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">train_id_hash</span></span>, <a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">date</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin14TrainSeatsWrapE" title="lin::TrainSeatsWrap"><span class="n"><span class="pre">TrainSeatsWrap</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">seats</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3lin12TrainManager11UpdateSeatsE11TrainIdHash4DateRK14TrainSeatsWrap" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager12UserIdHasherE">
+<span id="_CPPv3N3lin12TrainManager12UserIdHasherE"></span><span id="_CPPv2N3lin12TrainManager12UserIdHasherE"></span><span id="lin::TrainManager::UserIdHasher__Hasher:User::IdType:"></span><span class="target" id="classlin_1_1TrainManager_1a0db41a3fe6daba3b31a9324ccd7fc1a5"></span><span class="n"><span class="pre">Hasher</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="user.html#_CPPv4N3lin4UserE" title="lin::User"><span class="n"><span class="pre">User</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="user.html#_CPPv4N3lin4User6IdTypeE" title="lin::User::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserIdHasher</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager12UserIdHasherE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager13TrainIdHasherE">
+<span id="_CPPv3N3lin12TrainManager13TrainIdHasherE"></span><span id="_CPPv2N3lin12TrainManager13TrainIdHasherE"></span><span id="lin::TrainManager::TrainIdHasher__Hasher:Train::IdType:"></span><span class="target" id="classlin_1_1TrainManager_1aab2c757698b3d5c4b721dab939ed2b1d"></span><span class="n"><span class="pre">Hasher</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train6IdTypeE" title="lin::Train::IdType"><span class="n"><span class="pre">IdType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainIdHasher</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager13TrainIdHasherE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager13StationHasherE">
+<span id="_CPPv3N3lin12TrainManager13StationHasherE"></span><span id="_CPPv2N3lin12TrainManager13StationHasherE"></span><span id="lin::TrainManager::StationHasher__Hasher:Train::StationName:"></span><span class="target" id="classlin_1_1TrainManager_1a29615c6b79919f39d413eef6298bc131"></span><span class="n"><span class="pre">Hasher</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3lin5Train11StationNameE" title="lin::Train::StationName"><span class="n"><span class="pre">StationName</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StationHasher</span></span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager13StationHasherE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager7trains_E">
+<span id="_CPPv3N3lin12TrainManager7trains_E"></span><span id="_CPPv2N3lin12TrainManager7trains_E"></span><span id="lin::TrainManager::trains___huang::BPlusTree:TrainIdHash.Train.600.2:"></span><span class="target" id="classlin_1_1TrainManager_1a4b1f4eccb781adf5681dd9e29fe87b27"></span><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="b_plus_tree.html#_CPPv4N5huang9BPlusTreeE" title="huang::BPlusTree"><span class="n"><span class="pre">BPlusTree</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin5TrainE" title="lin::Train"><span class="n"><span class="pre">Train</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">600</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">trains_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;trains_&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager7trains_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager12train_seats_E">
+<span id="_CPPv3N3lin12TrainManager12train_seats_E"></span><span id="_CPPv2N3lin12TrainManager12train_seats_E"></span><span id="lin::TrainManager::train_seats___huang::BPlusTree:std::pair:TrainIdHash.Date:.TrainSeats.400.20:"></span><span class="target" id="classlin_1_1TrainManager_1a453c226c6e9a007bfc226be2bfb486bd"></span><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="b_plus_tree.html#_CPPv4N5huang9BPlusTreeE" title="huang::BPlusTree"><span class="n"><span class="pre">BPlusTree</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin10TrainSeatsE" title="lin::TrainSeats"><span class="n"><span class="pre">TrainSeats</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">400</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">20</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">train_seats_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;train_seats_&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager12train_seats_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager15station_trains_E">
+<span id="_CPPv3N3lin12TrainManager15station_trains_E"></span><span id="_CPPv2N3lin12TrainManager15station_trains_E"></span><span id="lin::TrainManager::station_trains___huang::BPlusTree:std::pair:StationHash.TrainIdHash:.StationTrain.400.120:"></span><span class="target" id="classlin_1_1TrainManager_1acce4b17e4c1933a2249153486925a16c"></span><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="b_plus_tree.html#_CPPv4N5huang9BPlusTreeE" title="huang::BPlusTree"><span class="n"><span class="pre">BPlusTree</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin11StationHashE" title="lin::StationHash"><span class="n"><span class="pre">StationHash</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin12StationTrainE" title="lin::StationTrain"><span class="n"><span class="pre">StationTrain</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">400</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">120</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">station_trains_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;station_trains_&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager15station_trains_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager7orders_E">
+<span id="_CPPv3N3lin12TrainManager7orders_E"></span><span id="_CPPv2N3lin12TrainManager7orders_E"></span><span id="lin::TrainManager::orders___huang::BPlusTree:std::pair:UserIdHash.i:.Order.400.50:"></span><span class="target" id="classlin_1_1TrainManager_1a6bb9476333d395ca887349a7ac8255c7"></span><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="b_plus_tree.html#_CPPv4N5huang9BPlusTreeE" title="huang::BPlusTree"><span class="n"><span class="pre">BPlusTree</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin10UserIdHashE" title="lin::UserIdHash"><span class="n"><span class="pre">UserIdHash</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin5OrderE" title="lin::Order"><span class="n"><span class="pre">Order</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">400</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">50</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">orders_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;orders_&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager7orders_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3lin12TrainManager15pending_orders_E">
+<span id="_CPPv3N3lin12TrainManager15pending_orders_E"></span><span id="_CPPv2N3lin12TrainManager15pending_orders_E"></span><span id="lin::TrainManager::pending_orders___huang::BPlusTree:Tuple:TrainIdHash.Date.i:.PendingOrder.400.120:"></span><span class="target" id="classlin_1_1TrainManager_1adec3202f78e8cc5228382ed2fe438269"></span><span class="n"><span class="pre">huang</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="b_plus_tree.html#_CPPv4N5huang9BPlusTreeE" title="huang::BPlusTree"><span class="n"><span class="pre">BPlusTree</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="tuple.html#_CPPv4IDpEN3lin5TupleE" title="lin::Tuple"><span class="n"><span class="pre">Tuple</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3lin11TrainIdHashE" title="lin::TrainIdHash"><span class="n"><span class="pre">TrainIdHash</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="datetime.html#_CPPv4N3lin4DateE" title="lin::Date"><span class="n"><span class="pre">Date</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3lin12PendingOrderE" title="lin::PendingOrder"><span class="n"><span class="pre">PendingOrder</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">400</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">120</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pending_orders_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="s"><span class="pre">&quot;pending_orders_&quot;</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3lin12TrainManager15pending_orders_E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </section>
