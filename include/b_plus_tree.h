@@ -22,7 +22,7 @@ namespace huang {
  * 4. Implement index iterator for range scan
  */
 INDEX_TEMPLATE_ARGUMENTS
-class BPlusTree {
+class OldBPlusTree {
   using InternalPage = BPlusTreeInternalPage<KeyType, page_id_t, KeyComparator>;
   using LeafPage = BPlusTreeLeafPage<KeyType, ValueType, KeyComparator>;
 
