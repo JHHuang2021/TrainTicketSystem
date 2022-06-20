@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>前端开发文档 &#8212; 火车票管理系统  文档</title>
+    <title>前端文档 &#8212; 火车票管理系统  文档</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -76,8 +76,14 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">前端开发文档</a><ul>
+<li><a class="reference internal" href="#">前端文档</a><ul>
 <li><a class="reference internal" href="#id2">工具栈</a></li>
+<li><a class="reference internal" href="#id3">部署文档</a><ul>
+<li><a class="reference internal" href="#id4">下载静态文件</a></li>
+<li><a class="reference internal" href="#id5">下载编译后端程序</a></li>
+<li><a class="reference internal" href="#nginx-php-fpm">配置 nginx 与 php-fpm</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -114,7 +120,7 @@
     <div class="body col-md-12 content" role="main">
       
   <section id="frontend">
-<span id="id1"></span><h1>前端开发文档<a class="headerlink" href="#frontend" title="永久链接至标题">¶</a></h1>
+<span id="id1"></span><h1>前端文档<a class="headerlink" href="#frontend" title="永久链接至标题">¶</a></h1>
 <section id="id2">
 <h2>工具栈<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
@@ -123,6 +129,60 @@
 <li><p>PHP 与 C++ 使用 Socket 通信</p></li>
 </ul>
 <img alt="../_images/frontend.svg" src="../_images/frontend.svg" /></section>
+<section id="id3">
+<h2>部署文档<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<section id="id4">
+<h3>下载静态文件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3>下载编译后端程序<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>后端程序默认监听端口为 7777，如需使用其他端口请在 command_parser.cpp 内修改。</p>
+</section>
+<section id="nginx-php-fpm">
+<h3>配置 nginx 与 php-fpm<a class="headerlink" href="#nginx-php-fpm" title="永久链接至标题">¶</a></h3>
+<p>以 Ubuntu 20.04 为例，安装 nginx 与 php-fpm:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">php7</span><span class="mf">.4</span><span class="o">-</span><span class="n">fpm</span><span class="w"> </span><span class="n">nginx</span><span class="w"></span>
+</pre></div>
+</div>
+<p>安装完成后，使用 <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">nginx</span></code> 检查 nginx 是否正常运行，使用 <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">php7.4-fpm</span></code> 检查 php7.4-fpm 是否正常运行。</p>
+<p>配置 nginx（默认配置文件 <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-available/default</span></code>）:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  root /var/www/html;
+
+  server_name _;
+
+  location / {
+    # First attempt to serve request as file, then
+    # as directory, then fall back to displaying a 404.
+    try_files $uri $uri/ =404;
+  }
+
+  # pass PHP scripts to FastCGI server
+  location ~ \.php$ {
+    #include snippets/fastcgi-php.conf;
+
+    # With php-fpm (or other unix sockets):
+    fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    # With php-cgi (or other tcp sockets):
+    # fastcgi_pass 127.0.0.1:9000;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_buffer_size 16k;
+    fastcgi_buffers 4 16k;
+    fastcgi_connect_timeout 1;
+    fastcgi_send_timeout 1;
+    fastcgi_read_timeout 1;
+  }
+}
+</pre></div>
+</div>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">/var/www/html</span></code> 替换为存放静态页面的路径。根据 php-fpm 配置选择 unix sockets 或 tcp sockets。</p>
+<p>运行 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nginx</span> <span class="pre">-s</span> <span class="pre">reload</span></code> 重新加载配置。如果设置了防火墙，请放行 80 端口。此时可以从外网访问到前端页面。</p>
+</section>
+</section>
 </section>
 
 
