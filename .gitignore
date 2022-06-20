@@ -12,10 +12,13 @@ std.cpp
 stdin.in
 std.out
 src/test*
-data/
+data
 run_judge.py
 build/
 tmp.out
 .cache/
 test_data
 speed_test
+*.dat
+run.sh
+clean.sh
