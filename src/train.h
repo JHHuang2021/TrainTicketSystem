@@ -14,7 +14,9 @@
 #include "user.h"
 
 namespace lin {
-
+/**
+ * @brief 储存一辆火车的全部信息。
+ */
 struct Train {
   using IdType = Char<20>;
   using StationName = Char<40>;
@@ -33,7 +35,9 @@ struct Train {
 using UserIdHash = size_t;
 using TrainIdHash = size_t;
 using StationHash = size_t;
-
+/**
+ * @brief 记录经过某个站点的火车信息，用于查票。
+ */
 struct StationTrain {
   TrainIdHash train_id_hash;
   Time arrival_time, departure_time;
@@ -56,7 +60,9 @@ struct StationTrain {
         seat_num(train.seat_num),
         station_num(train.station_num) {}
 };
-
+/**
+ * @brief 记录车次剩余座位信息。
+ */
 struct TrainSeats {
   int seat_num[Train::kMaxStationNum];  // seat_num[i] 表示从 stations[i] 到 stations[i + 1] 的剩余座位数
   TrainSeats();
@@ -66,7 +72,10 @@ struct TrainSeats {
   // 左闭右开
   void RangeAdd(int l, int r, int x);
 };
-
+/**
+ * @brief 对 TrainSeats 的包装。
+ * 
+ */
 struct TrainSeatsWrap : public TrainSeats {
   // TrainSeats *seats = nullptr;
   bool exist = false;
@@ -82,7 +91,9 @@ struct TrainSeatsWrap : public TrainSeats {
   void RangeAdd(int l, int r, int x);
   int operator[](int);
 };
-
+/**
+ * @brief 记录一张车票的信息。
+ */
 struct Ticket {
   Train::IdType train_id;
   DateTime start_time, end_time;
@@ -91,7 +102,9 @@ struct Ticket {
   friend bool CompareTime(const Ticket &a, const Ticket &b);
   friend bool CompareCost(const Ticket &a, const Ticket &b);
 };
-
+/**
+ * @brief 记录一种换乘方案的信息。
+ */
 struct TransferTicket {
   Duration duration;
   int cost;
@@ -101,7 +114,9 @@ struct TransferTicket {
   friend bool CompareTime(const TransferTicket &a, const TransferTicket &b);
   friend bool CompareCost(const TransferTicket &a, const TransferTicket &b);
 };
-
+/**
+ * @brief 记录订单信息。
+ */
 struct Order {
   enum Status { SUCCESS, PENDING, REFUNDED };
   Status status;
@@ -115,7 +130,9 @@ struct Order {
 
   std::string ToString() const;
 };
-
+/**
+ * @brief 记录候补车票信息。
+ */
 struct PendingOrder {
   int timestamp, num, from_rank, to_rank;
   UserIdHash user_id_hash;
@@ -127,10 +144,6 @@ class TrainManager {
    * @brief 添加一辆火车。
    */
   std::string AddTrain(const Train &train);
-  // std::string AddTrain(std::string_view train_id, const int station_num, const int total_seat_num,
-  //               vector<std::string_view> stations, vector<int> price, std::string_view start_time,
-  //               vector<std::string> travel_times, vector<std::string> stopover_times, vector<std::string> sale_date,
-  //               const char type);
 
   /// 删除指定 train_id 的车次，删除车次必须保证未发布。
   std::string DeleteTrain(std::string_view train_id);
@@ -196,13 +209,6 @@ class TrainManager {
 
   // std::map<std::pair<UserIdHash, int>, Order> orders_;
   // std::map<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_;
-
-  // huang::BPlusTree<TrainIdHash, Train> trains_{"trains.dat", 512};
-  // huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats> train_seats_{"train_seats.dat", 200};
-  // huang::BPlusTree<std::pair<StationHash, TrainIdHash>, StationTrain> station_trains_{"station_trains.dat", 200};
-
-  // huang::BPlusTree<std::pair<UserIdHash, int>, Order> orders_{"orders.dat", 200};
-  // huang::BPlusTree<Tuple<TrainIdHash, Date, int>, PendingOrder> pending_orders_{"pending_orders.dat", 200};
 
   huang::BPlusTree<TrainIdHash, Train, 600, 2> trains_{"trains_"};
   huang::BPlusTree<std::pair<TrainIdHash, Date>, TrainSeats, 400, 20> train_seats_{"train_seats_"};

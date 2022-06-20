@@ -48,30 +48,22 @@ class UserManager {
    */
   std::string QueryProfile(int timestamp, std::string_view cur_username, std::string_view username);
   /**
-   * 已弃用
-   * TODO: Delete it in future
-   * @brief 表示用户的一项信息，枚举类型 `Type` 指示了信息类型
-   * （密码、姓名、邮箱地址或权限），作为 `ModifyProfile` 的参数。
-   */
-  /* struct ProfileItem {
-    enum Type { kPassword, kName, kEmail, kPrivilege };
-    Type type;
-    std::string_view content;
-    int value;
-  }; */
-  /**
    * @brief 修改用户信息。
    */
   std::string ModifyProfile(int timestamp, std::string_view cur_username, std::string_view username, OptionalArg password,
                             OptionalArg name, OptionalArg email, OptionalInt privilege);
-  
+  /**
+   * @brief 判断用户是否登录
+   */
   bool IsLoggedIn(std::string_view username);
+  /**
+   * @brief 回滚到指定时间点
+   */
   void RollBack(int timestamp);
 
  private:
   std::hash<std::string_view> hasher;
   /// hash of username -> User info
-  // huang::BPlusTree<size_t, User> user_data_{"user_data.dat", 100};
   huang::BPlusTree<size_t, User, 600, 10> user_data_{"user_data_"};
   /// Logged-in users, hash of username -> privilege
   huang::linked_hashmap<size_t, int> loggedin_user_;
