@@ -8,7 +8,7 @@ bool User::operator>(const User &other) const { return username > other.username
 bool User::operator>=(const User &other) const { return username >= other.username; }
 
 std::string UserManager::AddUser(std::string_view cur_username, std::string_view username, std::string_view password,
-                                 std::string_view name, std::string_view email, int privilege) {
+    std::string_view name, std::string_view email, int privilege) {
   auto username_hash = hasher(username);
   auto [exist, user] = user_data_.GetValue(username_hash);
   if (exist) return "-1";  // 如果 username 已经存在则注册失败
@@ -68,7 +68,7 @@ std::string UserManager::QueryProfile(std::string_view cur_username, std::string
 }
 
 std::string UserManager::ModifyProfile(std::string_view cur_username, std::string_view username, OptionalArg password,
-                                       OptionalArg name, OptionalArg email, OptionalInt privilege) {
+    OptionalArg name, OptionalArg email, OptionalInt privilege) {
   auto it_cur = loggedin_user_.find(hasher(cur_username));
   if (it_cur == loggedin_user_.end()) return "-1";  // 用户未登录
   auto username_hash = hasher(username);
@@ -85,13 +85,17 @@ std::string UserManager::ModifyProfile(std::string_view cur_username, std::strin
   if (name.has_value()) user.name = name;
   if (email.has_value()) user.email = email;
   user_data_.Modify(username_hash, user);
+  auto it = loggedin_user_.find(hasher(username));
+  if (it != loggedin_user_.end()) it->second = user.privilege;
   return PrintUser(user);
 }
 
 bool UserManager::IsLoggedIn(std::string_view username) {
   auto it_cur = loggedin_user_.find(hasher(username));
-  if (it_cur == loggedin_user_.end()) return 0;
-  else return 1;
+  if (it_cur == loggedin_user_.end())
+    return 0;
+  else
+    return 1;
 }
 
 }  // namespace lin
